@@ -1,4 +1,4 @@
-def radiacao(x,y):
+def radiaçao(x,y):
     if x<0 and y%2==0:
         return 'Raiz inexistente.'
     else:
