@@ -1,5 +1,5 @@
-def CalculadoraSoma (x,y):
+def calculadoraSoma (x,y):
     return x+y
 
-def CalculadoraDiferenca(x,y):
+def calculadoraDiferenca(x,y):
     return x-y
