@@ -1,5 +1,6 @@
-def radiacao(x):
-    if x<0:
-      return 'Raiz quadrada inexistente.'
+def radiacao(x,y):
+    if x<0 and y%2==0:
+        return 'Raiz inexistente.'
     else:
-      return x**0.5
+        raiz = 1/y
+        return x**raiz
