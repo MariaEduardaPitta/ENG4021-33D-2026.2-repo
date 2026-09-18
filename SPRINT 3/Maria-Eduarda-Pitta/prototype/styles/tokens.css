@@ -1,0 +1,51 @@
+/* REPASSA — Design tokens (obrigatórios) */
+:root {
+  /* Paleta */
+  --roxo-principal: #7C3AED;
+  --roxo-escuro:    #5B21B6;
+  --lilas-claro:    #F3E8FF;
+  --coral:          #FF6B5E;
+  --off-white:      #FAFAF8;
+  --branco:         #FFFFFF;
+  --grafite:        #25252D;
+  --cinza:          #71717A;
+  --cinza-claro:    #E4E4E7;
+  --cinza-fundo:    #F4F4F5;
+  --verde:          #22A06B;
+  --verde-fundo:    #E7F7EE;
+  --ambar:          #F59E0B;
+  --ambar-fundo:    #FEF3D7;
+  --vermelho:       #DC3545;
+  --vermelho-fundo: #FDECEE;
+
+  /* Tipografia */
+  --font-title: 'Poppins', Arial, sans-serif;
+  --font-text:  'Inter',   Arial, sans-serif;
+
+  /* Raios */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-full: 999px;
+
+  /* Sombras */
+  --shadow-card: 0 2px 8px rgba(37, 37, 45, 0.06);
+  --shadow-elevated: 0 8px 24px rgba(37, 37, 45, 0.12);
+  --shadow-nav: 0 -2px 12px rgba(37, 37, 45, 0.06);
+
+  /* Espaçamento base 4px */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-8: 32px;
+  --sp-10: 40px;
+
+  /* App shell */
+  --app-max-width: 440px; /* largura simulando celular */
+  --topbar-h: 56px;
+  --bottomnav-h: 68px;
+}
