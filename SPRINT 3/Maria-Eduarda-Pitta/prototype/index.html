@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>REPASSA — Materiais que continuam histórias</title>
+
+<!-- Fontes -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<meta name="ext-resource-dependency" content="public/logo-repassa.png" data-resource-id="logoRepassa" />
+<link rel="stylesheet" href="styles/tokens.css" />
+<link rel="stylesheet" href="styles/app.css" />
+<link rel="stylesheet" href="styles/screens.css" />
+
+<!-- React 18 (pinned + integrity) -->
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+  <template id="__bundler_thumbnail" data-bg-color="#FAFAF8">
+    <svg viewBox="0 0 400 720" xmlns="http://www.w3.org/2000/svg">
+      <rect width="400" height="720" fill="#FAFAF8"/>
+      <rect x="0" y="0" width="400" height="80" fill="#FFFFFF"/>
+      <circle cx="40" cy="40" r="18" fill="#F3E8FF"/>
+      <rect x="72" y="30" width="120" height="10" rx="3" fill="#5B21B6"/>
+      <rect x="72" y="46" width="180" height="8" rx="2" fill="#71717A"/>
+      <rect x="20" y="100" width="360" height="46" rx="23" fill="#FFFFFF" stroke="#E4E4E7" stroke-width="1.5"/>
+      <circle cx="44" cy="123" r="8" fill="none" stroke="#71717A" stroke-width="2"/>
+      <line x1="50" y1="129" x2="55" y2="134" stroke="#71717A" stroke-width="2" stroke-linecap="round"/>
+      <rect x="20" y="160" width="70" height="32" rx="16" fill="#F3E8FF" stroke="#7C3AED" stroke-width="1.5"/>
+      <rect x="98" y="160" width="90" height="32" rx="16" fill="#FFFFFF" stroke="#E4E4E7" stroke-width="1.5"/>
+      <rect x="196" y="160" width="70" height="32" rx="16" fill="#FFFFFF" stroke="#E4E4E7" stroke-width="1.5"/>
+      <g transform="translate(20, 220)">
+        <rect width="360" height="120" rx="16" fill="#FFFFFF"/>
+        <rect x="12" y="12" width="96" height="96" rx="12" fill="#F3E8FF"/>
+        <rect x="120" y="20" width="180" height="12" rx="3" fill="#25252D"/>
+        <rect x="120" y="42" width="120" height="16" rx="3" fill="#FF6B5E"/>
+        <rect x="120" y="68" width="160" height="8" rx="2" fill="#71717A"/>
+        <rect x="120" y="88" width="80" height="18" rx="9" fill="#E7F7EE"/>
+      </g>
+      <g transform="translate(20, 360)">
+        <rect width="360" height="120" rx="16" fill="#FFFFFF"/>
+        <rect x="12" y="12" width="96" height="96" rx="12" fill="#F3E8FF"/>
+        <rect x="120" y="20" width="180" height="12" rx="3" fill="#25252D"/>
+        <rect x="120" y="42" width="120" height="16" rx="3" fill="#FF6B5E"/>
+        <rect x="120" y="68" width="160" height="8" rx="2" fill="#71717A"/>
+        <rect x="120" y="88" width="80" height="18" rx="9" fill="#E7F7EE"/>
+      </g>
+      <g transform="translate(20, 500)">
+        <rect width="360" height="120" rx="16" fill="#FFFFFF"/>
+        <rect x="12" y="12" width="96" height="96" rx="12" fill="#F3E8FF"/>
+        <rect x="120" y="20" width="180" height="12" rx="3" fill="#25252D"/>
+        <rect x="120" y="42" width="120" height="16" rx="3" fill="#FF6B5E"/>
+        <rect x="120" y="68" width="160" height="8" rx="2" fill="#71717A"/>
+        <rect x="120" y="88" width="80" height="18" rx="9" fill="#E7F7EE"/>
+      </g>
+      <rect x="0" y="652" width="400" height="68" fill="#FFFFFF"/>
+      <circle cx="50" cy="686" r="4" fill="#7C3AED"/>
+      <circle cx="130" cy="686" r="4" fill="#71717A"/>
+      <circle cx="200" cy="686" r="4" fill="#71717A"/>
+      <circle cx="270" cy="686" r="4" fill="#71717A"/>
+      <circle cx="350" cy="686" r="4" fill="#71717A"/>
+    </svg>
+  </template>
+  <div id="root"></div>
+
+  <!-- Ordem importa: dados → componentes básicos → telas → app -->
+  <script type="text/babel" src="src/data.jsx"></script>
+  <script type="text/babel" src="src/icons.jsx"></script>
+  <script type="text/babel" src="src/components.jsx"></script>
+  <script type="text/babel" src="src/screens/Home.jsx"></script>
+  <script type="text/babel" src="src/screens/Details.jsx"></script>
+  <script type="text/babel" src="src/screens/Checkout.jsx"></script>
+  <script type="text/babel" src="src/screens/Success.jsx"></script>
+  <script type="text/babel" src="src/screens/Others.jsx"></script>
+  <script type="text/babel" src="src/App.jsx"></script>
+</body>
+</html>
