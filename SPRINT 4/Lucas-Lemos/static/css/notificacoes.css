@@ -1,0 +1,84 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: #333333;
+}
+
+header, main, footer {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+h1 {
+  font-size: 24px;
+}
+
+a {
+  color: #5B21B6;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.notificacao {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid #dddddd;
+  border-radius: 12px;
+}
+
+.icone {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  font-size: 24px;
+}
+
+.mensagem {
+  background-color: #F3E8FF;
+  color: #7C3AED;
+}
+
+.sucesso {
+  background-color: #DCFCE7;
+  color: #166534;
+}
+
+.entrega {
+  background-color: #FEF3C7;
+  color: #92400E;
+}
+
+h2 {
+  margin: 0;
+  font-size: 16px;
+}
+
+p {
+  margin: 8px 0;
+  line-height: 1.5;
+}
+
+small {
+  color: #666666;
+}
+
+footer {
+  text-align: center;
+}
