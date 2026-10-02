@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compra confirmada — REPASSA</title>
+</head>
+<body>
+  <header>
+    <h2>Pedido confirmado</h2>
+  </header>
+  <main class="success-screen">
+    <div class="success-mark" aria-hidden="true">✓</div>
+    <h1>Compra confirmada!</h1>
+    <p>Sua compra foi registrada com sucesso. Combine os últimos detalhes com o vendedor pelo chat.</p>
+
+    <section class="success-recap" aria-label="Resumo da compra">
+      <!-- Os dados serão preenchidos quando a página estiver ligada ao pedido. -->
+      <dl>
+        <div class="row-line"><dt>Material</dt><dd>—</dd></div>
+        <div class="row-line"><dt>Vendedor</dt><dd>—</dd></div>
+        <div class="row-line"><dt>Forma de entrega</dt><dd>—</dd></div>
+        <div class="row-line"><dt>Endereço/local</dt><dd>—</dd></div>
+        <div class="row-line"><dt>Pagamento</dt><dd>—</dd></div>
+        <div class="row-line"><dt>Total</dt><dd>—</dd></div>
+        <div class="row-line"><dt>Data da compra</dt><dd>—</dd></div>
+        <div class="row-line"><dt>Status da entrega</dt><dd>—</dd></div>
+      </dl>
+    </section>
+
+    <div class="success-actions">
+      <!-- Ativar os botões quando as telas de destino estiverem disponíveis. -->
+      <button class="btn btn-primary" type="button" disabled>Falar com o vendedor</button>
+      <button class="btn btn-secondary" type="button" disabled>Voltar à página inicial</button>
+    </div>
+  </main>
+</body>
+</html>
