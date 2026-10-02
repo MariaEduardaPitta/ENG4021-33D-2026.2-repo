@@ -35,6 +35,8 @@ dd {
 }
 
 
+
+
 .btn-secondary {
   background-color: #F3E8FF;
   color: #5B21B6;
@@ -60,6 +62,7 @@ header {
   text-align: center;
 }
 
+
 .status-entrega {
   background-color: #FEF3C7;
   color: #92400E;
@@ -67,4 +70,13 @@ header {
   border-radius: 8px;
   font-size: 12px;
   font-weight: bold;
+}
+.success-screen p {
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+
+.success-actions {
+  margin-top: 24px;
 }
