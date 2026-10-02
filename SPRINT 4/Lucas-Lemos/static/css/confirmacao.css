@@ -11,4 +11,50 @@ body {
   display: flex;
   justify-content: space-between;
   gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid #eeeeee;
+}
+.success-screen {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 24px;
+}
+dd {
+  margin: 0;
+  text-align: right;
+}
+.btn {
+  padding: 14px;
+  border: 0;
+  border-radius: 12px;
+  font-size: 16px;
+}
+.btn-primary {
+  background-color: #7C3AED;
+  color: white;
+}
+
+.btn-secondary {
+  background-color: #F3E8FF;
+  color: #5B21B6;
+}
+.success-screen h1,
+.success-screen p {
+  text-align: center;
+}
+.success-mark {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+  border-radius: 50%;
+  background-color: #F3E8FF;
+  color: #7C3AED;
+  font-size: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+header {
+  padding: 16px;
+  text-align: center;
 }
