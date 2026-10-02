@@ -34,6 +34,7 @@ dd {
   color: white;
 }
 
+
 .btn-secondary {
   background-color: #F3E8FF;
   color: #5B21B6;
@@ -57,4 +58,13 @@ dd {
 header {
   padding: 16px;
   text-align: center;
+}
+
+.status-entrega {
+  background-color: #FEF3C7;
+  color: #92400E;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: bold;
 }
