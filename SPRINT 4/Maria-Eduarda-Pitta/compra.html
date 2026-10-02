@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Comprar - Repassa</title>
+
+
+    <style>
+
+        body {
+            margin: 0px;
+            font-family: Arial;
+            color: #202027;
+            background-color: white;
+        }
+
+
+        /* CABEÇALHO */
+
+        .cabecalho {
+            height: 65px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            border-bottom: 1px solid #dddddd;
+
+            padding-left: 25px;
+            padding-right: 35px;
+        }
+
+
+        /* LOGO */
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .simbolo-logo {
+            width: 35px;
+            height: 35px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            background-color: #5b21b6;
+            color: white;
+
+            font-size: 25px;
+        }
+
+        .nome-logo {
+            margin-left: 9px;
+
+            color: #5b21b6;
+
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+
+        /* MENU */
+
+        .menu {
+            display: flex;
+            align-items: center;
+        }
+
+        .item-menu {
+            margin-left: 20px;
+
+            color: #62626b;
+
+            font-size: 15px;
+        }
+
+
+        /* CONTEÚDO */
+
+        .pagina {
+            width: 950px;
+
+            margin-left: auto;
+            margin-right: auto;
+
+            padding-top: 20px;
+        }
+
+
+        h1 {
+            margin-top: 0px;
+
+            color: #5724bd;
+
+            font-size: 30px;
+        }
+
+
+        /* PREÇO */
+
+        .linha-preco {
+            display: flex;
+            align-items: center;
+        }
+
+        .preco {
+            color: #ff4c4c;
+
+            font-size: 30px;
+            font-weight: bold;
+
+            margin-right: 15px;
+        }
+
+        .preco-novo {
+            color: #62626b;
+
+            text-decoration: line-through;
+        }
+
+
+        /* DISPONIBILIDADE */
+
+        .disponivel {
+            background-color: #d7f8e5;
+            color: #008a45;
+
+            padding: 15px;
+
+            margin-bottom: 25px;
+        }
+
+
+        /* DESCRIÇÃO */
+
+        h2 {
+            font-size: 19px;
+        }
+
+        .descricao {
+            color: #62626b;
+
+            font-size: 17px;
+        }
+
+
+        /* VENDEDOR */
+
+        .vendedor {
+            margin-top: 25px;
+
+            border: 1px solid #dddddd;
+
+            padding: 20px;
+        }
+
+        .dados-vendedor {
+            display: flex;
+            align-items: center;
+        }
+
+        .foto-vendedor {
+            width: 48px;
+            height: 48px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            background-color: #f1e5ff;
+            color: #6424c9;
+
+            font-weight: bold;
+
+            margin-right: 16px;
+        }
+
+        .nome-vendedor {
+            font-weight: bold;
+        }
+
+        .informacao-vendedor {
+            color: #62626b;
+
+            margin-top: 3px;
+            margin-bottom: 3px;
+        }
+
+
+        /* INFORMAÇÕES DO VENDEDOR */
+
+        .informacoes {
+            display: flex;
+
+            margin-top: 20px;
+        }
+
+        .informacao {
+            width: 33%;
+
+            background-color: #f3e5ff;
+
+            padding: 15px;
+
+            margin-right: 12px;
+        }
+
+        .titulo-informacao {
+            color: #62626b;
+
+            font-size: 13px;
+
+            margin: 0px;
+        }
+
+        .valor-informacao {
+            color: #6424c9;
+
+            font-size: 17px;
+            font-weight: bold;
+
+            margin-top: 5px;
+            margin-bottom: 0px;
+        }
+
+        .verificado {
+            color: #008a45;
+        }
+
+
+        /* BOTÕES */
+
+        .botoes {
+            display: flex;
+
+            margin-top: 16px;
+        }
+
+        .comprar {
+            width: 50%;
+
+            background-color: #6424c9;
+            color: white;
+
+            font-size: 16px;
+            font-weight: bold;
+
+            padding: 15px;
+
+            border: 0px;
+
+            margin-right: 6px;
+        }
+
+        .mensagem {
+            width: 50%;
+
+            background-color: #f3e5ff;
+            color: #6424c9;
+
+            font-size: 16px;
+            font-weight: bold;
+
+            padding: 15px;
+
+            border: 0px;
+
+            margin-left: 6px;
+        }
+
+
+        /* FUNDO ESCURO DA CONFIRMAÇÃO */
+
+        .fundo-confirmacao {
+            position: fixed;
+
+            top: 0px;
+            left: 0px;
+
+            width: 100%;
+            height: 100%;
+
+            background-color: #333333;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+        /* CAIXA DE CONFIRMAÇÃO */
+
+        .confirmacao {
+            width: 460px;
+
+            background-color: white;
+
+            padding: 25px;
+        }
+
+        .confirmacao h2 {
+            margin-top: 0px;
+
+            font-size: 20px;
+        }
+
+        .texto-confirmacao {
+            color: #62626b;
+
+            line-height: 1.5;
+        }
+
+
+        /* BOTÕES DA CONFIRMAÇÃO */
+
+        .botoes-confirmacao {
+            display: flex;
+            justify-content: flex-end;
+
+            margin-top: 20px;
+        }
+
+        .cancelar {
+            background-color: white;
+            color: #7c2cff;
+
+            border: 1px solid #7c2cff;
+
+            padding: 12px 20px;
+
+            font-size: 16px;
+
+            margin-right: 8px;
+        }
+
+        .confirmar {
+            background-color: #7c2cff;
+            color: white;
+
+            border: 0px;
+
+            padding: 12px 20px;
+
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- CABEÇALHO -->
+
+    <div class="cabecalho">
+
+
+        <div class="logo">
+
+            <div class="simbolo-logo">
+                ➜
+            </div>
+
+            <div class="nome-logo">
+                Repassa
+            </div>
+
+        </div>
+
+
+
+        <div class="menu">
+
+            <div class="item-menu">
+                ⌂ &nbsp; Início
+            </div>
+
+            <div class="item-menu">
+                ⌕ &nbsp; Buscar
+            </div>
+
+            <div class="item-menu">
+                ⊕ &nbsp; Anunciar
+            </div>
+
+            <div class="item-menu">
+                ◯ &nbsp; Conversas
+            </div>
+
+            <div class="item-menu">
+                ♙ &nbsp; Perfil
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- ANÚNCIO -->
+
+    <div class="pagina">
+
+
+        <h1>
+            Livro de Cálculo Vol. 1
+        </h1>
+
+
+        <div class="linha-preco">
+
+            <p class="preco">
+                R$ 70,00
+            </p>
+
+            <p class="preco-novo">
+                Novo: R$ 180,00
+            </p>
+
+        </div>
+
+
+
+        <div class="disponivel">
+
+            ✓ &nbsp; <b>Disponível para compra</b>
+
+        </div>
+
+
+
+        <h2>
+            Descrição
+        </h2>
+
+
+        <p class="descricao">
+
+            Edição completa com marcações leves a lápis e abas de estudo removíveis.
+
+        </p>
+
+
+
+        <!-- VENDEDOR -->
+
+        <div class="vendedor">
+
+
+            <h2>
+                Vendedor
+            </h2>
+
+
+            <div class="dados-vendedor">
+
+
+                <div class="foto-vendedor">
+                    R
+                </div>
+
+
+                <div>
+
+                    <div class="nome-vendedor">
+                        Rafael Santos
+                    </div>
+
+                    <p class="informacao-vendedor">
+                        Universidade de São Paulo
+                    </p>
+
+                    <p class="informacao-vendedor">
+                        Engenharia Elétrica
+                    </p>
+
+                    <p>
+                        ⭐ 4,9 · 31 avaliações
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="informacoes">
+
+
+                <div class="informacao">
+
+                    <p class="titulo-informacao">
+                        Membro desde
+                    </p>
+
+                    <p class="valor-informacao">
+                        2023
+                    </p>
+
+                </div>
+
+
+
+                <div class="informacao">
+
+                    <p class="titulo-informacao">
+                        Avaliações
+                    </p>
+
+                    <p class="valor-informacao">
+                        31
+                    </p>
+
+                </div>
+
+
+
+                <div class="informacao">
+
+                    <p class="titulo-informacao">
+                        Confiança
+                    </p>
+
+                    <p class="valor-informacao verificado">
+                        ✓ Verificado
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- BOTÕES DO ANÚNCIO -->
+
+        <div class="botoes">
+
+            <button class="comprar">
+                Comprar
+            </button>
+
+            <button class="mensagem">
+                Enviar mensagem
+            </button>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- CONFIRMAÇÃO DA COMPRA -->
+
+    <div class="fundo-confirmacao">
+
+
+        <div class="confirmacao">
+
+
+            <h2>
+                Confirmar interesse em comprar?
+            </h2>
+
+
+            <p class="texto-confirmacao">
+
+                Você está confirmando interesse em
+                <b>Livro de Cálculo Vol. 1</b>
+                por R$ 70,00.
+
+                Os detalhes de entrega serão combinados
+                diretamente com o vendedor pelo chat.
+
+            </p>
+
+
+
+            <div class="botoes-confirmacao">
+
+                <button class="cancelar">
+                    Cancelar
+                </button>
+
+                <button class="confirmar">
+                    Confirmar compra
+                </button>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</body>
+
+</html>
