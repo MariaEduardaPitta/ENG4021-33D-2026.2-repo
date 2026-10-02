@@ -85,3 +85,20 @@ header {
   text-align: center;
   text-decoration: none;
 }
+
+* { box-sizing: border-box; }
+body { max-width: 440px; margin: 0 auto; background: #FAFAF8; color: #25252D; font-family: Inter, Arial, sans-serif; }
+h1, h2 { font-family: Poppins, Arial, sans-serif; }
+header { background: white; border-bottom: 1px solid #E4E4E7; padding: 12px; }
+header h2 { font-size: 18px; margin: 0; }
+.success-screen { padding: 32px 24px; }
+.success-mark { width: 96px; height: 96px; background: #E7F7EE; color: #22A06B; }
+.success-screen h1 { font-size: 26px; }
+.success-screen p { max-width: 300px; margin: 8px auto 24px; font-size: 15px; color: #71717A; }
+.success-recap { max-width: 340px; margin: 0 auto; background: white; padding: 16px; border-radius: 16px; box-shadow: 0 2px 8px #25252D0F; }
+.success-recap dl { margin: 0; }
+.row-line { font-size: 13px; align-items: center; padding: 8px 0; }
+dt { color: #71717A; }
+dd { font-weight: 600; max-width: 60%; overflow-wrap: anywhere; }
+.status-entrega { background: #FEF3D7; color: #B7770B; }
+.success-actions { max-width: 340px; margin: 24px auto 0; gap: 8px; }
