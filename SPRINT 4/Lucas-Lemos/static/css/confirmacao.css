@@ -80,3 +80,8 @@ header {
 .success-actions {
   margin-top: 24px;
 }
+
+.success-actions a {
+  text-align: center;
+  text-decoration: none;
+}
