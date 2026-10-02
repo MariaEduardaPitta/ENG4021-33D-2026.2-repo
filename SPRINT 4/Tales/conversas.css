@@ -1,0 +1,20 @@
+* { box-sizing: border-box; }
+body { max-width: 440px; margin: 0 auto; padding-bottom: 70px; font-family: Arial, sans-serif; color: #25252D; background: #FAFAF8; }
+header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; padding: 24px 16px; background: #7C3AED; }
+header h1 { margin: 0; font-size: 28px; color: white; }
+header button { width: 40px; height: 40px; border: none; border-radius: 8px; background: white; color: #7C3AED; font-size: 22px; }
+header input { width: 100%; padding: 12px; border: none; border-radius: 8px; font-size: 15px; }
+main { padding: 16px; }
+main > button { margin-bottom: 16px; padding: 8px 14px; border: 1px solid #ddd; border-radius: 20px; background: white; font-size: 14px; }
+main > button:first-child { border-color: #7C3AED; background: #7C3AED; color: white; }
+ul { margin: 0; padding: 0; list-style: none; }
+li { overflow: hidden; margin-bottom: 10px; padding: 12px; border: 1px solid #ddd; border-radius: 8px; background: white; }
+li div { float: left; width: 44px; height: 44px; border-radius: 50%; background: #F3E8FF; }
+li h2 { margin: 0 0 4px 56px; font-size: 16px; }
+li p { margin: 0 0 4px 56px; font-size: 14px; color: #71717A; }
+li > span { margin-left: 56px; font-size: 12px; color: #71717A; }
+li > span + span { margin-left: 8px; padding: 2px 7px; border-radius: 10px; background: #7C3AED; color: white; }
+li p span { padding: 2px 8px; border-radius: 10px; font-size: 12px; background: #F3E8FF; color: #5B21B6; }
+nav { position: fixed; bottom: 0; width: 100%; max-width: 440px; display: flex; justify-content: space-around; padding: 16px 0; border-top: 1px solid #ddd; background: white; }
+nav a { font-size: 13px; color: #71717A; text-decoration: none; }
+nav a[href="conversas.html"] { font-weight: bold; color: #7C3AED; }
