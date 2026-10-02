@@ -1,87 +1,30 @@
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  color: #333333;
-}
-
-header {
-  padding: 16px;
-  background-color: #7C3AED;
-  color: white;
-}
-
-main {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 24px;
-}
-
-h1 {
-  color: #5B21B6;
-}
-
-input {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 12px;
-  border: 1px solid #cccccc;
-  border-radius: 8px;
-  font-size: 16px;
-}
-
-.filtros {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 20px 0;
-}
-
-.filtros button {
-  padding: 10px 14px;
-  border: 0;
-  border-radius: 8px;
-  background-color: #F3E8FF;
-  color: #5B21B6;
-  font-size: 14px;
-}
-
-.card {
-  padding: 16px;
-  border: 1px solid #dddddd;
-  border-radius: 12px;
-}
-
-.card p {
-  color: #5B21B6;
-  font-weight: bold;
-}
-
-.lista-materiais {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-header a {
-  color: white;
-}
-
-.material-icone {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 64px;
-  height: 64px;
-  background-color: #F3E8FF;
-  color: #5B21B6;
-  border-radius: 12px;
-  font-size: 32px;
-}
+* { box-sizing: border-box; }
+body { margin: 0 auto; max-width: 440px; min-height: 100vh; font-family: Inter, Arial, sans-serif; color: #25252D; background: #FAFAF8; }
+h1, h2, h3 { font-family: Poppins, Arial, sans-serif; }
+a { color: #5B21B6; }
+button, input { font-family: inherit; }
+.menu-inferior { display: flex; justify-content: space-around; gap: 4px; padding: 12px 4px; background: white; border-top: 1px solid #E4E4E7; position: sticky; bottom: 0; }
+.menu-inferior a, .menu-inferior button { display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 10px; text-decoration: none; background: none; border: 0; padding: 4px; color: #71717A; }
+.menu-inferior a { color: #7C3AED; font-weight: bold; }
+.menu-inferior span { font-size: 22px; }header { display: flex; justify-content: center; align-items: center; gap: 10px; padding: 12px 16px; background: white; border-bottom: 1px solid #E4E4E7; }
+header a { margin-left: auto; text-decoration: none; font-size: 22px; }
+.logo { width: 44px; height: 44px; object-fit: contain; }
+.contador { font-size: 11px; background: #FF6B5E; color: white; padding: 3px 6px; border-radius: 50%; }
+main { padding: 16px; }
+.marca { display: flex; align-items: center; gap: 12px; }
+h1 { margin: 0; font-size: 22px; color: #5B21B6; }
+main > p { font-size: 13px; color: #71717A; }
+input { width: 100%; padding: 12px; border: 1px solid #E4E4E7; border-radius: 12px; font-size: 14px; background: white; }
+.filtros { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+.filtros button { padding: 8px 10px; border: 1px solid #E4E4E7; border-radius: 20px; background: white; font-size: 12px; }
+.materiais > h2 { font-size: 16px; }
+.lista-materiais { display: flex; flex-direction: column; gap: 12px; }
+.card { display: flex; gap: 12px; padding: 12px; border-radius: 16px; background: white; box-shadow: 0 2px 8px #25252D0F; }
+.material-icone { width: 80px; height: 96px; flex-shrink: 0; display: flex; justify-content: center; align-items: center; background: #F3E8FF; border-radius: 12px; font-size: 32px; }
+.material-info { flex: 1; min-width: 0; }
+.card h3 { font-size: 15px; margin: 0 0 6px; overflow-wrap: anywhere; }
+.preco { font-weight: bold; color: #FF6B5E; margin: 4px 0; font-size: 16px; }
+del { font-size: 12px; color: #71717A; font-weight: normal; }
+.card small { font-size: 12px; color: #71717A; }
+.rodape-card { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px; margin-top: 8px; font-size: 11px; color: #71717A; }
+.disponivel { padding: 3px 6px; border-radius: 12px; background: #E7F7EE; color: #22A06B; font-size: 10px; }
