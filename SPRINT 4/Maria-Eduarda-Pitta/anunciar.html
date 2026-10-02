@@ -1,604 +1,114 @@
 <!DOCTYPE html>
-
-<html>
-
+<html lang="pt-BR">
 <head>
-
     <meta charset="UTF-8">
-
     <title>Anunciar material - Repassa</title>
-
-
     <style>
-
-        body {
-            margin: 0px;
-            font-family: Arial;
-            color: #202027;
-            background-color: white;
-        }
-
-
-        /* CABEÇALHO */
-
-        .cabecalho {
-            height: 65px;
-
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
-            border-bottom: 1px solid #dddddd;
-
-            padding-left: 18px;
-            padding-right: 25px;
-        }
-
-
-        /* LOGO */
-
-        .logo {
-            display: flex;
-            align-items: center;
-        }
-
-        .simbolo-logo {
-            background-color: #5b21b6;
-            color: white;
-
-            font-size: 24px;
-
-            width: 31px;
-            height: 31px;
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .nome-logo {
-            color: #5b21b6;
-
-            font-size: 22px;
-            font-weight: bold;
-
-            margin-left: 9px;
-        }
-
-
-        /* MENU */
-
-        .menu {
-            display: flex;
-            align-items: center;
-        }
-
-        .item-menu {
-            margin-left: 14px;
-
-            padding: 12px;
-
-            color: #62626b;
-
-            font-size: 15px;
-        }
-
-        .item-menu-ativo {
-            margin-left: 14px;
-
-            padding: 12px;
-
-            color: #6424c9;
-            background-color: #f3e8ff;
-
-            font-size: 15px;
-        }
-
-        .icone-menu {
-            margin-right: 6px;
-        }
-
-
-        /* CONTEÚDO PRINCIPAL */
-
-        .pagina {
-            width: 650px;
-
-            margin-left: auto;
-            margin-right: auto;
-
-            padding-top: 32px;
-            padding-bottom: 50px;
-        }
-
-        .subtitulo {
-            color: #7c2cff;
-
-            font-size: 15px;
-
-            margin-bottom: 2px;
-        }
-
-        h1 {
-            color: #5724bd;
-
-            font-size: 32px;
-
-            margin-top: 0px;
-            margin-bottom: 8px;
-        }
-
-        .descricao-pagina {
-            color: #62626b;
-
-            font-size: 17px;
-
-            margin-top: 0px;
-            margin-bottom: 25px;
-        }
-
-
-        /* FORMULÁRIO */
-
-        .formulario {
-            border: 1px solid #dddddd;
-
-            padding: 25px;
-
-            background-color: white;
-        }
-
-        .campo {
-            margin-bottom: 20px;
-        }
-
-        .titulo-campo {
-            margin-top: 0px;
-            margin-bottom: 6px;
-
-            font-size: 14px;
-        }
-
-
-        /* FOTO */
-
-        .foto {
-            width: 320px;
-            height: 240px;
-
-            background-color: #faf6ff;
-
-            display: flex;
-            flex-direction: column;
-
-            justify-content: center;
-            align-items: center;
-
-            color: #65656e;
-        }
-
-        .icone-foto {
-            font-size: 35px;
-
-            margin-bottom: 7px;
-        }
-
-        .adicionar-foto {
-            margin: 0px;
-
-            font-size: 15px;
-            font-weight: bold;
-        }
-
-
-        /* CAMPOS */
-
-        input {
-            width: 100%;
-            height: 43px;
-
-            font-size: 15px;
-
-            padding-left: 12px;
-
-            border: 1px solid #cfcfd9;
-        }
-
-        textarea {
-            width: 100%;
-            height: 98px;
-
-            font-family: Arial;
-            font-size: 15px;
-
-            padding: 12px;
-
-            border: 1px solid #cfcfd9;
-        }
-
-        select {
-            width: 100%;
-            height: 37px;
-
-            font-size: 14px;
-
-            padding-left: 12px;
-
-            color: #62626b;
-
-            background-color: white;
-
-            border: 1px solid #cfcfd9;
-        }
-
-
-        /* CAMPOS LADO A LADO */
-
-        .linha {
-            display: flex;
-        }
-
-        .esquerda {
-            width: 50%;
-
-            margin-right: 8px;
-        }
-
-        .direita {
-            width: 50%;
-
-            margin-left: 8px;
-        }
-
-
-        /* TEXTO PEQUENO */
-
-        .ajuda {
-            color: #62626b;
-
-            font-size: 13px;
-
-            margin-top: 6px;
-        }
-
-
-        /* BOTÃO */
-
-        .botao {
-            width: 100%;
-            height: 49px;
-
-            background-color: #7c24ff;
-            color: white;
-
-            border: 0px;
-
-            font-size: 16px;
-            font-weight: bold;
-        }
-
-
+        body { margin: 0; font-family: Arial; color: #202027; }
+        .cabecalho { height: 65px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ddd; padding: 0 25px; }
+        .logo, .menu, .linha { display: flex; align-items: center; }
+        .simbolo-logo { background-color: #5b21b6; color: white; font-size: 24px; padding: 4px; }
+        .nome-logo { color: #5b21b6; font-size: 22px; font-weight: bold; margin-left: 9px; }
+        .item-menu { margin-left: 14px; padding: 12px; color: #62626b; }
+        .ativo { color: #6424c9; background-color: #f3e8ff; }
+        .pagina { width: 650px; margin: auto; padding: 32px 0 50px; }
+        .subtitulo { color: #7c2cff; margin-bottom: 2px; }
+        h1 { color: #5724bd; font-size: 32px; margin: 0 0 8px; }
+        .descricao { color: #62626b; margin-top: 0; }
+        .formulario { border: 1px solid #ddd; padding: 25px; }
+        .campo { margin-bottom: 20px; }
+        .titulo-campo { margin: 0 0 6px; font-size: 14px; }
+        .foto { width: 320px; height: 200px; background-color: #faf6ff; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        input, textarea, select { width: 100%; font-family: Arial; font-size: 15px; border: 1px solid #cfcfd9; }
+        input, select { height: 40px; }
+        textarea { height: 90px; }
+        .esquerda, .direita { width: 50%; }
+        .esquerda { margin-right: 8px; }
+        .direita { margin-left: 8px; }
+        .ajuda { color: #62626b; font-size: 13px; }
+        .botao { width: 100%; height: 49px; background-color: #7c24ff; color: white; border: 0; font-size: 16px; font-weight: bold; }
     </style>
-
 </head>
 
-
 <body>
-
-
-    <!-- CABEÇALHO -->
-
     <div class="cabecalho">
-
-
-        <!-- LOGO -->
-
         <div class="logo">
-
-            <div class="simbolo-logo">
-                ➜
-            </div>
-
-            <div class="nome-logo">
-                Repassa
-            </div>
-
+            <div class="simbolo-logo">➜</div>
+            <div class="nome-logo">Repassa</div>
         </div>
-
-
-
-        <!-- MENU -->
-
         <div class="menu">
-
-            <div class="item-menu">
-                <span class="icone-menu">⌂</span>
-                Início
-            </div>
-
-            <div class="item-menu">
-                <span class="icone-menu">⌕</span>
-                Buscar
-            </div>
-
-            <div class="item-menu-ativo">
-                <span class="icone-menu">⊕</span>
-                Anunciar
-            </div>
-
-            <div class="item-menu">
-                <span class="icone-menu">◯</span>
-                Conversas
-            </div>
-
-            <div class="item-menu">
-                <span class="icone-menu">♙</span>
-                Perfil
-            </div>
-
+            <div class="item-menu">⌂ Início</div>
+            <div class="item-menu">⌕ Buscar</div>
+            <div class="item-menu ativo">⊕ Anunciar</div>
+            <div class="item-menu">◯ Conversas</div>
+            <div class="item-menu">♙ Perfil</div>
         </div>
-
     </div>
-
-
-
-    <!-- CONTEÚDO PRINCIPAL -->
 
     <div class="pagina">
-
-
-        <p class="subtitulo">
-            Divulgue seu material
-        </p>
-
-
-        <h1>
-            Anunciar material
-        </h1>
-
-
-        <p class="descricao-pagina">
-
-            Preencha as informações abaixo para publicar seu anúncio na comunidade
-            universitária.
-
-        </p>
-
-
-
-        <!-- FORMULÁRIO -->
+        <p class="subtitulo">Divulgue seu material</p>
+        <h1>Anunciar material</h1>
+        <p class="descricao">Preencha as informações abaixo para publicar seu anúncio na comunidade universitária.</p>
 
         <div class="formulario">
-
-
-            <!-- FOTO -->
-
             <div class="campo">
-
-                <p class="titulo-campo">
-                    Foto do material
-                </p>
-
-
-                <div class="foto">
-
-                    <div class="icone-foto">
-                        ▧+
-                    </div>
-
-                    <p class="adicionar-foto">
-                        Adicionar foto
-                    </p>
-
-                </div>
-
+                <p class="titulo-campo">Foto do material</p>
+                <div class="foto">▧+<br>Adicionar foto</div>
             </div>
 
-
-
-            <!-- TÍTULO -->
-
             <div class="campo">
-
-                <p class="titulo-campo">
-                    Título do anúncio
-                </p>
-
-                <input
-                    type="text"
-                    placeholder="Ex.: Calculadora científica"
-                >
-
+                <p class="titulo-campo">Título do anúncio</p>
+                <input type="text" placeholder="Ex.: Calculadora científica">
             </div>
 
-
-
-            <!-- DESCRIÇÃO -->
-
             <div class="campo">
-
-                <p class="titulo-campo">
-                    Descrição
-                </p>
-
-                <textarea
-                    placeholder="Conte o estado de uso, motivo da venda e o que acompanha..."
-                ></textarea>
-
+                <p class="titulo-campo">Descrição</p>
+                <textarea placeholder="Conte o estado de uso, motivo da venda e o que acompanha..."></textarea>
             </div>
-
-
-
-            <!-- CATEGORIA E CURSO -->
 
             <div class="linha">
-
-
-                <div class="esquerda">
-
-                    <div class="campo">
-
-                        <p class="titulo-campo">
-                            Categoria
-                        </p>
-
-                        <select>
-
-                            <option>
-                                Selecione
-                            </option>
-
-                            <option>
-                                Livro
-                            </option>
-
-                            <option>
-                                Calculadora
-                            </option>
-
-                            <option>
-                                Jaleco
-                            </option>
-
-                            <option>
-                                Instrumento
-                            </option>
-
-                            <option>
-                                Apostila
-                            </option>
-
-                            <option>
-                                Outro
-                            </option>
-
-                        </select>
-
-                    </div>
-
+                <div class="campo esquerda">
+                    <p class="titulo-campo">Categoria</p>
+                    <select>
+                        <option>Selecione</option>
+                        <option>Livro</option>
+                        <option>Calculadora</option>
+                        <option>Jaleco</option>
+                        <option>Instrumento</option>
+                        <option>Apostila</option>
+                        <option>Outro</option>
+                    </select>
                 </div>
-
-
-
-                <div class="direita">
-
-                    <div class="campo">
-
-                        <p class="titulo-campo">
-                            Curso
-                        </p>
-
-                        <input
-                            type="text"
-                            placeholder="Digite seu curso"
-                        >
-
-                    </div>
-
+                <div class="campo direita">
+                    <p class="titulo-campo">Curso</p>
+                    <input type="text" placeholder="Digite seu curso">
                 </div>
-
-
             </div>
 
-
-
-            <!-- ESTADO DE CONSERVAÇÃO -->
-
             <div class="campo">
-
-                <p class="titulo-campo">
-                    Estado de conservação
-                </p>
-
+                <p class="titulo-campo">Estado de conservação</p>
                 <select>
-
-                    <option>
-                        Selecione
-                    </option>
-
-                    <option>
-                        Novo
-                    </option>
-
-                    <option>
-                        Seminovo
-                    </option>
-
-                    <option>
-                        Usado
-                    </option>
-
+                    <option>Selecione</option>
+                    <option>Novo</option>
+                    <option>Seminovo</option>
+                    <option>Usado</option>
                 </select>
-
             </div>
-
-
-
-            <!-- PREÇOS -->
 
             <div class="linha">
-
-
-                <div class="esquerda">
-
-                    <div class="campo">
-
-                        <p class="titulo-campo">
-                            Preço de venda (R$)
-                        </p>
-
-                        <input
-                            type="text"
-                            placeholder="0,00"
-                        >
-
-                    </div>
-
+                <div class="campo esquerda">
+                    <p class="titulo-campo">Preço de venda (R$)</p>
+                    <input type="text" placeholder="0,00">
                 </div>
-
-
-
-                <div class="direita">
-
-                    <div class="campo">
-
-                        <p class="titulo-campo">
-                            Preço do produto novo (R$)
-                        </p>
-
-                        <input
-                            type="text"
-                            placeholder="0,00"
-                        >
-
-                        <p class="ajuda">
-                            Usado para exibir o desconto riscado no anúncio.
-                        </p>
-
-                    </div>
-
+                <div class="campo direita">
+                    <p class="titulo-campo">Preço do produto novo (R$)</p>
+                    <input type="text" placeholder="0,00">
+                    <p class="ajuda">Usado para exibir o desconto riscado no anúncio.</p>
                 </div>
-
-
             </div>
 
-
-
-            <!-- BOTÃO -->
-
-            <button class="botao">
-
-                Publicar anúncio
-
-            </button>
-
-
+            <button class="botao">Publicar anúncio</button>
         </div>
-
-
     </div>
-
-
 </body>
-
 </html>
