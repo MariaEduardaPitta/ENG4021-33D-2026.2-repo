@@ -1,0 +1,51 @@
+body {
+    font-family: Arial;
+    background-color: #f7f7f9;
+    margin: 0;
+}
+
+.cor-roxa {
+    color: #4A148C;
+}
+
+h1.cor-roxa {
+    text-align: center;
+}
+
+h5.cor-roxa {
+    text-align: center;
+}
+
+.texto-centro {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.titulo-grande {
+    font-size: 40px;
+}
+
+.titulo-medio {
+    font-size: 20px;
+}
+
+.titulo-medio label {
+    font-size: 18px;
+    margin-right: 10px;
+}
+
+.titulo-medio input {
+    font-size: 16px;
+    padding: 10px;
+    width: 40%;
+}
+
+.botao-entrar {
+    width: 45%;
+    height: 45px;
+    font-size: 18px;
+    background-color: #4A148C;
+    color: white;
+    border: 0;
+}
