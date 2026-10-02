@@ -61,3 +61,27 @@ input {
   flex-direction: column;
   gap: 16px;
 }
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+header a {
+  color: white;
+}
+
+.material-icone {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 64px;
+  height: 64px;
+  background-color: #F3E8FF;
+  color: #5B21B6;
+  border-radius: 12px;
+  font-size: 32px;
+}
