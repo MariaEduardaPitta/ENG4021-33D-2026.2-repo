@@ -1,0 +1,57 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: #333333;
+}
+
+header {
+  padding: 16px;
+  background-color: #7C3AED;
+  color: white;
+}
+
+main {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+h1 {
+  color: #5B21B6;
+}
+
+input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px;
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 20px 0;
+}
+
+.filtros button {
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 8px;
+  background-color: #F3E8FF;
+  color: #5B21B6;
+  font-size: 14px;
+}
+
+.card {
+  padding: 16px;
+  border: 1px solid #dddddd;
+  border-radius: 12px;
+}
+
+.card p {
+  color: #5B21B6;
+  font-weight: bold;
+}
