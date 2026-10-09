@@ -1,0 +1,188 @@
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: #202027;
+    background: #fff;
+}
+
+.cabecalho {
+    height: 66px;
+    padding: 0 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e5e5e9;
+}
+
+.logo img {
+    width: 145px;
+    height: 48px;
+    object-fit: contain;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.menu a {
+    color: #62626b;
+    text-decoration: none;
+    padding: 12px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.menu .ativo {
+    color: #6424c9;
+    background: #f3e8ff;
+    border-radius: 6px;
+}
+
+.pagina {
+    max-width: 608px;
+    margin: 34px auto 50px;
+}
+
+.subtitulo {
+    color: #8624ff;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0 0 3px;
+}
+
+h1 {
+    color: #5b21b6;
+    font-size: 32px;
+    margin: 0 0 10px;
+}
+
+.descricao {
+    color: #62626b;
+    line-height: 24px;
+    margin: 0 0 24px;
+}
+
+.formulario {
+    padding: 24px;
+    border: 1px solid #dedee5;
+    border-radius: 9px;
+    box-shadow: 0 3px 8px #0000000a;
+}
+
+.campo {
+    margin-bottom: 22px;
+    flex: 1;
+    min-width: 0;
+}
+
+.campo label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 7px;
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #cfcfd9;
+    border-radius: 6px;
+    background: white;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #333;
+    box-shadow: 0 2px 3px #0000000a;
+}
+
+input:focus, textarea:focus, select:focus {
+    outline: 2px solid #d9baff;
+    border-color: #8624ff;
+}
+
+textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+.linha {
+    display: flex;
+    gap: 16px;
+}
+
+.campo .area-foto {
+    width: 320px;
+    max-width: 100%;
+    height: 240px;
+    border: 2px dashed #ded7e9;
+    border-radius: 7px;
+    background: #fbf7ff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: #62626b;
+    font-weight: bold;
+    gap: 10px;
+}
+
+.icone-foto {
+    font-size: 35px;
+}
+
+small {
+    display: block;
+    margin-top: 7px;
+    color: #62626b;
+    font-size: 12px;
+    line-height: 16px;
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    background: #8624ff;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #6920cc;
+}
+
+@media (max-width: 700px) {
+    .cabecalho {
+        height: auto;
+        padding: 12px;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .menu {
+        flex-wrap: wrap;
+        gap: 0;
+    }
+
+    .menu a {
+        padding: 8px;
+    }
+
+    .pagina {
+        margin: 25px 15px;
+    }
+
+    .linha {
+        flex-direction: column;
+        gap: 0;
+    }
+}
