@@ -1,0 +1,25 @@
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Arial, sans-serif; color: #222; background: white; }
+a { color: #6b21a8; }
+button, input { font-family: Arial, sans-serif; font-size: 14px; }
+header { display: flex; align-items: center; gap: 16px; padding: 16px; border-bottom: 1px solid #ccc; }
+main { max-width: 600px; margin: 24px auto; padding: 16px; }
+h1 { font-size: 28px; color: #6b21a8; }
+h2 { font-size: 22px; }
+.menu-inferior { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; padding: 16px; border-top: 1px solid #ccc; }
+.menu-inferior a, .menu-inferior button { font-size: 14px; }
+.menu-inferior span { margin-right: 4px; }
+.logo { width: 40px; height: 40px; }
+header a { margin-left: auto; }
+.contador { font-size: 14px; }
+.marca { display: flex; align-items: center; gap: 12px; }
+input { width: 100%; padding: 10px; border: 1px solid #aaa; }
+.filtros { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+.filtros button { padding: 6px 10px; }
+.card { border: 1px solid #ccc; padding: 16px; margin-bottom: 16px; }
+.material-icone { font-size: 28px; }
+.card h3 { font-size: 18px; margin: 12px 0; }
+.preco { color: #6b21a8; font-weight: bold; }
+del { color: #666; font-size: 12px; font-weight: normal; }
+.rodape-card { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; margin-top: 12px; font-size: 12px; }
+.disponivel { color: #24723c; }
