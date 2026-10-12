@@ -1,0 +1,131 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar materiais - REPASSA</title>
+    <link rel="stylesheet" href="buscar.css">
+</head>
+<body>
+    <header>
+        <a href="pagina-inicial.html">
+            <img src="logo.png" alt="Logo REPASSA">
+        </a>
+        <a href="notificacoes.html" class="notificacoes">🔔</a>
+    </header>
+
+    <main>
+        <div class="titulo">
+            <h1>Buscar materiais</h1>
+            <p>Encontre livros, calculadoras e outros materiais acadêmicos.</p>
+        </div>
+
+        <form action="buscar.html" method="get" class="pesquisa">
+            <input type="search" name="q"
+                   placeholder="Cálculo, Física 1, calculadora...">
+            <button type="submit">Buscar</button>
+        </form>
+
+        <div class="conteudo">
+            <aside class="filtros">
+                <div class="cabecalho-filtros">
+                    <h2>Filtros</h2>
+                    <a href="buscar.html">Limpar</a>
+                </div>
+
+                <form action="buscar.html" method="get">
+                    <label for="tipo">Tipo do material</label>
+                    <select id="tipo" name="tipo">
+                        <option value="">Todos</option>
+                        <option value="livros">Livros</option>
+                        <option value="calculadoras">Calculadoras</option>
+                        <option value="uniformes">Uniformes</option>
+                        <option value="instrumentos">Instrumentos</option>
+                    </select>
+
+                    <label for="materia">Matéria</label>
+                    <input id="materia" name="materia"
+                           placeholder="Ex.: ENG1200">
+
+                    <label for="condicao">Condição</label>
+                    <select id="condicao" name="condicao">
+                        <option value="">Todas</option>
+                        <option value="novo">Novo</option>
+                        <option value="como-novo">Como novo</option>
+                        <option value="bom">Bom estado</option>
+                        <option value="usado">Usado</option>
+                    </select>
+
+                    <label for="preco">Preço máximo (R$)</label>
+                    <input type="number" id="preco" name="preco"
+                           min="0" placeholder="Ex.: 80">
+
+                    <button type="submit" class="aplicar">
+                        Aplicar filtros
+                    </button>
+                </form>
+            </aside>
+
+            <section class="resultados">
+                <div class="cabecalho-resultados">
+                    <h2>Materiais disponíveis</h2>
+                    <span>Exemplos de anúncios</span>
+                </div>
+
+                <div class="lista">
+                    <article class="material">
+                        <div class="foto">📚</div>
+                        <div class="dados">
+                            <span class="categoria">Livros</span>
+                            <h3>Cálculo — Vol. 1, Stewart</h3>
+                            <p>MAT1161 · Ana Beatriz, Eng. Química</p>
+                            <span class="estado">Bom estado</span>
+                            <div class="rodape-card">
+                                <strong>R$ 75,00</strong>
+                                <a href="compra.html">Ver material</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="material">
+                        <div class="foto">🧮</div>
+                        <div class="dados">
+                            <span class="categoria">Calculadoras</span>
+                            <h3>Calculadora HP 12C Gold</h3>
+                            <p>ADM1100 · Rafael M., Eng. Produção</p>
+                            <span class="estado">Como novo</span>
+                            <div class="rodape-card">
+                                <strong>R$ 140,00</strong>
+                                <a href="compra.html">Ver material</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="material">
+                        <div class="foto">📖</div>
+                        <div class="dados">
+                            <span class="categoria">Livros</span>
+                            <h3>Física 1 — Halliday, 10ª ed.</h3>
+                            <p>FIS1033 · Letícia P., Eng. Civil</p>
+                            <span class="estado">Usado</span>
+                            <div class="rodape-card">
+                                <strong>R$ 60,00</strong>
+                                <a href="compra.html">Ver material</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <nav class="menu-inferior" aria-label="Navegação principal">
+        <a href="pagina-inicial.html">⌂ <span>Início</span></a>
+        <a href="buscar.html" class="ativo">⌕ <span>Buscar</span></a>
+        <a href="anunciar.html">＋ <span>Anunciar</span></a>
+        <a href="conversas.html">✉ <span>Conversas</span></a>
+        <a href="cadastro.html">♙ <span>Cadastro</span></a>
+    </nav>
+</body>
+</html>
