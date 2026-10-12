@@ -1,0 +1,279 @@
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #f7f7fa;
+    font-family: Arial, sans-serif;
+    color: #333;
+    padding-bottom: 80px;
+}
+
+a {
+    text-decoration: none;
+    color: #4A148C;
+}
+
+header {
+    background: white;
+    padding: 15px 8%;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header img {
+    width: 145px;
+    height: 48px;
+    object-fit: contain;
+}
+
+.notificacoes {
+    font-size: 23px;
+}
+
+main {
+    max-width: 850px;
+    margin: 35px auto;
+    padding: 0 20px;
+}
+
+.titulo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+h1 {
+    color: #4A148C;
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+.titulo p {
+    color: #777;
+    font-size: 14px;
+}
+
+.nova-conversa {
+    background: #4A148C;
+    color: white;
+    padding: 13px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+.pesquisa {
+    display: flex;
+    gap: 10px;
+    margin: 25px 0;
+}
+
+.pesquisa input {
+    flex: 1;
+    min-width: 0;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.pesquisa button {
+    background: #4A148C;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0 25px;
+    cursor: pointer;
+}
+
+.categorias {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.categorias span {
+    background: white;
+    color: #777;
+    border: 1px solid #ddd;
+    padding: 11px 20px;
+    border-radius: 20px;
+    font-size: 13px;
+}
+
+.categorias .selecionado {
+    background: #4A148C;
+    color: white;
+    border-color: #4A148C;
+}
+
+.lista {
+    background: white;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 3px 12px #00000008;
+}
+
+.conversa {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 22px;
+    border-bottom: 1px solid #eee;
+}
+
+.conversa:last-child {
+    border-bottom: none;
+}
+
+.conversa:hover {
+    background: #faf7ff;
+}
+
+.avatar {
+    width: 55px;
+    height: 55px;
+    min-width: 55px;
+    background: #f3e8ff;
+    color: #4A148C;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.conteudo {
+    flex: 1;
+    min-width: 0;
+}
+
+.linha {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+h2 {
+    color: #333;
+    font-size: 16px;
+    margin: 0;
+}
+
+small {
+    color: #999;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.conteudo p {
+    color: #666;
+    font-size: 14px;
+    margin: 10px 0;
+}
+
+.material {
+    color: #4A148C;
+    background: #f3e8ff;
+    padding: 6px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+    display: inline-block;
+}
+
+.nao-lidas {
+    background: #4A148C;
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+}
+
+.concluido {
+    color: #168454;
+    background: #e7f7ee;
+    padding: 6px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+    display: inline-block;
+}
+
+.avaliar {
+    color: #4A148C;
+    font-size: 12px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.menu-inferior {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: white;
+    border-top: 1px solid #ddd;
+    display: flex;
+    justify-content: space-around;
+    padding: 13px 5px;
+}
+
+.menu-inferior a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    color: #777;
+    font-size: 21px;
+}
+
+.menu-inferior span {
+    font-size: 12px;
+}
+
+.menu-inferior .ativo {
+    color: #4A148C;
+    font-weight: bold;
+}
+
+@media (max-width: 600px) {
+    main {
+        margin: 25px auto;
+    }
+
+    .titulo {
+        flex-wrap: wrap;
+    }
+
+    .conversa {
+        padding: 16px;
+        gap: 12px;
+    }
+
+    .avatar {
+        width: 43px;
+        height: 43px;
+        min-width: 43px;
+    }
+
+    .categorias {
+        gap: 7px;
+    }
+
+    .categorias span {
+        padding: 10px 13px;
+    }
+}

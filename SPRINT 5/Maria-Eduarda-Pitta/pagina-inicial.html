@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Inicial - REPASSA</title>
+    <link rel="stylesheet" href="pagina-inicial.css">
+</head>
+<body>
+    <header>
+        <a href="pagina-inicial.html">
+            <img src="logo.png" alt="Logo REPASSA">
+        </a>
+        <nav class="topo">
+            <a href="notificacoes.html" title="Notificações">🔔</a>
+            <a href="login.html" class="entrar">Entrar</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="destaque">
+            <h1>Encontre, conecte, repasse.</h1>
+            <p>Materiais acadêmicos que continuam histórias.</p>
+
+            <form action="buscar.html" method="get" class="pesquisa">
+                <input type="search" name="q"
+                       placeholder="O que você está procurando?"
+                       aria-label="Pesquisar materiais">
+                <button type="submit">Buscar</button>
+            </form>
+        </section>
+
+        <section class="conteudo">
+            <div class="titulo-secao">
+                <h2>Explore por categoria</h2>
+            </div>
+
+            <div class="categorias">
+                <a href="buscar.html?categoria=livros">📚 Livros</a>
+                <a href="buscar.html?categoria=uniformes">🥼 Uniformes</a>
+                <a href="buscar.html?categoria=instrumentos">🔬 Instrumentos</a>
+                <a href="buscar.html?categoria=calculadoras">🧮 Calculadoras</a>
+            </div>
+
+            <div class="titulo-secao">
+                <h2>Materiais recentes</h2>
+                <a href="buscar.html">Ver todos →</a>
+            </div>
+
+            <div class="materiais">
+                <article class="card">
+                    <div class="foto">🧮</div>
+                    <div class="informacoes">
+                        <span class="etiqueta">Engenharia</span>
+                        <h3>Calculadora científica</h3>
+                        <p class="estado">Bom estado · Calculadoras</p>
+                        <p class="preco">R$ 85,00</p>
+                        <div class="vendedor">★ 4,8 · Mariana</div>
+                        <a href="compra.html" class="ver-material">
+                            Ver material
+                        </a>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="foto">🥼</div>
+                    <div class="informacoes">
+                        <span class="etiqueta">Medicina</span>
+                        <h3>Jaleco branco tamanho M</h3>
+                        <p class="estado">Bom estado · Uniformes</p>
+                        <p class="preco">R$ 55,00</p>
+                        <div class="vendedor">★ 4,9 · João</div>
+                        <a href="compra.html" class="ver-material">
+                            Ver material
+                        </a>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="foto">📖</div>
+                    <div class="informacoes">
+                        <span class="etiqueta">Psicologia</span>
+                        <h3>Introdução à Psicologia</h3>
+                        <p class="estado">Bom estado · Livros</p>
+                        <p class="preco">R$ 76,00</p>
+                        <div class="vendedor">★ 4,7 · Camila</div>
+                        <a href="compra.html" class="ver-material">
+                            Ver material
+                        </a>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <nav class="menu-inferior" aria-label="Navegação principal">
+        <a href="pagina-inicial.html" class="ativo">
+            ⌂ <span>Início</span>
+        </a>
+        <a href="buscar.html">
+            ⌕ <span>Buscar</span>
+        </a>
+        <a href="anunciar.html">
+            ＋ <span>Anunciar</span>
+        </a>
+        <a href="conversas.html">
+            ✉ <span>Conversas</span>
+        </a>
+        <a href="cadastro.html">
+            ♙ <span>Cadastro</span>
+        </a>
+    </nav>
+</body>
+</html>

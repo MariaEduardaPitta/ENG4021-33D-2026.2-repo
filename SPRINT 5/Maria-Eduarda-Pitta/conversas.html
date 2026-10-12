@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversas - REPASSA</title>
+    <link rel="stylesheet" href="conversas.css">
+</head>
+<body>
+    <header>
+        <a href="pagina-inicial.html">
+            <img src="logo.png" alt="Logo REPASSA">
+        </a>
+        <a href="notificacoes.html" class="notificacoes">🔔</a>
+    </header>
+
+    <main>
+        <div class="titulo">
+            <div>
+                <h1>Minhas conversas</h1>
+                <p>Acompanhe suas negociações e mensagens.</p>
+            </div>
+            <a href="buscar.html" class="nova-conversa">+ Nova conversa</a>
+        </div>
+
+        <form action="conversas.html" method="get" class="pesquisa">
+            <input type="search" name="q"
+                   placeholder="Procurar conversa..."
+                   aria-label="Procurar conversa">
+            <button type="submit">Buscar</button>
+        </form>
+
+        <div class="categorias">
+            <span class="selecionado">Todas</span>
+            <span>Comprando</span>
+            <span>Vendendo</span>
+        </div>
+
+        <section class="lista">
+            <a href="chat.html" class="conversa">
+                <div class="avatar">MC</div>
+                <div class="conteudo">
+                    <div class="linha">
+                        <h2>Maria Clara</h2>
+                        <small>14:32</small>
+                    </div>
+                    <p>Ainda está disponível??</p>
+                    <span class="material">📚 Cálculo — Vol. 1, Stewart</span>
+                </div>
+                <span class="nao-lidas">2</span>
+            </a>
+
+            <a href="chat.html" class="conversa">
+                <div class="avatar">CE</div>
+                <div class="conteudo">
+                    <div class="linha">
+                        <h2>Carlos Eduardo</h2>
+                        <small>Ontem</small>
+                    </div>
+                    <p>O material está pronto, posso levar amanhã.</p>
+                    <span class="material">🧮 Calculadora HP 12C Gold</span>
+                </div>
+            </a>
+
+            <a href="chat.html" class="conversa">
+                <div class="avatar">LP</div>
+                <div class="conteudo">
+                    <div class="linha">
+                        <h2>Letícia Prado</h2>
+                        <small>Seg</small>
+                    </div>
+                    <p>Foi ótimo fazer negócios com você!</p>
+                    <span class="concluido">✓ Negócio concluído</span>
+                    <span class="avaliar">Avaliar</span>
+                </div>
+            </a>
+
+            <a href="chat.html" class="conversa">
+                <div class="avatar">RM</div>
+                <div class="conteudo">
+                    <div class="linha">
+                        <h2>Rafael Menezes</h2>
+                        <small>12/09</small>
+                    </div>
+                    <p>Combinado, te encontro no RDC às 15h.</p>
+                    <span class="material">📖 Física 1 — Halliday, 10ª ed.</span>
+                </div>
+            </a>
+        </section>
+    </main>
+
+    <nav class="menu-inferior" aria-label="Navegação principal">
+        <a href="pagina-inicial.html">⌂ <span>Início</span></a>
+        <a href="buscar.html">⌕ <span>Buscar</span></a>
+        <a href="anunciar.html">＋ <span>Anunciar</span></a>
+        <a href="conversas.html" class="ativo">✉ <span>Conversas</span></a>
+        <a href="cadastro.html">♙ <span>Cadastro</span></a>
+    </nav>
+</body>
+</html>

@@ -1,0 +1,177 @@
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #f7f7fa;
+    font-family: Arial, sans-serif;
+    color: #333;
+    padding-bottom: 80px;
+}
+
+a {
+    text-decoration: none;
+    color: #4A148C;
+}
+
+header {
+    background: white;
+    padding: 15px 8%;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header img {
+    width: 145px;
+    height: 48px;
+    object-fit: contain;
+}
+
+.voltar {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+main {
+    max-width: 750px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.titulo h1 {
+    color: #4A148C;
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.titulo p {
+    color: #777;
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+.lista {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.notificacao {
+    background: white;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 22px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    box-shadow: 0 3px 12px #00000008;
+}
+
+.notificacao:hover {
+    background: #faf7ff;
+    border-color: #d8c4ef;
+}
+
+.icone {
+    width: 52px;
+    height: 52px;
+    min-width: 52px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 23px;
+}
+
+.mensagem {
+    background: #f3e8ff;
+    color: #4A148C;
+}
+
+.sucesso {
+    background: #e7f7ee;
+    color: #22a06b;
+}
+
+.entrega {
+    background: #fff3cd;
+}
+
+.informacoes {
+    flex: 1;
+}
+
+h2 {
+    color: #333;
+    font-size: 16px;
+    margin: 0 0 8px;
+}
+
+.informacoes p {
+    color: #666;
+    font-size: 14px;
+    margin: 0 0 8px;
+    line-height: 1.5;
+}
+
+small {
+    color: #999;
+    font-size: 12px;
+}
+
+.indicador {
+    width: 9px;
+    height: 9px;
+    background: #4A148C;
+    border-radius: 50%;
+}
+
+.menu-inferior {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: white;
+    border-top: 1px solid #ddd;
+    display: flex;
+    justify-content: space-around;
+    padding: 13px 5px;
+}
+
+.menu-inferior a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    color: #777;
+    font-size: 21px;
+}
+
+.menu-inferior span {
+    font-size: 12px;
+}
+
+@media (max-width: 480px) {
+    main {
+        margin: 25px auto;
+    }
+
+    .notificacao {
+        padding: 16px;
+        gap: 12px;
+    }
+
+    .icone {
+        width: 42px;
+        height: 42px;
+        min-width: 42px;
+    }
+
+    h2 {
+        font-size: 14px;
+    }
+}
