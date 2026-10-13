@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Anunciar material - Repassa</title>
+    <!-- Link para o arquivo CSS separado na pasta static -->
+    <link rel="stylesheet" href="{% static 'css/anunciar.css' %}">
+</head>
+
+<body>
+    <div class="cabecalho">
+        <div class="logo">
+            <div class="simbolo-logo">➜</div>
+            <div class="nome-logo">Repassa</div>
+        </div>
+        <div class="menu">
+            <div class="item-menu">⌂ Início</div>
+            <div class="item-menu">⌕ Buscar</div>
+            <div class="item-menu ativo">⊕ Anunciar</div>
+            <div class="item-menu">◯ Conversas</div>
+            <div class="item-menu">♙ Perfil</div>
+        </div>
+    </div>
+
+    <div class="pagina">
+        <p class="subtitulo">Divulgue seu material</p>
+        <h1>Anunciar material</h1>
+        <p class="descricao">Preencha as informações abaixo para publicar seu anúncio na comunidade universitária.</p>
+
+        <div class="formulario">
+            <div class="campo">
+                <p class="titulo-campo">Foto do material</p>
+                <div class="foto">▧+<br>Adicionar foto</div>
+            </div>
+
+            <div class="campo">
+                <p class="titulo-campo">Título do anúncio</p>
+                <input type="text" placeholder="Ex.: Calculadora científica">
+            </div>
+
+            <div class="campo">
+                <p class="titulo-campo">Descrição</p>
+                <textarea placeholder="Conte o estado de uso, motivo da venda e o que acompanha..."></textarea>
+            </div>
+
+            <div class="linha">
+                <div class="campo esquerda">
+                    <p class="titulo-campo">Categoria</p>
+                    <select>
+                        <option>Selecione</option>
+                        <option>Livro</option>
+                        <option>Calculadora</option>
+                        <option>Jaleco</option>
+                        <option>Instrumento</option>
+                        <option>Apostila</option>
+                        <option>Outro</option>
+                    </select>
+                </div>
+                <div class="campo direita">
+                    <p class="titulo-campo">Curso</p>
+                    <input type="text" placeholder="Digite seu curso">
+                </div>
+            </div>
+
+            <div class="campo">
+                <p class="titulo-campo">Estado de conservação</p>
+                <select>
+                    <option>Selecione</option>
+                    <option>Novo</option>
+                    <option>Seminovo</option>
+                    <option>Usado</option>
+                </select>
+            </div>
+
+            <div class="linha">
+                <div class="campo esquerda">
+                    <p class="titulo-campo">Preço de venda (R$)</p>
+                    <input type="text" placeholder="0,00">
+                </div>
+                <div class="campo direita">
+                    <p class="titulo-campo">Preço do produto novo (R$)</p>
+                    <input type="text" placeholder="0,00">
+                    <p class="ajuda">Usado para exibir o desconto riscado no anúncio.</p>
+                </div>
+            </div>
+
+            <button class="botao">Publicar anúncio</button>
+        </div>
+    </div>
+</body>
+</html>

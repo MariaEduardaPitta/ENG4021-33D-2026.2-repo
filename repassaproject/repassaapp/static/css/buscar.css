@@ -1,0 +1,21 @@
+* { box-sizing: border-box; }
+body { max-width: 440px; margin: 0 auto; padding-bottom: 70px; font-family: Arial, sans-serif; color: #25252D; background: #FAFAF8; }
+header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; padding: 24px 16px; background: #7C3AED; }
+header h1 { margin: 0; font-size: 28px; color: white; }
+header button { padding: 10px 14px; border: none; border-radius: 20px; background: white; color: #7C3AED; font-size: 14px; font-weight: bold; }
+header input { width: 100%; padding: 12px; border: none; border-radius: 8px; font-size: 15px; }
+main { padding: 16px; }
+main h2 { display: inline-block; margin: 8px 0 12px; font-size: 22px; }
+main button { display: flex; justify-content: space-between; width: 100%; margin-bottom: 8px; padding: 14px; border: 1px solid #ddd; border-radius: 8px; background: white; font-size: 15px; }
+main button span:last-child { font-size: 14px; color: #71717A; }
+main button:first-of-type, main button:last-of-type { display: inline; width: auto; margin-left: 12px; padding: 0; border: none; background: none; font-size: 14px; font-weight: bold; color: #7C3AED; }
+ul { margin: 0; padding: 0; list-style: none; }
+li { overflow: hidden; margin-bottom: 10px; padding: 12px; border: 1px solid #ddd; border-radius: 8px; background: white; }
+li div { float: left; width: 64px; height: 76px; border-radius: 8px; background: #F3E8FF; }
+li h3 { margin: 0 0 6px 76px; font-size: 16px; }
+li p { margin: 0 0 8px 76px; font-size: 14px; color: #71717A; }
+li > span { margin-left: 12px; font-size: 18px; font-weight: bold; color: #FF6B5E; }
+li > span + span { margin-left: 8px; padding: 2px 8px; border-radius: 10px; font-size: 12px; background: #F3E8FF; color: #5B21B6; }
+nav { position: fixed; bottom: 0; width: 100%; max-width: 440px; display: flex; justify-content: space-around; padding: 16px 0; border-top: 1px solid #ddd; background: white; }
+nav a { font-size: 13px; color: #71717A; text-decoration: none; }
+nav a[href="buscar.html"] { font-weight: bold; color: #7C3AED; }

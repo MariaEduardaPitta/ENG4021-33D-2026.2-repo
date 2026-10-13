@@ -1,0 +1,242 @@
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #f7f7fa;
+    color: #333;
+    font-family: Arial, sans-serif;
+    padding-bottom: 75px;
+}
+
+a {
+    text-decoration: none;
+    color: #4A148C;
+}
+
+header {
+    background: white;
+    padding: 15px 8%;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header img {
+    width: 145px;
+    height: 48px;
+    object-fit: contain;
+}
+
+.topo {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    font-size: 20px;
+}
+
+.entrar {
+    background: #4A148C;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 7px;
+    font-size: 14px;
+}
+
+.destaque {
+    text-align: center;
+    background: #f3e8ff;
+    padding: 55px 20px;
+}
+
+h1 {
+    color: #4A148C;
+    font-size: 34px;
+    margin: 0 0 12px;
+}
+
+.destaque p {
+    color: #666;
+    font-size: 16px;
+}
+
+.pesquisa {
+    max-width: 620px;
+    margin: 28px auto 0;
+    display: flex;
+    gap: 10px;
+}
+
+.pesquisa input {
+    flex: 1;
+    min-width: 0;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.pesquisa button {
+    background: #4A148C;
+    color: white;
+    border: none;
+    padding: 0 25px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.conteudo {
+    max-width: 1100px;
+    margin: auto;
+    padding: 35px 20px;
+}
+
+.titulo-secao {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin: 15px 0;
+}
+
+h2 {
+    color: #4A148C;
+    font-size: 22px;
+}
+
+.categorias {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 35px;
+}
+
+.categorias a {
+    background: white;
+    border: 1px solid #e4d5f5;
+    padding: 15px 20px;
+    border-radius: 9px;
+    font-size: 14px;
+}
+
+.categorias a:hover {
+    background: #f3e8ff;
+}
+
+.materiais {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 3px 12px #00000008;
+}
+
+.foto {
+    background: #f3e8ff;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 65px;
+}
+
+.informacoes {
+    padding: 20px;
+}
+
+.etiqueta {
+    color: #4A148C;
+    background: #f3e8ff;
+    padding: 5px 9px;
+    border-radius: 15px;
+    font-size: 12px;
+}
+
+h3 {
+    font-size: 17px;
+    margin: 17px 0 8px;
+}
+
+.estado, .vendedor {
+    color: #777;
+    font-size: 13px;
+}
+
+.preco {
+    color: #4A148C;
+    font-size: 22px;
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+.ver-material {
+    display: block;
+    background: #4A148C;
+    color: white;
+    padding: 12px;
+    text-align: center;
+    border-radius: 7px;
+    margin-top: 18px;
+    font-size: 14px;
+}
+
+.ver-material:hover, .entrar:hover {
+    background: #38106b;
+}
+
+.menu-inferior {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: white;
+    border-top: 1px solid #ddd;
+    display: flex;
+    justify-content: space-around;
+    padding: 13px 5px;
+}
+
+.menu-inferior a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    color: #777;
+    font-size: 21px;
+}
+
+.menu-inferior span {
+    font-size: 12px;
+}
+
+.menu-inferior .ativo {
+    color: #4A148C;
+    font-weight: bold;
+}
+
+@media (max-width: 750px) {
+    .materiais {
+        grid-template-columns: 1fr;
+    }
+
+    .destaque h1 {
+        font-size: 27px;
+    }
+
+    .pesquisa {
+        flex-direction: column;
+    }
+
+    .pesquisa button {
+        padding: 14px;
+    }
+}

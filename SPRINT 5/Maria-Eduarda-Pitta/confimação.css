@@ -1,0 +1,141 @@
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #f7f7fa;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+header {
+    background: white;
+    padding: 15px 8%;
+    border-bottom: 1px solid #ddd;
+}
+
+header img {
+    width: 145px;
+    height: 48px;
+    object-fit: contain;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    padding: 40px 15px;
+}
+
+.confirmacao {
+    background: white;
+    width: 100%;
+    max-width: 520px;
+    padding: 35px;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    box-shadow: 0 4px 18px #00000010;
+    text-align: center;
+}
+
+.icone {
+    width: 75px;
+    height: 75px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background: #e7f7ee;
+    color: #22a06b;
+    font-size: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    color: #4A148C;
+    font-size: 27px;
+    margin-bottom: 10px;
+}
+
+p {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.resumo {
+    margin-top: 25px;
+    padding: 20px;
+    border: 1px solid #eee;
+    border-radius: 9px;
+    text-align: left;
+}
+
+h2 {
+    color: #4A148C;
+    font-size: 18px;
+    margin: 0 0 15px;
+}
+
+.linha {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 13px;
+}
+
+.linha:last-child {
+    border-bottom: none;
+}
+
+.linha strong {
+    text-align: right;
+    overflow-wrap: anywhere;
+}
+
+.status {
+    background: #fff3cd;
+    color: #856404;
+    padding: 5px 9px;
+    border-radius: 20px;
+    font-size: 12px;
+}
+
+.botoes {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.botao {
+    display: block;
+    padding: 14px;
+    border-radius: 7px;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.principal {
+    background: #4A148C;
+    color: white;
+}
+
+.principal:hover {
+    background: #38106b;
+}
+
+.secundario {
+    background: #f3e8ff;
+    color: #4A148C;
+}
+
+@media (max-width: 480px) {
+    .confirmacao {
+        padding: 25px 18px;
+    }
+}

@@ -1,0 +1,234 @@
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #f7f7fa;
+    font-family: Arial, sans-serif;
+    color: #333;
+    padding-bottom: 80px;
+}
+
+a {
+    text-decoration: none;
+    color: #4A148C;
+}
+
+header {
+    background: white;
+    padding: 15px 8%;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header img {
+    width: 145px;
+    height: 48px;
+    object-fit: contain;
+}
+
+.voltar {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+main {
+    max-width: 850px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.chat {
+    background: white;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 3px 12px #00000008;
+}
+
+.cabecalho-chat {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.avatar {
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    border-radius: 50%;
+    background: #f3e8ff;
+    color: #4A148C;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+.contato {
+    flex: 1;
+}
+
+h1 {
+    font-size: 18px;
+    margin: 0 0 6px;
+    color: #4A148C;
+}
+
+.contato p {
+    color: #777;
+    font-size: 13px;
+    margin: 0;
+}
+
+.status {
+    color: #168454;
+    font-size: 12px;
+}
+
+.mensagens {
+    background: #faf8fd;
+    padding: 25px;
+    min-height: 420px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.data {
+    text-align: center;
+    color: #999;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.mensagem {
+    max-width: 75%;
+    padding: 13px 17px;
+    border-radius: 12px;
+}
+
+.mensagem p {
+    margin: 0 0 8px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.mensagem small {
+    display: block;
+    text-align: right;
+    font-size: 11px;
+}
+
+.recebida {
+    align-self: flex-start;
+    background: white;
+    border: 1px solid #eee;
+}
+
+.recebida small {
+    color: #999;
+}
+
+.enviada {
+    align-self: flex-end;
+    background: #4A148C;
+    color: white;
+}
+
+.enviada small {
+    color: #e2d1f5;
+}
+
+.campo-mensagem {
+    display: flex;
+    gap: 12px;
+    padding: 20px;
+    border-top: 1px solid #eee;
+}
+
+.campo-mensagem input {
+    flex: 1;
+    min-width: 0;
+    padding: 14px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.campo-mensagem button {
+    background: #4A148C;
+    color: white;
+    border: none;
+    padding: 0 22px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.campo-mensagem button:hover {
+    background: #38106b;
+}
+
+.menu-inferior {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: white;
+    border-top: 1px solid #ddd;
+    display: flex;
+    justify-content: space-around;
+    padding: 13px 5px;
+}
+
+.menu-inferior a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    color: #777;
+    font-size: 21px;
+}
+
+.menu-inferior span {
+    font-size: 12px;
+}
+
+.menu-inferior .ativo {
+    color: #4A148C;
+    font-weight: bold;
+}
+
+@media (max-width: 600px) {
+    main {
+        margin: 15px auto;
+        padding: 0 10px;
+    }
+
+    .mensagens {
+        padding: 15px;
+    }
+
+    .mensagem {
+        max-width: 90%;
+    }
+
+    .campo-mensagem {
+        padding: 12px;
+    }
+
+    .campo-mensagem button {
+        padding: 0 12px;
+    }
+
+    .status {
+        display: none;
+    }
+}

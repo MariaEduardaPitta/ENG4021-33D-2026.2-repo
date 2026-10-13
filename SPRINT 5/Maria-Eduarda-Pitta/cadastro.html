@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - REPASSA</title>
+    <link rel="stylesheet" href="cadastro.css">
+</head>
+<body>
+    <header>
+        <img src="logo.png" alt="Logo REPASSA">
+    </header>
+
+    <main>
+        <section class="cadastro">
+            <h1>Crie sua conta</h1>
+            <p>Faça parte do REPASSA e dê uma nova história aos materiais acadêmicos.</p>
+
+            <form action="login.html" method="get">
+                <div class="linha">
+                    <div class="campo">
+                        <label for="nome">Nome</label>
+                        <input type="text" id="nome" name="nome"
+                               placeholder="Seu nome" required>
+                    </div>
+                    <div class="campo">
+                        <label for="sobrenome">Sobrenome</label>
+                        <input type="text" id="sobrenome" name="sobrenome"
+                               placeholder="Seu sobrenome" required>
+                    </div>
+                </div>
+
+                <label for="cpf">CPF</label>
+                <input type="text" id="cpf" name="cpf"
+                       placeholder="000.000.000-00" required>
+
+                <label for="telefone">Telefone</label>
+                <input type="tel" id="telefone" name="telefone"
+                       placeholder="(00) 00000-0000" required>
+
+                <label for="email">E-mail</label>
+                <input type="email" id="email" name="email"
+                       placeholder="seuemail@universidade.com.br" required>
+
+                <label for="senha">Senha</label>
+                <input type="password" id="senha" name="senha"
+                       placeholder="Crie uma senha" required>
+
+                <button type="submit">Criar conta</button>
+            </form>
+
+            <p class="entrar">
+                Já tem uma conta?
+                <a href="login.html">Fazer login</a>
+            </p>
+        </section>
+    </main>
+</body>
+</html>

@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat - REPASSA</title>
+    <link rel="stylesheet" href="chat.css">
+</head>
+<body>
+    <header>
+        <a href="pagina-inicial.html">
+            <img src="logo.png" alt="Logo REPASSA">
+        </a>
+        <a href="conversas.html" class="voltar">← Voltar às conversas</a>
+    </header>
+
+    <main>
+        <section class="chat">
+            <div class="cabecalho-chat">
+                <div class="avatar">MC</div>
+                <div class="contato">
+                    <h1>Maria Clara</h1>
+                    <p>Cálculo — Vol. 1, Stewart</p>
+                </div>
+                <span class="status">● Online</span>
+            </div>
+
+            <div class="mensagens">
+                <div class="data">Hoje</div>
+
+                <div class="mensagem recebida">
+                    <p>Oi! Vi seu anúncio do Stewart.</p>
+                    <small>14:30</small>
+                </div>
+
+                <div class="mensagem enviada">
+                    <p>Oi, Maria! Está sim, em bom estado.</p>
+                    <small>14:31</small>
+                </div>
+
+                <div class="mensagem recebida">
+                    <p>Consegue fazer por R$ 65?</p>
+                    <small>14:31</small>
+                </div>
+
+                <div class="mensagem enviada">
+                    <p>Faço por R$ 70 e entrego na PUC.</p>
+                    <small>14:32</small>
+                </div>
+            </div>
+
+            <form class="campo-mensagem" action="#" method="get">
+                <input type="text" name="mensagem"
+                       placeholder="Digite uma mensagem..."
+                       aria-label="Digite uma mensagem"
+                       required>
+                <button type="submit">Enviar ➤</button>
+            </form>
+        </section>
+    </main>
+
+    <nav class="menu-inferior" aria-label="Navegação principal">
+        <a href="pagina-inicial.html">⌂ <span>Início</span></a>
+        <a href="buscar.html">⌕ <span>Buscar</span></a>
+        <a href="anunciar.html">＋ <span>Anunciar</span></a>
+        <a href="conversas.html" class="ativo">✉ <span>Conversas</span></a>
+        <a href="cadastro.html">♙ <span>Cadastro</span></a>
+    </nav>
+</body>
+</html>

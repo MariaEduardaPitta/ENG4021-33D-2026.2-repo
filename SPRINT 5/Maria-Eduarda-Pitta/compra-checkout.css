@@ -1,0 +1,284 @@
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #f7f7fa;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+a {
+    text-decoration: none;
+    color: #4A148C;
+}
+
+header {
+    background: white;
+    padding: 15px 8%;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header img {
+    width: 145px;
+    height: 48px;
+    object-fit: contain;
+}
+
+nav {
+    display: flex;
+    gap: 25px;
+    font-size: 14px;
+}
+
+main {
+    max-width: 1100px;
+    margin: 35px auto;
+    padding: 0 20px;
+}
+
+.voltar {
+    display: inline-block;
+    margin-bottom: 25px;
+}
+
+.produto {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 35px;
+}
+
+.imagem-produto {
+    background: #f3e8ff;
+    border-radius: 12px;
+    min-height: 380px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 110px;
+}
+
+.detalhes {
+    background: white;
+    padding: 30px;
+    border: 1px solid #eee;
+    border-radius: 12px;
+}
+
+.categoria {
+    color: #4A148C;
+    font-size: 13px;
+}
+
+h1 {
+    color: #4A148C;
+    font-size: 28px;
+}
+
+h2 {
+    font-size: 18px;
+    margin-top: 25px;
+}
+
+.precos {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.precos strong {
+    color: #4A148C;
+    font-size: 30px;
+}
+
+.precos del {
+    color: #999;
+    font-size: 15px;
+}
+
+.disponivel {
+    background: #e7f7ee;
+    color: #168454;
+    padding: 12px;
+    border-radius: 7px;
+    font-size: 14px;
+}
+
+.descricao {
+    color: #666;
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+.vendedor {
+    border: 1px solid #eee;
+    border-radius: 9px;
+    padding: 20px;
+    margin-top: 25px;
+}
+
+.vendedor h2 {
+    margin-top: 0;
+}
+
+.perfil {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.avatar {
+    background: #f3e8ff;
+    color: #4A148C;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 23px;
+    font-weight: bold;
+}
+
+.perfil p {
+    color: #777;
+    font-size: 13px;
+    margin: 5px 0;
+}
+
+.perfil span {
+    color: #4A148C;
+    font-size: 13px;
+}
+
+.informacoes {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.informacoes div {
+    flex: 1;
+    background: #f7f1ff;
+    padding: 12px;
+    border-radius: 7px;
+}
+
+.informacoes small {
+    display: block;
+    color: #777;
+    font-size: 11px;
+    margin-bottom: 7px;
+}
+
+.informacoes strong {
+    color: #4A148C;
+    font-size: 13px;
+}
+
+.informacoes .verificado {
+    color: #168454;
+}
+
+.botoes {
+    display: flex;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.botao {
+    display: inline-block;
+    padding: 14px 18px;
+    border-radius: 7px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.botoes .botao {
+    flex: 1;
+}
+
+.comprar {
+    background: #4A148C;
+    color: white;
+}
+
+.comprar:hover {
+    background: #38106b;
+}
+
+.mensagem {
+    background: #f3e8ff;
+    color: #4A148C;
+}
+
+.fundo-confirmacao {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: #00000080;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.fundo-confirmacao:target {
+    display: flex;
+}
+
+.confirmacao {
+    background: white;
+    width: 100%;
+    max-width: 460px;
+    padding: 30px;
+    border-radius: 12px;
+}
+
+.confirmacao h2 {
+    color: #4A148C;
+    margin-top: 0;
+}
+
+.confirmacao p {
+    color: #666;
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+.botoes-confirmacao {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.cancelar {
+    background: white;
+    border: 1px solid #4A148C;
+    color: #4A148C;
+}
+
+@media (max-width: 750px) {
+    .produto {
+        grid-template-columns: 1fr;
+    }
+
+    .imagem-produto {
+        min-height: 220px;
+    }
+
+    nav {
+        gap: 10px;
+        font-size: 12px;
+    }
+
+    .detalhes {
+        padding: 20px;
+    }
+}

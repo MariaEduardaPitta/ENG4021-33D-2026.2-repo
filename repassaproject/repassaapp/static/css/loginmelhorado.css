@@ -1,0 +1,134 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #121212;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+
+.login-box {
+    background-color: #1e1e1e;
+    border: 2px solid #3c096c;
+    border-radius: 10px;
+    padding: 40px;
+    width: 100%;
+    max-width: 450px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+
+.texto-centro {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.cor-roxa {
+    color: #9d4edd;
+}
+
+.cor-subtexto {
+    color: #b197fc;
+    font-size: 11px;
+    letter-spacing: 1px;
+    margin-bottom: 25px;
+}
+
+
+.titulo-marca {
+    font-size: 38px;
+    margin-bottom: 5px;
+}
+
+.titulo-grande {
+    font-size: 24px; 
+    margin: 25px 0;
+}
+
+
+.campo-grupo {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.campo-grupo label {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.campo-grupo input {
+    font-size: 15px;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #5a189a;
+    background-color: #121212;
+    color: #ffffff;
+    outline: none;
+}
+
+.campo-grupo input:focus {
+    border-color: #9d4edd;
+}
+
+/* Botão Entrar */
+.botao-entrar {
+    font-size: 16px; 
+    width: 100%;
+    padding: 12px;
+    background-color: #7b2cbf;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 10px;
+    transition: background-color 0.2s;
+}
+
+.botao-entrar:hover {
+    background-color: #9d4edd;
+}
+
+
+.links-uteis {
+    margin-top: 25px;
+    text-align: center;
+}
+
+.link-esqueci {
+    color: #cccccc;
+    font-size: 14px;
+    text-decoration: underline;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.link-esqueci:hover {
+    color: #ffffff;
+}
+
+.bloco-cadastro h3 {
+    font-size: 14px;
+    color: #aaaaaa;
+    font-weight: normal;
+    margin-bottom: 5px;
+}
+
+.link-cadastro {
+    font-size: 15px;
+    text-decoration: underline;
+    font-weight: bold;
+}

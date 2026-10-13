@@ -1,0 +1,272 @@
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #f7f7fa;
+    font-family: Arial, sans-serif;
+    color: #333;
+    padding-bottom: 80px;
+}
+
+a {
+    text-decoration: none;
+    color: #4A148C;
+}
+
+header {
+    background: white;
+    padding: 15px 8%;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header img {
+    width: 145px;
+    height: 48px;
+    object-fit: contain;
+}
+
+.notificacoes {
+    font-size: 23px;
+}
+
+main {
+    max-width: 1150px;
+    margin: 35px auto;
+    padding: 0 20px;
+}
+
+.titulo h1 {
+    color: #4A148C;
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+.titulo p {
+    color: #777;
+    font-size: 14px;
+}
+
+.pesquisa {
+    display: flex;
+    gap: 10px;
+    margin: 25px 0 30px;
+}
+
+.pesquisa input {
+    flex: 1;
+    min-width: 0;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    border-radius: 7px;
+    font-family: Arial, sans-serif;
+}
+
+.pesquisa button, .aplicar {
+    background: #4A148C;
+    color: white;
+    padding: 14px 25px;
+    font-weight: bold;
+}
+
+.conteudo {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 25px;
+    align-items: start;
+}
+
+.filtros, .material {
+    background: white;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px #00000008;
+}
+
+.filtros {
+    padding: 22px;
+}
+
+.cabecalho-filtros {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h2 {
+    color: #4A148C;
+    font-size: 19px;
+}
+
+.cabecalho-filtros a {
+    font-size: 13px;
+}
+
+.filtros label {
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+    margin: 18px 0 8px;
+}
+
+.filtros input, .filtros select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 7px;
+    background: white;
+    color: #555;
+}
+
+.aplicar {
+    width: 100%;
+    margin-top: 25px;
+}
+
+.cabecalho-resultados {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.cabecalho-resultados span {
+    color: #888;
+    font-size: 12px;
+}
+
+.lista {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.material {
+    display: flex;
+    overflow: hidden;
+}
+
+.foto {
+    width: 170px;
+    min-width: 170px;
+    background: #f3e8ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 65px;
+}
+
+.dados {
+    flex: 1;
+    padding: 20px;
+}
+
+.categoria {
+    background: #f3e8ff;
+    color: #4A148C;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+}
+
+h3 {
+    margin: 15px 0 8px;
+    font-size: 17px;
+}
+
+.dados p {
+    color: #777;
+    font-size: 13px;
+}
+
+.estado {
+    display: inline-block;
+    color: #168454;
+    background: #e7f7ee;
+    padding: 6px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+}
+
+.rodape-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    gap: 10px;
+}
+
+.rodape-card strong {
+    color: #4A148C;
+    font-size: 21px;
+}
+
+.rodape-card a {
+    background: #4A148C;
+    color: white;
+    padding: 11px 15px;
+    border-radius: 7px;
+    font-size: 13px;
+}
+
+.menu-inferior {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: white;
+    border-top: 1px solid #ddd;
+    display: flex;
+    justify-content: space-around;
+    padding: 13px 5px;
+}
+
+.menu-inferior a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    color: #777;
+    font-size: 21px;
+}
+
+.menu-inferior span {
+    font-size: 12px;
+}
+
+.menu-inferior .ativo {
+    color: #4A148C;
+    font-weight: bold;
+}
+
+@media (max-width: 750px) {
+    .conteudo {
+        grid-template-columns: 1fr;
+    }
+
+    .material {
+        flex-direction: column;
+    }
+
+    .foto {
+        width: 100%;
+        height: 140px;
+    }
+
+    .pesquisa button {
+        padding: 12px;
+    }
+}
