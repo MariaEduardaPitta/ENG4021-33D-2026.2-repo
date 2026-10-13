@@ -1,0 +1,17 @@
+* { box-sizing: border-box; }
+body { max-width: 440px; margin: 0 auto; font-family: Arial, sans-serif; color: #25252D; background: white; }
+header { padding: 16px; text-align: center; border-bottom: 1px solid #ddd; }
+header h2 { font-size: 20px; margin: 0; }
+.success-screen { padding: 28px 20px; }
+.success-mark { width: 80px; height: 80px; margin: 0 auto; border-radius: 50%; background: #E7F7EE; color: #22A06B; font-size: 48px; display: flex; justify-content: center; align-items: center; }
+.success-screen h1 { font-size: 26px; text-align: center; }
+.success-screen p { text-align: center; line-height: 1.5; font-size: 15px; margin: 8px auto 24px; }
+.success-recap { max-width: 340px; margin: 0 auto; padding: 12px; border: 1px solid #ddd; }
+.success-recap dl { margin: 0; }
+.row-line { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 10px 0; border-bottom: 1px solid #eee; font-size: 13px; }
+dd { margin: 0; max-width: 60%; text-align: right; overflow-wrap: anywhere; }
+.status-entrega { background: #FEF3C7; color: #92400E; padding: 4px 8px; font-size: 12px; }
+.success-actions { max-width: 340px; margin: 24px auto 0; display: flex; flex-direction: column; gap: 12px; }
+.btn { padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px; font-family: Arial, sans-serif; text-align: center; text-decoration: none; }
+.btn-primary { background: #7C3AED; color: white; }
+.btn-secondary { background: #F3E8FF; color: #5B21B6; }

@@ -1,0 +1,132 @@
+body { 
+    margin: 0; 
+    font-family: Arial; 
+    color: #202027; 
+}
+
+.cabecalho { 
+    height: 65px; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    border-bottom: 1px solid #ddd; 
+    padding: 0 25px; 
+}
+
+.logo, .menu, .linha { 
+    display: flex; 
+    align-items: center; 
+}
+
+.simbolo-logo { 
+    background-color: #5b21b6; 
+    color: white; 
+    font-size: 24px; 
+    padding: 4px; 
+}
+
+.nome-logo { 
+    color: #5b21b6; 
+    font-size: 22px; 
+    font-weight: bold; 
+    margin-left: 9px; 
+}
+
+.item-menu { 
+    margin-left: 14px; 
+    padding: 12px; 
+    color: #62626b; 
+}
+
+.ativo { 
+    color: #6424c9; 
+    background-color: #f3e8ff; 
+}
+
+.pagina { 
+    width: 650px; 
+    margin: auto; 
+    padding: 32px 0 50px; 
+}
+
+.subtitulo { 
+    color: #7c2cff; 
+    margin-bottom: 2px; 
+}
+
+h1 { 
+    color: #5724bd; 
+    font-size: 32px; 
+    margin: 0 0 8px; 
+}
+
+.descricao { 
+    color: #62626b; 
+    margin-top: 0; 
+}
+
+.formulario { 
+    border: 1px solid #ddd; 
+    padding: 25px; 
+}
+
+.campo { 
+    margin-bottom: 20px; 
+}
+
+.titulo-campo { 
+    margin: 0 0 6px; 
+    font-size: 14px; 
+}
+
+.foto { 
+    width: 320px; 
+    height: 200px; 
+    background-color: #faf6ff; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+}
+
+input, textarea, select { 
+    width: 100%; 
+    font-family: Arial; 
+    font-size: 15px; 
+    border: 1px solid #cfcfd9; 
+}
+
+input, select { 
+    height: 40px; 
+}
+
+textarea { 
+    height: 90px; 
+}
+
+.esquerda, .direita { 
+    width: 50%; 
+}
+
+.esquerda { 
+    margin-right: 8px; 
+}
+
+.direita { 
+    margin-left: 8px; 
+}
+
+.ajuda { 
+    color: #62626b; 
+    font-size: 13px; 
+}
+
+.botao { 
+    width: 100%; 
+    height: 49px; 
+    background-color: #7c24ff; 
+    color: white; 
+    border: 0; 
+    font-size: 16px; 
+    font-weight: bold; 
+}
