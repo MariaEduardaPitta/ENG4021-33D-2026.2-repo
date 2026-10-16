@@ -1,0 +1,43 @@
+.texto-centro {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.texto-centro input + label {
+    margin-left: 20px; 
+}
+
+.input-cpfemailsenha {
+    width: 47%;
+}
+
+.input-telefone {
+    width: 45%;
+}
+
+.titulo-grande {
+    font-size: 55px; 
+}
+
+.titulo-medio { 
+    font-size: 40px;
+}
+
+.titulo-medio label { 
+    font-size: 30px;
+}
+
+.titulo-medio input { 
+    font-size: 20px;
+}
+
+.cor-roxa {
+    color: #4A148C;
+}
+
+.botao-cadastro {
+    font-size: 18px;  
+    width: 24%;
+    height: 35px;     
+}
