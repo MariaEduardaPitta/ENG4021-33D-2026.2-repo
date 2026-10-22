@@ -22,4 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home),
     path('notificacoes/', notificacoes),
+    path('material/<int:id>/', detalhe_material, name='detalhe_material'),
 ]

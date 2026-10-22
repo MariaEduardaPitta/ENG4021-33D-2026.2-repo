@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from .models import Material
 
 # Create your views here.
@@ -8,3 +8,7 @@ def home(request):
 
 def notificacoes(request):
     return render(request, 'notificacoes.html')
+
+def detalhe_material(request, id):
+    material = get_object_or_404(Material, pk=id)
+    return render(request, 'detalhes.html', {"material": material})

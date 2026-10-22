@@ -28,7 +28,7 @@
   <article class="card">
     <span class="material-icone" aria-hidden="true">📦</span>
     <div class="material-info">
-      <h3>{{ material.titulo }}</h3>
+            <h3><a href="{% url 'detalhe_material' material.id %}">{{ material.titulo }}</a></h3>
       <p class="preco">R$ {{ material.preco }} <del>novo: R$ {{ material.preco_produto_novo }}</del></p>
       <small>{{ material.estado_conservacao }} · {{ material.curso }} · {{ material.categoria.nome }}</small>
       <div class="rodape-card">

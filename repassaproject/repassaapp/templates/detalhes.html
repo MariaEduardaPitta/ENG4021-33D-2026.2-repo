@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ material.titulo }} — REPASSA</title>
+  <link rel="stylesheet" href="{% static 'css/detalhes.css' %}">
+</head>
+<body>
+  <header>
+    <a href="/">Voltar</a>
+    <h1>Detalhes do material</h1>
+  </header>
+
+  <main>
+    <div class="foto">
+      <span aria-hidden="true">📦</span>
+    </div>
+
+    <section class="resumo">
+      {% if material.status == "disponivel" %}
+        <strong class="selo disponivel">DISPONÍVEL</strong>
+      {% else %}
+        <strong class="selo vendido">VENDIDO</strong>
+      {% endif %}
+
+      <h2>{{ material.titulo }}</h2>
+      <p class="preco">R$ {{ material.preco }}</p>
+      <p class="preco-novo">Novo: <del>R$ {{ material.preco_produto_novo }}</del></p>
+    </section>
+
+    <section class="bloco">
+      <h3>Descrição</h3>
+      <p>{{ material.descricao }}</p>
+    </section>
+
+    <section class="bloco">
+      <h3>Informações</h3>
+      <dl>
+        <div class="linha"><dt>Estado de conservação</dt><dd>{{ material.estado_conservacao }}</dd></div>
+        <div class="linha"><dt>Curso</dt><dd>{{ material.curso }}</dd></div>
+        <div class="linha"><dt>Categoria</dt><dd>{{ material.categoria.nome }}</dd></div>
+      </dl>
+    </section>
+
+    <section class="bloco">
+      <h3>Vendedor</h3>
+      <p class="vendedor-nome">{{ material.vendedor.nome }}</p>
+      <p>★ {{ material.vendedor.nota_media }}</p>
+    </section>
+
+    {% if material.status == "disponivel" %}
+    <div class="acoes">
+      <!-- Ligar ao chat e à compra quando essas URLs existirem. -->
+      <button class="btn btn-secundario" type="button" disabled>Conversar com vendedor</button>
+      <button class="btn btn-principal" type="button" disabled>Comprar</button>
+    </div>
+    {% endif %}
+  </main>
+</body>
+</html>
