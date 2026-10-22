@@ -23,4 +23,5 @@ urlpatterns = [
     path('', home),
     path('notificacoes/', notificacoes),
     path('material/<int:id>/', detalhe_material, name='detalhe_material'),
+    path('confirmacao/<int:id>/', confirmacao, name='confirmacao'),
 ]

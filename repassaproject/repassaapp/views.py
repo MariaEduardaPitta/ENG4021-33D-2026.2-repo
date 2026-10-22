@@ -16,3 +16,8 @@ def notificacoes(request):
 def detalhe_material(request, id):
     material = get_object_or_404(Material, pk=id)
     return render(request, 'detalhes.html', {"material": material})
+
+@login_required
+def confirmacao(request, id):
+    compra = get_object_or_404(Compra, pk=id, comprador=request.user)
+    return render(request, 'confirmacao.html', {"compra": compra})
