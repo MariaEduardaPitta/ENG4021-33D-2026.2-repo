@@ -22,4 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home),
     path('notificacoes/', notificacoes),
+    path('compras/<int:compra_id>/avaliar/', avaliar_vendedor, name='avaliar_vendedor'),
 ]

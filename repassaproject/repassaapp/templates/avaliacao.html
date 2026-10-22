@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avaliar vendedor - Repassa</title>
+    <link rel="stylesheet" href="{% static 'css/avaliacao.css' %}">
+</head>
+<body>
+    <header><a href="/">REPASSA</a></header>
+    <main>
+        <h1>Avaliar vendedor</h1>
+        {% if precisa_login %}
+            <p>Entre na sua conta para avaliar uma compra.</p>
+        {% else %}
+            <section class="resumo">
+                <p><strong>Material:</strong> {{ compra.material.titulo }}</p>
+                <p><strong>Vendedor:</strong> {{ compra.material.vendedor.nome }}</p>
+            </section>
+            {% if avaliacao %}
+                <p class="sucesso" role="status">Sua avaliação está registrada.</p>
+                <p><strong>Nota:</strong> {{ avaliacao.nota }} de 5</p>
+                {% if avaliacao.comentario %}<p>{{ avaliacao.comentario }}</p>{% endif %}
+            {% else %}
+                <p>Escolha uma nota de 1 a 5 para sua experiência.</p>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.non_field_errors }}
+                    <div class="campo">
+                        {{ form.nota.label_tag }}
+                        {{ form.nota }}
+                        {{ form.nota.errors }}
+                    </div>
+                    <div class="campo">
+                        {{ form.comentario.label_tag }}
+                        {{ form.comentario }}
+                        {{ form.comentario.errors }}
+                    </div>
+                    <button type="submit">Enviar avaliação</button>
+                </form>
+            {% endif %}
+        {% endif %}
+        <a class="voltar" href="/">Voltar ao início</a>
+    </main>
+</body>
+</html>

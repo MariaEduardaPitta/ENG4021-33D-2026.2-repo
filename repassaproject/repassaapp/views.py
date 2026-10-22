@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
+from .forms import AvaliacaoForm
+from .models import Compra, Avaliacao
 
 # Create your views here.
 def home(request):
@@ -6,3 +8,28 @@ def home(request):
 
 def notificacoes(request):
     return render(request, 'notificacoes.html')
+
+
+def avaliar_vendedor(request, compra_id):
+    if not request.user.is_authenticated:
+        return render(request, 'avaliacao.html', {'precisa_login': True}, status=403)
+    compra = get_object_or_404(
+        Compra.objects.select_related('material__vendedor'),
+        pk=compra_id, comprador=request.user,
+    )
+    avaliacao = Avaliacao.objects.filter(compra=compra).first()
+    form = AvaliacaoForm(request.POST if request.method == 'POST' else None)
+    if request.method == 'POST' and not avaliacao and form.is_valid():
+        Avaliacao.objects.get_or_create(
+            compra=compra,
+            defaults={
+                'avaliador': request.user,
+                'vendedor': compra.material.vendedor,
+                'nota': form.cleaned_data['nota'],
+                'comentario': form.cleaned_data['comentario'],
+            },
+        )
+        return redirect('avaliar_vendedor', compra_id=compra.pk)
+    return render(request, 'avaliacao.html', {
+        'compra': compra, 'form': form, 'avaliacao': avaliacao,
+    })
