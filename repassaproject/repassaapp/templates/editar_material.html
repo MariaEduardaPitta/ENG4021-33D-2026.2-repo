@@ -1,0 +1,88 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar anúncio - Repassa</title>
+    <link rel="stylesheet" href="{% static 'css/editar_material.css' %}">
+</head>
+<body>
+    <div class="cabecalho">
+        <div class="logo">
+            <div class="simbolo-logo">➜</div>
+            <div class="nome-logo">Repassa</div>
+        </div>
+        <div class="menu">
+            <div class="item-menu">⌂ Início</div>
+            <div class="item-menu">⌕ Buscar</div>
+            <div class="item-menu">⊕ Anunciar</div>
+            <div class="item-menu">◯ Conversas</div>
+            <div class="item-menu">♙ Perfil</div>
+        </div>
+    </div>
+
+    <div class="pagina">
+        <p class="subtitulo">Gerencie seu material</p>
+        <h1>Editar anúncio</h1>
+        <p class="descricao">Altere as informações abaixo para atualizar seu anúncio.</p>
+
+        <form class="formulario" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+
+            <div class="campo">
+                <p class="titulo-campo">Foto do material</p>
+                {{ form.foto }}
+                {{ form.foto.errors }}
+            </div>
+
+            <div class="campo">
+                <p class="titulo-campo">Título do anúncio</p>
+                {{ form.titulo }}
+                {{ form.titulo.errors }}
+            </div>
+
+            <div class="campo">
+                <p class="titulo-campo">Descrição</p>
+                {{ form.descricao }}
+                {{ form.descricao.errors }}
+            </div>
+
+            <div class="linha">
+                <div class="campo esquerda">
+                    <p class="titulo-campo">Categoria</p>
+                    {{ form.categoria }}
+                    {{ form.categoria.errors }}
+                </div>
+                <div class="campo direita">
+                    <p class="titulo-campo">Curso</p>
+                    {{ form.curso }}
+                    {{ form.curso.errors }}
+                </div>
+            </div>
+
+            <div class="campo">
+                <p class="titulo-campo">Estado de conservação</p>
+                {{ form.estado_conservacao }}
+                {{ form.estado_conservacao.errors }}
+            </div>
+
+            <div class="linha">
+                <div class="campo esquerda">
+                    <p class="titulo-campo">Preço de venda (R$)</p>
+                    {{ form.preco }}
+                    {{ form.preco.errors }}
+                </div>
+                <div class="campo direita">
+                    <p class="titulo-campo">Preço do produto novo (R$)</p>
+                    {{ form.preco_produto_novo }}
+                    {{ form.preco_produto_novo.errors }}
+                </div>
+            </div>
+
+            <button class="botao" type="submit">Salvar alterações</button>
+        </form>
+    </div>
+</body>
+</html>
