@@ -1,4 +1,4 @@
-{% load static %}
+{% load static tz %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -8,120 +8,89 @@
     <title>Conversas</title>
 </head>
 <body>
-<header>  
-
+<form method="get" action="{% url 'conversas' %}">
+<header>
 <h1>
     Conversas
 </h1>
-<button>
-+   
-</button>
-<input placeholder="Procurar Conversa">
-
+<a class="novo" href="{% url 'buscar' %}" aria-label="Iniciar nova conversa" title="Buscar um material para conversar">
+    +
+</a>
+<input type="search" name="q" value="{{ q }}" placeholder="Procurar conversa" aria-label="Procurar conversa">
+<input type="hidden" name="filtro" value="{{ filtro }}">
 </header>
+</form>
 <main>
-<button>
+{% if precisa_login %}
+<p class="aviso">
+    Entre na sua conta para ver suas conversas.
+    <a href="{% url 'login' %}">Fazer login</a>
+</p>
+{% else %}
+<a class="aba {% if filtro == 'todas' %}ativa{% endif %}" href="?filtro=todas{% if q %}&amp;q={{ q|urlencode }}{% endif %}">
     Todas
-</button>
-<button>
+</a>
+<a class="aba {% if filtro == 'comprando' %}ativa{% endif %}" href="?filtro=comprando{% if q %}&amp;q={{ q|urlencode }}{% endif %}">
     Comprando
-</button>
-<button>
+</a>
+<a class="aba {% if filtro == 'vendendo' %}ativa{% endif %}" href="?filtro=vendendo{% if q %}&amp;q={{ q|urlencode }}{% endif %}">
     Vendendo
-</button>
+</a>
 <ul>
+    {% for conversa in conversas %}
     <li>
-        <div>
+        <a href="/chat/{{ conversa.material.pk }}/{{ conversa.outro.pk }}/">
+            <div>
 
-        </div>
-        <h2>
-            Maria Clara
-        </h2>
-        <p>
-            Ainda está disponível??
-        </p>
-        <p>
-            Cálculo - Vol. 1, Stewart
-        </p>
-        <span>
-            14:32
-        </span>
-        <span>
-            2
-        </span>
-    </li>
-     <li>
-        <div>
-
-        </div>
-        <h2>
-            Carlos Eduardo
-        </h2>
-        <p>
-            O material está pronto, posso levar amanhã.
-        </p>
-        <p>
-            Calculadora HP 12C Gold
-        </p>
-        <span>
-            Ontem
-        </span>
-        
-    </li>
-     <li>
-        <div>
-
-        </div>
-        <h2>
-            Letícia Prado
-        </h2>
-        <p>
-            Foi ótimo fazer negócios com você!
-        </p>
-        <p>
+            </div>
+            <h2>
+                {{ conversa.outro.nome|default:conversa.outro.username }}
+            </h2>
+            <p>
+                {{ conversa.ultima.conteudo|truncatechars:60 }}
+            </p>
+            <p>
+                {{ conversa.material.titulo }}
+            </p>
+            <span>
+                {{ conversa.ultima.data_hora|timezone:"America/Sao_Paulo"|date:"d/m H:i" }}
+            </span>
+        </a>
+        {% if conversa.negocio_concluido %}
+        <p class="etiquetas">
             <span>
                 Negócio concluído
             </span>
-            <span>
+            {% if conversa.pode_avaliar %}
+            <a href="{% url 'avaliar_vendedor' conversa.compra.pk %}">
                 Avaliar
-            </span>
+            </a>
+            {% endif %}
         </p>
-        <span>
-            Seg
-        </span>
-        
+        {% endif %}
     </li>
-     <li>
-        <div>
-
-        </div>
-        <h2>
-            Rafael Menezes
-        </h2>
-        <p>
-            Combinado, te encontro no RDC às 15h.
-        </p>
-        <p>
-        	Física 1 — Halliday, 10ª ed.
-        </p>
-        <span>
-            12/09
-        </span>
-        
+    {% empty %}
+    <li class="vazio">
+        Nenhuma conversa por aqui ainda.
     </li>
+    {% endfor %}
 </ul>
+{% endif %}
 </main>
 <nav>
-    <a href="#">
+    <a href="{% url 'home' %}">
         Início
     </a>
-    <a href="buscar.html">
+    <a href="{% url 'buscar' %}">
         Buscar
     </a>
-    <a href="conversas.html">
+    <a href="{% url 'anunciar_material' %}">
+        Anunciar
+    </a>
+    <a href="{% url 'conversas' %}" class="ativo">
         Conversas
     </a>
-    <a href="#">  
+    <a href="{% url 'editar_perfil' %}">
         Perfil
     </a>
 </nav>
