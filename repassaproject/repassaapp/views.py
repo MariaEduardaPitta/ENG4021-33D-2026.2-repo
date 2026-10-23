@@ -1,15 +1,7 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth.decorators import login_required
-from .forms import (
-    AvaliacaoForm,
-    CadastroForm,
-    LoginForm,
-    EditarPerfilForm,
-    AnunciarMaterialForm,
-    EditarMaterialForm,
-)
-from .models import Compra, Avaliacao, Material, Mensagem
 
+from decimal import Decimal, InvalidOperation
+
+from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import (
     AvaliacaoForm,
@@ -19,27 +11,15 @@ from .forms import (
     AnunciarMaterialForm,
     EditarMaterialForm,
 )
-from .models import Compra, Avaliacao, Material
+from .models import Compra, Avaliacao, Material, Categoria
 
 
 def home(request):
-    materiais = Material.objects.filter(status="disponivel")
-    return render(request, 'index.html', {"materiais": materiais})
+    return render(request, 'index.html')
 
-@login_required
+
 def notificacoes(request):
-    mensagens = Mensagem.objects.filter(destinatario=request.user)
-    vendas = Compra.objects.filter(material__vendedor=request.user)
-    return render(request, 'notificacoes.html', {"mensagens": mensagens, "vendas": vendas})
-
-def detalhe_material(request, id):
-    material = get_object_or_404(Material, pk=id)
-    return render(request, 'detalhes.html', {"material": material})
-
-@login_required
-def confirmacao(request, id):
-    compra = get_object_or_404(Compra, pk=id, comprador=request.user)
-    return render(request, 'confirmacao.html', {"compra": compra})
+    return render(request, 'notificacoes.html')
 
 
 def avaliar_vendedor(request, compra_id):
@@ -162,3 +142,61 @@ def editar_material(request, material_id):
         'material': material,
     })
 
+
+# ---------- Buscar, Conversas e Chat ----------
+
+ORDENS_BUSCA = {
+    'recentes': '-id',
+    'menor_preco': 'preco',
+    'maior_preco': '-preco',
+}
+
+
+def buscar(request):
+    materiais = Material.objects.filter(status='disponivel').select_related('vendedor', 'categoria')
+
+    q = request.GET.get('q', '').strip()
+    categoria = request.GET.get('categoria', '')
+    curso = request.GET.get('curso', '')
+    estado = request.GET.get('estado', '')
+    preco_max = request.GET.get('preco_max', '').strip().replace(',', '.')
+    ordem = request.GET.get('ordem', 'recentes')
+    if ordem not in ORDENS_BUSCA:
+        ordem = 'recentes'
+
+    if q:
+        materiais = materiais.filter(
+            Q(titulo__icontains=q) | Q(descricao__icontains=q) | Q(curso__icontains=q)
+        )
+    if categoria.isdigit():
+        materiais = materiais.filter(categoria_id=categoria)
+    if curso:
+        materiais = materiais.filter(curso=curso)
+    if estado:
+        materiais = materiais.filter(estado_conservacao=estado)
+    if preco_max:
+        try:
+            valor = Decimal(preco_max)
+            if not valor.is_finite():
+                raise InvalidOperation
+            materiais = materiais.filter(preco__lte=valor)
+        except InvalidOperation:
+            preco_max = ''
+
+    materiais = materiais.order_by(ORDENS_BUSCA[ordem])
+
+    disponiveis = Material.objects.filter(status='disponivel')
+    return render(request, 'buscar.html', {
+        'materiais': materiais,
+        'categorias': Categoria.objects.order_by('nome'),
+        'cursos': disponiveis.order_by('curso').values_list('curso', flat=True).distinct(),
+        'estados': disponiveis.order_by('estado_conservacao').values_list('estado_conservacao', flat=True).distinct(),
+        'filtros': {
+            'q': q,
+            'categoria': categoria,
+            'curso': curso,
+            'estado': estado,
+            'preco_max': preco_max,
+            'ordem': ordem,
+        },
+    })
