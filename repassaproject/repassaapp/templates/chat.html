@@ -1,4 +1,4 @@
-{% load static %}
+{% load static tz %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -9,60 +9,61 @@
 </head>
 <body>
 <header>
-<a href="conversas.html">
+<a href="{% url 'conversas' %}">
    Voltar
 </a>
 <div>
 
 </div>
+{% if precisa_login %}
 <h1>
-    Maria Clara
+    Chat
+</h1>
+{% else %}
+<h1>
+    {{ outro.nome|default:outro.username }}
 </h1>
 <p>
-    Cálculo — Vol. 1, Stewart
+    {{ material.titulo }} · R$ {{ material.preco|floatformat:2 }}
 </p>
-</header>     
+{% endif %}
+</header>
 <main>
+{% if precisa_login %}
+<p class="aviso">
+    Entre na sua conta para ver esta conversa.
+    <a href="{% url 'login' %}">Fazer login</a>
+</p>
+{% else %}
 <ul>
-    <li class="recebida">
+    {% for mensagem in mensagens %}
+    <li class="{% if mensagem.remetente_id == user.id %}enviada{% else %}recebida{% endif %}">
         <p>
-            Oi! Vi seu anúncio do Stewart.
+            {{ mensagem.conteudo|linebreaksbr }}
         </p>
         <span>
-            14:30
+            {{ mensagem.data_hora|timezone:"America/Sao_Paulo"|date:"d/m H:i" }}
         </span>
     </li>
-    <li class="enviada">
-        <p>
-            Oi, Maria! Está sim, em bom estado.
-        </p>
-        <span>
-            14:31
-        </span>
+    {% empty %}
+    <li class="vazio">
+        Nenhuma mensagem ainda. Mande a primeira!
     </li>
-    <li class="recebida">
-        <p>
-            Consegue fazer por R$ 65?
-        </p>
-        <span>
-            14:31
-        </span>
-    </li>
-    <li class="enviada">
-        <p>
-            Faço por R$ 70 e entrego na PUC.
-        </p>
-        <span>
-            14:32
-        </span>
-    </li>
+    {% endfor %}
 </ul>
+{% endif %}
 </main>
+{% if not precisa_login %}
 <footer>
-    <input placeholder="Digite uma mensagem">
-    <button>
-        Enviar
-    </button>
+    <form method="post">
+        {% csrf_token %}
+        <input name="conteudo" placeholder="Digite uma mensagem" aria-label="Mensagem" autocomplete="off" required>
+        <button type="submit">
+            Enviar
+        </button>
+    </form>
 </footer>
+<script>window.scrollTo(0, document.body.scrollHeight);</script>
+{% endif %}
 </body>
 </html>
