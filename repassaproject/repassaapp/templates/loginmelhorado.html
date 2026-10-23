@@ -21,15 +21,19 @@
             Faça seu login
         </h1>
 
-        <form action="../templates/index.html">
+        <form method="POST">
+            {% csrf_token %}
+
             <div class="campo-grupo">
                 <label for="email-usuario" class="cor-roxa">E-mail:</label>
-                <input type="text" id="email-usuario" placeholder="seuemail@universidade.com.br">
+                <!-- Atributo name="email" adicionado -->
+                <input type="email" id="email-usuario" name="email" placeholder="seuemail@universidade.com.br" required>
             </div>
 
             <div class="campo-grupo">
                 <label for="senha-usuario" class="cor-roxa">Senha:</label>
-                <input type="password" id="senha-usuario" placeholder="Digite sua senha">
+                <!-- Atributo name="senha" adicionado -->
+                <input type="password" id="senha-usuario" name="senha" placeholder="Digite sua senha" required>
             </div>
 
             <div class="texto-centro">
@@ -44,7 +48,7 @@
             
             <div class="bloco-cadastro">
                 <h3>Ainda não tem uma conta?</h3>
-                <a href="telaAplicao2Cadastro.html" class="cor-roxa link-cadastro">Criar Conta</a>
+                <a href="{% url 'cadastro' %}" class="cor-roxa link-cadastro">Criar Conta</a>
             </div>
         </div>
     </div>

@@ -17,10 +17,26 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from repassaapp.views import *
+from repassaapp.views import cadastro_view  
+from repassaapp.views import login_view 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home),
     path('notificacoes/', notificacoes),
     path('compras/<int:compra_id>/avaliar/', avaliar_vendedor, name='avaliar_vendedor'),
+]
+
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('cadastro/', cadastro_view, name='cadastro'), 
+]
+
+ 
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('cadastro/', cadastro_view, name='cadastro'),
+    path('login/', login_view, name='login'), 
 ]
