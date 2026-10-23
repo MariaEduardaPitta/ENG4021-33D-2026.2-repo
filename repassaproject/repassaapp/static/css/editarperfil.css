@@ -1,0 +1,137 @@
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f4f0fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+
+.perfil-box {
+    background-color: #ffffff;
+    padding: 40px 35px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 520px;
+}
+
+
+.cor-roxa {
+    color: #6f42c1;
+}
+
+.cor-subtexto {
+    color: #8c75b5;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    margin-bottom: 25px;
+}
+
+.texto-centro {
+    text-align: center;
+}
+
+.titulo-marca {
+    font-size: 2.2rem;
+    font-weight: bold;
+}
+
+.titulo-grande {
+    font-size: 1.6rem;
+    margin-bottom: 25px;
+}
+
+
+.campo-grupo {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 18px;
+    text-align: left;
+}
+
+.campo-grupo label {
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 6px;
+}
+
+.campo-grupo input {
+    padding: 12px 14px;
+    border: 1.5px solid #dcd1f0;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.campo-grupo input:focus {
+    border-color: #6f42c1;
+    box-shadow: 0 0 5px rgba(111, 66, 193, 0.2);
+}
+
+
+.linha-dupla {
+    display: flex;
+    gap: 15px;
+}
+
+.linha-dupla .campo-grupo {
+    flex: 1;
+}
+
+
+.botoes-grupo {
+    margin-top: 25px;
+}
+
+.botao-salvar {
+    background-color: #6f42c1;
+    color: #ffffff;
+    border: none;
+    padding: 13px 28px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.botao-salvar:hover {
+    background-color: #5a32a3;
+}
+
+
+.links-uteis {
+    margin-top: 20px;
+}
+
+.link-cancelar {
+    color: #8a8a8a;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.link-cancelar:hover {
+    color: #6f42c1;
+    text-decoration: underline;
+}
+
+
+@media (max-width: 480px) {
+    .linha-dupla {
+        flex-direction: column;
+        gap: 0;
+    }
+}

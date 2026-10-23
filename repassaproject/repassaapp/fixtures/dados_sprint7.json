@@ -1,0 +1,353 @@
+[
+  {
+    "model": "repassaapp.faculdade",
+    "pk": 1,
+    "fields": {
+      "nome": "Universidade Exemplo",
+      "localizacao": "Rio de Janeiro"
+    }
+  },
+  {
+    "model": "repassaapp.usuario",
+    "pk": 2,
+    "fields": {
+      "password": "!",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "demo_1",
+      "first_name": "",
+      "last_name": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2026-10-22T23:02:20.306Z",
+      "nome": "Ana Exemplo",
+      "email": "demo1@example.com",
+      "cpf": "11111111111",
+      "curso": "Engenharia",
+      "whatsapp": "21000000000",
+      "nota_media": "0.00",
+      "faculdade": 1,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "repassaapp.usuario",
+    "pk": 3,
+    "fields": {
+      "password": "!",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "demo_2",
+      "first_name": "",
+      "last_name": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2026-10-22T23:02:20.549Z",
+      "nome": "Bruno Exemplo",
+      "email": "demo2@example.com",
+      "cpf": "22222222222",
+      "curso": "Engenharia",
+      "whatsapp": "21000000000",
+      "nota_media": "0.00",
+      "faculdade": 1,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "repassaapp.usuario",
+    "pk": 4,
+    "fields": {
+      "password": "!",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "demo_3",
+      "first_name": "",
+      "last_name": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2026-10-22T23:02:20.789Z",
+      "nome": "Carla Exemplo",
+      "email": "demo3@example.com",
+      "cpf": "33333333333",
+      "curso": "Engenharia",
+      "whatsapp": "21000000000",
+      "nota_media": "0.00",
+      "faculdade": 1,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "repassaapp.usuario",
+    "pk": 5,
+    "fields": {
+      "password": "!",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "demo_4",
+      "first_name": "",
+      "last_name": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2026-10-22T23:02:21.037Z",
+      "nome": "Diego Exemplo",
+      "email": "demo4@example.com",
+      "cpf": "44444444444",
+      "curso": "Engenharia",
+      "whatsapp": "21000000000",
+      "nota_media": "0.00",
+      "faculdade": 1,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "repassaapp.categoria",
+    "pk": 1,
+    "fields": {
+      "nome": "Livros",
+      "descricao": "Livros acadêmicos usados"
+    }
+  },
+  {
+    "model": "repassaapp.categoria",
+    "pk": 2,
+    "fields": {
+      "nome": "Calculadoras",
+      "descricao": "Calculadoras para estudo"
+    }
+  },
+  {
+    "model": "repassaapp.categoria",
+    "pk": 3,
+    "fields": {
+      "nome": "Materiais de laboratório",
+      "descricao": "Jalecos e materiais de laboratório"
+    }
+  },
+  {
+    "model": "repassaapp.material",
+    "pk": 1,
+    "fields": {
+      "titulo": "Livro de Cálculo 1",
+      "descricao": "Material de exemplo em bom estado para estudo.",
+      "preco": "70.00",
+      "preco_produto_novo": "180.00",
+      "estado_conservacao": "Bom",
+      "foto": "",
+      "curso": "Engenharia",
+      "vendedor": 2,
+      "categoria": 1,
+      "status": "vendido"
+    }
+  },
+  {
+    "model": "repassaapp.material",
+    "pk": 2,
+    "fields": {
+      "titulo": "Calculadora científica",
+      "descricao": "Material de exemplo em bom estado para estudo.",
+      "preco": "85.00",
+      "preco_produto_novo": "140.00",
+      "estado_conservacao": "Bom",
+      "foto": "",
+      "curso": "Engenharia",
+      "vendedor": 4,
+      "categoria": 2,
+      "status": "vendido"
+    }
+  },
+  {
+    "model": "repassaapp.material",
+    "pk": 3,
+    "fields": {
+      "titulo": "Jaleco branco tamanho M",
+      "descricao": "Material de exemplo em bom estado para estudo.",
+      "preco": "55.00",
+      "preco_produto_novo": "90.00",
+      "estado_conservacao": "Bom",
+      "foto": "",
+      "curso": "Engenharia",
+      "vendedor": 2,
+      "categoria": 3,
+      "status": "vendido"
+    }
+  },
+  {
+    "model": "repassaapp.material",
+    "pk": 4,
+    "fields": {
+      "titulo": "Livro de Física 1",
+      "descricao": "Material de exemplo em bom estado para estudo.",
+      "preco": "60.00",
+      "preco_produto_novo": "150.00",
+      "estado_conservacao": "Bom",
+      "foto": "",
+      "curso": "Engenharia",
+      "vendedor": 4,
+      "categoria": 1,
+      "status": "disponivel"
+    }
+  },
+  {
+    "model": "repassaapp.material",
+    "pk": 5,
+    "fields": {
+      "titulo": "Calculadora financeira",
+      "descricao": "Material de exemplo em bom estado para estudo.",
+      "preco": "120.00",
+      "preco_produto_novo": "250.00",
+      "estado_conservacao": "Bom",
+      "foto": "",
+      "curso": "Engenharia",
+      "vendedor": 2,
+      "categoria": 2,
+      "status": "disponivel"
+    }
+  },
+  {
+    "model": "repassaapp.material",
+    "pk": 6,
+    "fields": {
+      "titulo": "Livro de Álgebra Linear",
+      "descricao": "Material de exemplo em bom estado para estudo.",
+      "preco": "45.00",
+      "preco_produto_novo": "110.00",
+      "estado_conservacao": "Bom",
+      "foto": "",
+      "curso": "Engenharia",
+      "vendedor": 4,
+      "categoria": 1,
+      "status": "disponivel"
+    }
+  },
+  {
+    "model": "repassaapp.compra",
+    "pk": 1,
+    "fields": {
+      "comprador": 3,
+      "material": 1,
+      "data_compra": "2026-10-22T23:02:21.463Z",
+      "valor_total": "70.00",
+      "forma_entrega": "Retirada",
+      "endereco_local_entrega": "Biblioteca da Universidade Exemplo",
+      "status_entrega": "entregue"
+    }
+  },
+  {
+    "model": "repassaapp.compra",
+    "pk": 2,
+    "fields": {
+      "comprador": 3,
+      "material": 2,
+      "data_compra": "2026-10-22T23:02:21.502Z",
+      "valor_total": "85.00",
+      "forma_entrega": "Retirada",
+      "endereco_local_entrega": "Biblioteca da Universidade Exemplo",
+      "status_entrega": "entregue"
+    }
+  },
+  {
+    "model": "repassaapp.compra",
+    "pk": 3,
+    "fields": {
+      "comprador": 5,
+      "material": 3,
+      "data_compra": "2026-10-22T23:02:21.540Z",
+      "valor_total": "55.00",
+      "forma_entrega": "Retirada",
+      "endereco_local_entrega": "Biblioteca da Universidade Exemplo",
+      "status_entrega": "aguardando"
+    }
+  },
+  {
+    "model": "repassaapp.pagamento",
+    "pk": 1,
+    "fields": {
+      "compra": 1,
+      "forma_pagamento": "Pix",
+      "valor": "70.00",
+      "data": "2026-10-22T23:02:21.481Z",
+      "status_pagamento": "aprovado"
+    }
+  },
+  {
+    "model": "repassaapp.pagamento",
+    "pk": 2,
+    "fields": {
+      "compra": 2,
+      "forma_pagamento": "Pix",
+      "valor": "85.00",
+      "data": "2026-10-22T23:02:21.519Z",
+      "status_pagamento": "aprovado"
+    }
+  },
+  {
+    "model": "repassaapp.pagamento",
+    "pk": 3,
+    "fields": {
+      "compra": 3,
+      "forma_pagamento": "Pix",
+      "valor": "55.00",
+      "data": "2026-10-22T23:02:21.561Z",
+      "status_pagamento": "pendente"
+    }
+  },
+  {
+    "model": "repassaapp.mensagem",
+    "pk": 1,
+    "fields": {
+      "remetente": 3,
+      "destinatario": 2,
+      "material": 1,
+      "conteudo": "Olá, podemos combinar a retirada?",
+      "data_hora": "2026-10-22T23:02:21.583Z"
+    }
+  },
+  {
+    "model": "repassaapp.mensagem",
+    "pk": 2,
+    "fields": {
+      "remetente": 2,
+      "destinatario": 3,
+      "material": 1,
+      "conteudo": "Sim, na biblioteca às 14h.",
+      "data_hora": "2026-10-22T23:02:21.605Z"
+    }
+  },
+  {
+    "model": "repassaapp.mensagem",
+    "pk": 3,
+    "fields": {
+      "remetente": 3,
+      "destinatario": 4,
+      "material": 4,
+      "conteudo": "O material ainda está disponível?",
+      "data_hora": "2026-10-22T23:02:21.626Z"
+    }
+  },
+  {
+    "model": "repassaapp.mensagem",
+    "pk": 4,
+    "fields": {
+      "remetente": 4,
+      "destinatario": 3,
+      "material": 4,
+      "conteudo": "Está sim, podemos conversar.",
+      "data_hora": "2026-10-22T23:02:21.649Z"
+    }
+  },
+  {
+    "model": "repassaapp.avaliacao",
+    "pk": 1,
+    "fields": {
+      "compra": 1,
+      "avaliador": 3,
+      "vendedor": 2,
+      "nota": 5,
+      "comentario": "Material bem conservado e entrega combinada."
+    }
+  }
+]
