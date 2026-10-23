@@ -29,7 +29,7 @@ urlpatterns = [
 
 
 
-urlpatterns = [
+urlpatterns += [
     path('cadastro/', cadastro_view, name='cadastro'),
     path('login/', login_view, name='login'),
     path('editar-perfil/', editar_perfil_view, name='editar_perfil'),
