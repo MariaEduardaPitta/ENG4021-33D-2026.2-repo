@@ -11,7 +11,7 @@ from .forms import (
     AnunciarMaterialForm,
     EditarMaterialForm,
 )
-from .models import Compra, Avaliacao, Material, Categoria
+from .models import Compra, Avaliacao, Material, Categoria, Mensagem
 
 
 def home(request):
@@ -199,4 +199,74 @@ def buscar(request):
             'preco_max': preco_max,
             'ordem': ordem,
         },
+    })
+
+
+def conversas(request):
+    if not request.user.is_authenticated:
+        return render(request, 'conversas.html', {'precisa_login': True})
+
+    usuario = request.user
+    filtro = request.GET.get('filtro', 'todas')
+    if filtro not in ('todas', 'comprando', 'vendendo'):
+        filtro = 'todas'
+    q = request.GET.get('q', '').strip()
+
+    mensagens = (
+        Mensagem.objects
+        .filter(Q(remetente=usuario) | Q(destinatario=usuario))
+        .select_related('remetente', 'destinatario', 'material__vendedor')
+        .order_by('-data_hora', '-id')
+    )
+
+    # Uma conversa = mesmo material + mesma outra pessoa.
+    # Como as mensagens vêm da mais nova para a mais antiga,
+    # a primeira de cada conversa é a última mensagem trocada.
+    lista = []
+    vistas = set()
+    for mensagem in mensagens:
+        outro = mensagem.destinatario if mensagem.remetente_id == usuario.id else mensagem.remetente
+        chave = (mensagem.material_id, outro.id)
+        if chave in vistas:
+            continue
+        vistas.add(chave)
+
+        vendendo = mensagem.material.vendedor_id == usuario.id
+        if filtro == 'comprando' and vendendo:
+            continue
+        if filtro == 'vendendo' and not vendendo:
+            continue
+        if q:
+            nome_outro = (outro.nome or outro.username).lower()
+            if q.lower() not in nome_outro and q.lower() not in mensagem.material.titulo.lower():
+                continue
+
+        lista.append({
+            'outro': outro,
+            'material': mensagem.material,
+            'ultima': mensagem,
+            'vendendo': vendendo,
+        })
+
+    # Marca as conversas que viraram compra e se o usuário ainda pode avaliar.
+    compras = {
+        compra.material_id: compra
+        for compra in Compra.objects.filter(material_id__in=[c['material'].pk for c in lista])
+    }
+    avaliadas = set(
+        Avaliacao.objects.filter(compra__in=compras.values()).values_list('compra_id', flat=True)
+    )
+    for conversa in lista:
+        compra = compras.get(conversa['material'].pk)
+        participantes = {usuario.id, conversa['outro'].id}
+        conversa['compra'] = compra
+        conversa['negocio_concluido'] = bool(compra and compra.comprador_id in participantes)
+        conversa['pode_avaliar'] = bool(
+            compra and compra.comprador_id == usuario.id and compra.pk not in avaliadas
+        )
+
+    return render(request, 'conversas.html', {
+        'conversas': lista,
+        'filtro': filtro,
+        'q': q,
     })

@@ -11,6 +11,7 @@ from repassaapp.views import (
     anunciar_material,
     editar_material,
     buscar,
+    conversas,
 )
 
 urlpatterns = [
@@ -24,4 +25,5 @@ urlpatterns = [
     path('anunciar/', anunciar_material, name='anunciar_material'),
     path('editar-material/<int:material_id>/', editar_material, name='editar_material'),
     path('buscar/', buscar, name='buscar'),
+    path('conversas/', conversas, name='conversas'),
 ]
