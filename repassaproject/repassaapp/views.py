@@ -3,6 +3,7 @@ from .forms import AvaliacaoForm
 from .models import Compra, Avaliacao
 from .forms import CadastroForm
 from .forms import LoginForm
+from .forms import EditarPerfilForm
 
 # Create your views here.
 def home(request):
@@ -42,9 +43,9 @@ def cadastro_view(request):
     if request.method == 'POST':
         form = CadastroForm(request.POST)
         if form.is_valid():
-            # Dados válidos recebidos do formulário
+            
             dados = form.cleaned_data
-            print(dados) # Aparecerá no terminal do VS Code quando preencherem
+            print(dados) 
             return render(request, 'cadastro.html', {'dados': dados})
     else:
         form = CadastroForm()
@@ -57,11 +58,24 @@ def login_view(request):
         form = LoginForm(request.POST)
         if form.is_valid():
             dados = form.cleaned_data
-            # Aqui você validaria o usuário e senha futuramente
+            
             print(dados)
-            # Redireciona para a página inicial (exemplo)
+            
             return render(request, 'core/index.html')
     else:
         form = LoginForm()
 
     return render(request, 'core/login.html', {'form': form})
+
+
+def editar_perfil_view(request):
+    if request.method == 'POST':
+        form = EditarPerfilForm(request.POST)
+        if form.is_valid():
+            dados = form.cleaned_data
+            print(dados) 
+            return render(request, 'editarperfil.html', {'form': form, 'sucesso': True})
+    else:
+        form = EditarPerfilForm()
+
+    return render(request, 'editarperfil.html', {'form': form})

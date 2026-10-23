@@ -17,8 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from repassaapp.views import *
-from repassaapp.views import cadastro_view  
-from repassaapp.views import login_view 
+from repassaapp.views import cadastro_view, login_view, editar_perfil_view
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,15 +28,9 @@ urlpatterns = [
 ]
 
 
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('cadastro/', cadastro_view, name='cadastro'), 
-]
-
- 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('cadastro/', cadastro_view, name='cadastro'),
-    path('login/', login_view, name='login'), 
+    path('login/', login_view, name='login'),
+    path('editar-perfil/', editar_perfil_view, name='editar_perfil'),
 ]
