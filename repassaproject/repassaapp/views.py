@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import AvaliacaoForm
 from .models import Compra, Avaliacao
+from .forms import CadastroForm
+from .forms import LoginForm
 
 # Create your views here.
 def home(request):
@@ -33,3 +35,33 @@ def avaliar_vendedor(request, compra_id):
     return render(request, 'avaliacao.html', {
         'compra': compra, 'form': form, 'avaliacao': avaliacao,
     })
+
+
+
+def cadastro_view(request):
+    if request.method == 'POST':
+        form = CadastroForm(request.POST)
+        if form.is_valid():
+            # Dados válidos recebidos do formulário
+            dados = form.cleaned_data
+            print(dados) # Aparecerá no terminal do VS Code quando preencherem
+            return render(request, 'cadastro.html', {'dados': dados})
+    else:
+        form = CadastroForm()
+
+    return render(request, 'cadastro.html', {'form': form})
+
+
+def login_view(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            dados = form.cleaned_data
+            # Aqui você validaria o usuário e senha futuramente
+            print(dados)
+            # Redireciona para a página inicial (exemplo)
+            return render(request, 'core/index.html')
+    else:
+        form = LoginForm()
+
+    return render(request, 'core/login.html', {'form': form})
