@@ -4,6 +4,8 @@ from django.urls import path
 from repassaapp.views import (
     home,
     notificacoes,
+    detalhe_material,
+    confirmacao,
     avaliar_vendedor,
     cadastro_view,
     login_view,
@@ -16,6 +18,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name='home'),
     path('notificacoes/', notificacoes),
+    path('material/<int:id>/', detalhe_material, name='detalhe_material'),
+    path('confirmacao/<int:id>/', confirmacao, name='confirmacao'),
     path('compras/<int:compra_id>/avaliar/', avaliar_vendedor, name='avaliar_vendedor'),
     path('cadastro/', cadastro_view, name='cadastro'),
     path('login/', login_view, name='login'),

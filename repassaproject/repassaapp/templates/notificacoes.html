@@ -9,34 +9,35 @@
 </head>
 <body>
   <header>
-    <a href="index.html">Voltar</a>
+    <a href="/">Voltar</a>
     <h1>Notificações</h1>
   </header>
-  <main>
+    <main>
+    {% for mensagem in mensagens %}
     <article class="notificacao">
       <span class="icone mensagem" aria-hidden="true">✉</span>
       <div>
-        <h2>Nova mensagem de Mariana</h2>
-        <p>Sobre: Calculadora científica</p>
-        <small>Agora</small>
+        <h2>Nova mensagem de {{ mensagem.remetente.nome }}</h2>
+        <p>Sobre: {{ mensagem.material.titulo }}</p>
+        <small>{{ mensagem.data_hora|date:"d/m/Y H:i" }}</small>
       </div>
     </article>
+    {% endfor %}
+
+    {% for venda in vendas %}
     <article class="notificacao">
       <span class="icone sucesso" aria-hidden="true">✓</span>
       <div>
-        <h2>Pagamento aprovado</h2>
-        <p>Compra de Jaleco branco tamanho M</p>
-        <small>2h atrás</small>
+        <h2>Seu material foi vendido!</h2>
+        <p>{{ venda.material.titulo }} · comprado por {{ venda.comprador.nome }}</p>
+        <small>{{ venda.data_compra|date:"d/m/Y H:i" }}</small>
       </div>
     </article>
-    <article class="notificacao">
-      <span class="icone entrega" aria-hidden="true">🚚</span>
-      <div>
-        <h2>Entrega em andamento</h2>
-        <p>Livro Introdução à Psicologia</p>
-        <small>Ontem</small>
-      </div>
-    </article>
+    {% endfor %}
+
+    {% if not mensagens and not vendas %}
+    <p>Você não tem notificações por enquanto.</p>
+    {% endif %}
   </main>
   <nav class="menu-inferior" aria-label="Navegação principal">
   <a href="index.html" aria-current="page"><span aria-hidden="true">⌂</span>Início</a>

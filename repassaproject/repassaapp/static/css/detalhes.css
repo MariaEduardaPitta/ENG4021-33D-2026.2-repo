@@ -1,0 +1,34 @@
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Arial, sans-serif; color: #222; background: white; }
+a { color: #6b21a8; }
+
+header { display: flex; align-items: center; gap: 16px; padding: 16px; border-bottom: 1px solid #ccc; }
+header h1 { font-size: 20px; margin: 0; color: #6b21a8; }
+
+main { max-width: 600px; margin: 0 auto; padding: 16px 16px 32px; }
+
+.foto { display: flex; justify-content: center; align-items: center; height: 240px; background: #F3E8FF; border-radius: 8px; }
+.foto span { font-size: 72px; }
+
+.resumo { padding: 16px 0; border-bottom: 1px solid #eee; }
+.resumo h2 { font-size: 22px; margin: 10px 0 8px; }
+.selo { display: inline-block; padding: 4px 8px; font-size: 12px; border-radius: 4px; }
+.disponivel { background: #E7F7EE; color: #24723c; }
+.vendido { background: #F4F4F5; color: #71717A; }
+.preco { margin: 0; font-size: 26px; font-weight: bold; color: #6b21a8; }
+.preco-novo { margin: 4px 0 0; font-size: 14px; color: #666; }
+
+.bloco { padding: 16px 0; border-bottom: 1px solid #eee; }
+.bloco h3 { font-size: 16px; margin: 0 0 8px; }
+.bloco p { margin: 4px 0; line-height: 1.5; }
+dl { margin: 0; }
+.linha { display: flex; justify-content: space-between; gap: 16px; padding: 8px 0; font-size: 14px; }
+dt { color: #666; }
+dd { margin: 0; text-align: right; }
+.vendedor-nome { font-weight: bold; }
+
+.acoes { display: flex; flex-direction: column; gap: 12px; margin-top: 24px; }
+.btn { padding: 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 16px; font-family: Arial, sans-serif; }
+.btn-principal { background: #7C3AED; color: white; }
+.btn-secundario { background: #F3E8FF; color: #5B21B6; }
+.btn:disabled { opacity: 0.6; cursor: not-allowed; }

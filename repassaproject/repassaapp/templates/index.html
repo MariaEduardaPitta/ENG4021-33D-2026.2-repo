@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="{% static 'css/index.css' %}">
 </head>
 <body>
-<header><img class="logo" src="{% static 'img/logo-repassa.png' %}" alt="Logo do REPASSA"><strong>REPASSA</strong><a href="notificacoes.html" aria-label="Notificações">🔔 <span class="contador">3</span></a></header>
+<header><img class="logo" src="{% static 'img/logo-repassa.png' %}" alt="Logo do REPASSA"><strong>REPASSA</strong><a href="/notificacoes/" aria-label="Notificações">🔔 <span class="contador">3</span></a></header>
 
 <main>
   <div class="marca"><img class="logo" src="{% static 'img/logo-repassa.png' %}" alt=""><h1>REPASSA</h1></div>
@@ -24,26 +24,25 @@
 <section class="materiais">
   <h2>Materiais recentes</h2>
   <div class="lista-materiais">
-  <article class="card"><span class="material-icone" aria-hidden="true">🖩</span><div class="material-info">
-    
-    <h3><a href="../../Maria-Eduarda-Pitta/compra.html" style="color: inherit; text-decoration: none;">Calculadora científica</a></h3>
-    <p class="preco">R$ 85,00 <del>novo: R$ 140,00</del></p>
-    <small>Bom estado · Engenharia · Calculadoras</small>
-  <div class="rodape-card"><span>★ 4,8 · Mariana</span><strong class="disponivel">DISPONÍVEL</strong></div></div></article>
-  <article class="card"><span class="material-icone" aria-hidden="true">🥼</span><div class="material-info">
-    
-    <h3><a href="../../Maria-Eduarda-Pitta/compra.html" style="color: inherit; text-decoration: none;">Jaleco branco tamanho M</a></h3>
-    <p class="preco">R$ 55,00 <del>novo: R$ 90,00</del></p>
-    <small>Bom estado · Medicina · Uniforme</small>
-  <div class="rodape-card"><span>★ 4,9 · João</span><strong class="disponivel">DISPONÍVEL</strong></div></div></article>
-  <article class="card"><span class="material-icone" aria-hidden="true">📖</span><div class="material-info">
-    
-    <h3><a href="../../Maria-Eduarda-Pitta/compra.html" style="color: inherit; text-decoration: none;">Livro Introdução à Psicologia — Feldman</a></h3>
-    <p class="preco">R$ 76,00 <del>novo: R$ 100,00</del></p>
-    <small>Bom estado · Psicologia · Livros</small>
-  <div class="rodape-card"><span>★ 4,7 · Camila</span><strong class="disponivel">DISPONÍVEL</strong></div></div></article>
+  {% for material in materiais %}
+  <article class="card">
+    <span class="material-icone" aria-hidden="true">📦</span>
+    <div class="material-info">
+            <h3><a href="{% url 'detalhe_material' material.id %}">{{ material.titulo }}</a></h3>
+      <p class="preco">R$ {{ material.preco }} <del>novo: R$ {{ material.preco_produto_novo }}</del></p>
+      <small>{{ material.estado_conservacao }} · {{ material.curso }} · {{ material.categoria.nome }}</small>
+      <div class="rodape-card">
+        <span>★ {{ material.vendedor.nota_media }} · {{ material.vendedor.nome }}</span>
+        <strong class="disponivel">DISPONÍVEL</strong>
+      </div>
+    </div>
+  </article>
+  {% empty %}
+  <p>Nenhum material disponível no momento.</p>
+  {% endfor %}
   </div>
 </section>
+
 </main>
 <nav class="menu-inferior" aria-label="Navegação principal">
   <a href="index.html" aria-current="page"><span aria-hidden="true">⌂</span>Início</a>

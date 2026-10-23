@@ -19,21 +19,21 @@
     <section class="success-recap" aria-label="Resumo da compra">
       <!-- Os dados serão preenchidos quando a página estiver ligada ao pedido. -->
       <dl>
-        <div class="row-line"><dt>Material</dt><dd>—</dd></div>
-        <div class="row-line"><dt>Vendedor</dt><dd>—</dd></div>
-        <div class="row-line"><dt>Forma de entrega</dt><dd>—</dd></div>
-        <div class="row-line"><dt>Endereço/local</dt><dd>—</dd></div>
-        <div class="row-line"><dt>Pagamento</dt><dd>—</dd></div>
-        <div class="row-line"><dt>Total</dt><dd>—</dd></div>
-        <div class="row-line"><dt>Data da compra</dt><dd>—</dd></div>
-        <div class="row-line"><dt>Status da entrega</dt><dd class="status-entrega">AGUARDANDO</dd></div>
+        <div class="row-line"><dt>Material</dt><dd>{{ compra.material.titulo }}</dd></div>
+        <div class="row-line"><dt>Vendedor</dt><dd>{{ compra.material.vendedor.nome }}</dd></div>
+        <div class="row-line"><dt>Forma de entrega</dt><dd>{{ compra.forma_entrega }}</dd></div>
+        <div class="row-line"><dt>Endereço/local</dt><dd>{{ compra.endereco_local_entrega }}</dd></div>
+        <div class="row-line"><dt>Pagamento</dt><dd>{{ compra.pagamento.forma_pagamento|default:"—" }}</dd></div>
+        <div class="row-line"><dt>Total</dt><dd>R$ {{ compra.valor_total }}</dd></div>
+        <div class="row-line"><dt>Data da compra</dt><dd>{{ compra.data_compra|date:"d/m/Y H:i" }}</dd></div>
+        <div class="row-line"><dt>Status da entrega</dt><dd class="status-entrega">{{ compra.status_entrega|upper }}</dd></div>
       </dl>
     </section>
 
     <div class="success-actions">
       <!-- Ativar o contato quando a tela de chat estiver disponível. -->
       <button class="btn btn-primary" type="button" disabled>Falar com o vendedor</button>
-      <a class="btn btn-secondary" href="index.html">Voltar à página inicial</a>
+      <a class="btn btn-secondary" href="/">Voltar à página inicial</a>
     </div>
   </main>
 </body>

@@ -1,3 +1,14 @@
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
+from .forms import (
+    AvaliacaoForm,
+    CadastroForm,
+    LoginForm,
+    EditarPerfilForm,
+    AnunciarMaterialForm,
+    EditarMaterialForm,
+)
+from .models import Compra, Avaliacao, Material, Mensagem
 
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import (
@@ -12,11 +23,23 @@ from .models import Compra, Avaliacao, Material
 
 
 def home(request):
-    return render(request, 'index.html')
+    materiais = Material.objects.filter(status="disponivel")
+    return render(request, 'index.html', {"materiais": materiais})
 
-
+@login_required
 def notificacoes(request):
-    return render(request, 'notificacoes.html')
+    mensagens = Mensagem.objects.filter(destinatario=request.user)
+    vendas = Compra.objects.filter(material__vendedor=request.user)
+    return render(request, 'notificacoes.html', {"mensagens": mensagens, "vendas": vendas})
+
+def detalhe_material(request, id):
+    material = get_object_or_404(Material, pk=id)
+    return render(request, 'detalhes.html', {"material": material})
+
+@login_required
+def confirmacao(request, id):
+    compra = get_object_or_404(Compra, pk=id, comprador=request.user)
+    return render(request, 'confirmacao.html', {"compra": compra})
 
 
 def avaliar_vendedor(request, compra_id):
@@ -138,3 +161,4 @@ def editar_material(request, material_id):
         'form': form,
         'material': material,
     })
+
