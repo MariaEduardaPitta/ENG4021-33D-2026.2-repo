@@ -2,6 +2,7 @@
 from decimal import Decimal, InvalidOperation
 
 from django.db.models import Q
+from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import (
     AvaliacaoForm,
@@ -11,7 +12,7 @@ from .forms import (
     AnunciarMaterialForm,
     EditarMaterialForm,
 )
-from .models import Compra, Avaliacao, Material, Categoria, Mensagem
+from .models import Compra, Avaliacao, Material, Categoria, Mensagem, Usuario
 
 
 def home(request):
@@ -269,4 +270,43 @@ def conversas(request):
         'conversas': lista,
         'filtro': filtro,
         'q': q,
+    })
+
+
+def chat(request, material_id, usuario_id):
+    if not request.user.is_authenticated:
+        return render(request, 'chat.html', {'precisa_login': True})
+
+    usuario = request.user
+    material = get_object_or_404(Material.objects.select_related('vendedor'), pk=material_id)
+    outro = get_object_or_404(Usuario, pk=usuario_id)
+
+    # A conversa é sempre entre o vendedor do material e outra pessoa.
+    if outro.pk == usuario.pk or material.vendedor_id not in (usuario.pk, outro.pk):
+        raise Http404('Conversa não encontrada.')
+
+    if request.method == 'POST':
+        conteudo = request.POST.get('conteudo', '').strip()
+        if conteudo:
+            Mensagem.objects.create(
+                remetente=usuario,
+                destinatario=outro,
+                material=material,
+                conteudo=conteudo,
+            )
+        return redirect('chat', material_id=material.pk, usuario_id=outro.pk)
+
+    mensagens = (
+        Mensagem.objects
+        .filter(material=material)
+        .filter(
+            Q(remetente=usuario, destinatario=outro) | Q(remetente=outro, destinatario=usuario)
+        )
+        .order_by('data_hora', 'id')
+    )
+
+    return render(request, 'chat.html', {
+        'material': material,
+        'outro': outro,
+        'mensagens': mensagens,
     })
