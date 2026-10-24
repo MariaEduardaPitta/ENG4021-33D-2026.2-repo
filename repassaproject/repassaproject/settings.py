@@ -118,8 +118,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-# Enquanto a tela de login do Eric não existe, quem não está logado vai para o login do admin
-LOGIN_URL = '/admin/login/'
+LOGIN_URL = 'login'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

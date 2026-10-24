@@ -76,91 +76,70 @@ def avaliar_vendedor(request, compra_id):
 
 
 
-from django.contrib.auth.models import User  
+from django.contrib.auth import authenticate, login, update_session_auth_hash
+from django.utils.http import url_has_allowed_host_and_scheme
+from .models import Usuario
 
 
 def cadastro_view(request):
-    if request.method == 'POST':
-        form = CadastroForm(request.POST)
-        if form.is_valid():
-            dados = form.cleaned_data
-            
-            
-            if not User.objects.filter(username=dados['email']).exists():
-                user = User.objects.create_user(
-                    username=dados['email'], 
-                    email=dados['email'],
-                    password=dados['senha'],
-                    first_name=dados['nome'],
-                    last_name=dados['sobrenome']
-                )
-                user.save()
-                return redirect('login')
-            else:
-                form.add_error('email', 'Este e-mail já está cadastrado.')
-    else:
-        form = CadastroForm()
+    form = CadastroForm(request.POST if request.method == 'POST' else None)
+    if request.method == 'POST' and form.is_valid():
+        dados = form.cleaned_data
+        Usuario.objects.create_user(
+            username=dados['email'], email=dados['email'], password=dados['senha'],
+            nome=f"{dados['nome']} {dados['sobrenome']}",
+            first_name=dados['nome'], last_name=dados['sobrenome'],
+            cpf=dados['cpf'], whatsapp=dados['telefone'],
+        )
+        return redirect('login')
+    return render(request, 'cadastro.html', {'form': form})
 
-    return render(request, 'core/cadastro.html', {'form': form})
 
 @login_required(login_url='login')
 def editar_perfil_view(request):
-    usuario = request.user  
+    usuario = request.user
+    partes = usuario.nome.split(' ', 1)
+    form = EditarPerfilForm(
+        request.POST if request.method == 'POST' else None,
+        usuario=usuario,
+        initial={
+            'nome': usuario.first_name or partes[0],
+            'sobrenome': usuario.last_name or (partes[1] if len(partes) > 1 else ''),
+            'email': usuario.email, 'telefone': usuario.whatsapp,
+        },
+    )
+    if request.method == 'POST' and form.is_valid():
+        dados = form.cleaned_data
+        usuario.nome = f"{dados['nome']} {dados['sobrenome']}"
+        usuario.first_name = dados['nome']
+        usuario.last_name = dados['sobrenome']
+        usuario.email = dados['email']
+        usuario.whatsapp = dados['telefone']
+        if dados['senha']:
+            usuario.set_password(dados['senha'])
+        usuario.save()
+        if dados['senha']:
+            update_session_auth_hash(request, usuario)
+        return redirect('/editar-perfil/?salvo=1')
+    return render(request, 'editarperfil.html', {'form': form, 'sucesso': request.GET.get('salvo') == '1'})
 
-    if request.method == 'POST':
-        form = EditarPerfilForm(request.POST)
-        if form.is_valid():
-            dados = form.cleaned_data
-            
-            
-            usuario.first_name = dados['nome']
-            usuario.last_name = dados['sobrenome']
-            usuario.email = dados['email']
-            usuario.username = dados['email']  
-            
-           
-            if dados.get('senha'):
-                usuario.set_password(dados['senha'])
-                
-            usuario.save()
-            return redirect('editar_perfil') 
-    else:
-        
-        form = EditarPerfilForm(initial={
-            'nome': usuario.first_name,
-            'sobrenome': usuario.last_name,
-            'email': usuario.email,
-        })
-
-    return render(request, 'core/editarperfil.html', {'form': form})
-
-
-
-from django.contrib.auth import authenticate, login
 
 def login_view(request):
-    if request.method == 'POST':
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            email = form.cleaned_data['email']
-            senha = form.cleaned_data['senha']
-            
-            
-            user = authenticate(request, username=email, password=senha)
-            
-            if user is not None:
-                login(request, user) 
-                return redirect('home') 
-            else:
-               
-                form.add_error(None, 'E-mail ou senha inválidos.')
-    else:
-        form = LoginForm()
-
-    return render(request, 'core/login.html', {'form': form})
-
-
-
+    form = LoginForm(request.POST if request.method == 'POST' else None)
+    if request.method == 'POST' and form.is_valid():
+        conta = Usuario.objects.filter(email__iexact=form.cleaned_data['email']).first()
+        usuario = authenticate(
+            request, username=conta.username if conta else form.cleaned_data['email'],
+            password=form.cleaned_data['senha'],
+        )
+        if usuario is not None:
+            login(request, usuario)
+            destino = request.GET.get('next', '')
+            if destino and url_has_allowed_host_and_scheme(destino, {request.get_host()}, require_https=request.is_secure()):
+                return redirect(destino)
+            return redirect('home')
+        form.add_error(None, 'E-mail ou senha inválidos.')
+    return render(request, 'loginmelhorado.html', {'form': form})
 
 
 def anunciar_material(request):
