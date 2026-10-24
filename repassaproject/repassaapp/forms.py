@@ -14,6 +14,8 @@ class AvaliacaoForm(forms.ModelForm):
         }
 
 
+
+
 class CadastroForm(forms.Form):
     nome = forms.CharField(max_length=100, label='Nome')
     sobrenome = forms.CharField(max_length=100, label='Sobrenome')
@@ -22,18 +24,20 @@ class CadastroForm(forms.Form):
     email = forms.EmailField(label='E-mail')
     senha = forms.CharField(widget=forms.PasswordInput, label='Senha')
 
-
-class LoginForm(forms.Form):
-    email = forms.EmailField(label='E-mail')
-    senha = forms.CharField(widget=forms.PasswordInput, label='Senha')
-
-
 class EditarPerfilForm(forms.Form):
     nome = forms.CharField(max_length=100, label='Nome')
     sobrenome = forms.CharField(max_length=100, label='Sobrenome')
     email = forms.EmailField(label='E-mail')
     telefone = forms.CharField(max_length=20, required=False, label='Telefone')
     senha = forms.CharField(widget=forms.PasswordInput, required=False, label='Nova Senha')
+
+
+
+class LoginForm(forms.Form):
+    email = forms.EmailField(label='E-mail')
+    senha = forms.CharField(widget=forms.PasswordInput, label='Senha')
+
+
 
 
 class AnunciarMaterialForm(forms.ModelForm):

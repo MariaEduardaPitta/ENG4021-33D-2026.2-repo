@@ -1,4 +1,3 @@
-
 * {
     margin: 0;
     padding: 0;
@@ -15,7 +14,6 @@ body {
     min-height: 100vh;
 }
 
-
 .login-box {
     background-color: #1e1e1e;
     border: 2px solid #3c096c;
@@ -25,7 +23,6 @@ body {
     max-width: 450px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
 }
-
 
 .texto-centro {
     display: flex;
@@ -45,7 +42,6 @@ body {
     margin-bottom: 25px;
 }
 
-
 .titulo-marca {
     font-size: 38px;
     margin-bottom: 5px;
@@ -55,7 +51,6 @@ body {
     font-size: 24px; 
     margin: 25px 0;
 }
-
 
 .campo-grupo {
     display: flex;
@@ -83,7 +78,6 @@ body {
     border-color: #9d4edd;
 }
 
-/* Botão Entrar */
 .botao-entrar {
     font-size: 16px; 
     width: 100%;
@@ -101,7 +95,6 @@ body {
 .botao-entrar:hover {
     background-color: #9d4edd;
 }
-
 
 .links-uteis {
     margin-top: 25px;

@@ -74,46 +74,93 @@ def avaliar_vendedor(request, compra_id):
     })
 
 
+
+
+from django.contrib.auth.models import User  
+
+
 def cadastro_view(request):
     if request.method == 'POST':
         form = CadastroForm(request.POST)
         if form.is_valid():
             dados = form.cleaned_data
-            print(dados)
-            return render(request, 'cadastro.html', {'dados': dados})
+            
+            
+            if not User.objects.filter(username=dados['email']).exists():
+                user = User.objects.create_user(
+                    username=dados['email'], 
+                    email=dados['email'],
+                    password=dados['senha'],
+                    first_name=dados['nome'],
+                    last_name=dados['sobrenome']
+                )
+                user.save()
+                return redirect('login')
+            else:
+                form.add_error('email', 'Este e-mail já está cadastrado.')
     else:
         form = CadastroForm()
 
-    return render(request, 'cadastro.html', {'form': form})
+    return render(request, 'core/cadastro.html', {'form': form})
 
+@login_required(login_url='login')
+def editar_perfil_view(request):
+    usuario = request.user  
+
+    if request.method == 'POST':
+        form = EditarPerfilForm(request.POST)
+        if form.is_valid():
+            dados = form.cleaned_data
+            
+            
+            usuario.first_name = dados['nome']
+            usuario.last_name = dados['sobrenome']
+            usuario.email = dados['email']
+            usuario.username = dados['email']  
+            
+           
+            if dados.get('senha'):
+                usuario.set_password(dados['senha'])
+                
+            usuario.save()
+            return redirect('editar_perfil') 
+    else:
+        
+        form = EditarPerfilForm(initial={
+            'nome': usuario.first_name,
+            'sobrenome': usuario.last_name,
+            'email': usuario.email,
+        })
+
+    return render(request, 'core/editarperfil.html', {'form': form})
+
+
+
+from django.contrib.auth import authenticate, login
 
 def login_view(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
-            dados = form.cleaned_data
-            print(dados)
-            return render(request, 'core/index.html')
+            email = form.cleaned_data['email']
+            senha = form.cleaned_data['senha']
+            
+            
+            user = authenticate(request, username=email, password=senha)
+            
+            if user is not None:
+                login(request, user) 
+                return redirect('home') 
+            else:
+               
+                form.add_error(None, 'E-mail ou senha inválidos.')
     else:
         form = LoginForm()
 
     return render(request, 'core/login.html', {'form': form})
 
 
-def editar_perfil_view(request):
-    if request.method == 'POST':
-        form = EditarPerfilForm(request.POST)
-        if form.is_valid():
-            dados = form.cleaned_data
-            print(dados)
-            return render(request, 'editarperfil.html', {
-                'form': form,
-                'sucesso': True,
-            })
-    else:
-        form = EditarPerfilForm()
 
-    return render(request, 'editarperfil.html', {'form': form})
 
 
 def anunciar_material(request):
