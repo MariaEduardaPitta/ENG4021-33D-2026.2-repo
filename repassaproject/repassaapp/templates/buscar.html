@@ -8,127 +8,119 @@
     <title>Buscar</title>
 </head>
 <body>
-<header>  
+<form method="get" action="{% url 'buscar' %}">
+<header>
 <h1>
     Buscar
 </h1>
-<button>
-    Escanear
+<button type="submit">
+    Buscar
 </button>
-<input placeholder="Cálculo, Física 1, calculadora…">
-
+<input type="search" name="q" value="{{ filtros.q }}" placeholder="Cálculo, Física 1, calculadora…" aria-label="Pesquisar materiais">
 </header>
 <main>
 <h2>
     Filtros
-</h2>   
-<button>
+</h2>
+<a class="link" href="{% url 'buscar' %}">
     Limpar
-</button> 
-<button>
+</a>
+<label class="filtro">
     <span>
-    Tipo do material
+    Categoria
     </span>
+    <select name="categoria">
+        <option value="">Todas</option>
+        {% for categoria in categorias %}
+        <option value="{{ categoria.pk }}" {% if filtros.categoria == categoria.pk|stringformat:"s" %}selected{% endif %}>{{ categoria.nome }}</option>
+        {% endfor %}
+    </select>
+</label>
+<label class="filtro">
     <span>
-    Todos
+    Curso
     </span>
-</button>
-<button>
-    <span>
-    Matéria
-    </span>
-    <span>
-    ENG1200        
-    </span>
-</button>
-<button>
+    <select name="curso">
+        <option value="">Todos</option>
+        {% for curso in cursos %}
+        <option value="{{ curso }}" {% if filtros.curso == curso %}selected{% endif %}>{{ curso }}</option>
+        {% endfor %}
+    </select>
+</label>
+<label class="filtro">
     <span>
     Condição
     </span>
+    <select name="estado">
+        <option value="">Qualquer</option>
+        {% for estado in estados %}
+        <option value="{{ estado }}" {% if filtros.estado == estado %}selected{% endif %}>{{ estado }}</option>
+        {% endfor %}
+    </select>
+</label>
+<label class="filtro">
     <span>
-    Bom ou melhor    
+    Preço máximo (R$)
     </span>
-</button>
-<button>
-    <span>
-    Faixa de preço
-    </span>
-    <span>
-    Até R$ 80    
-    </span>
+    <input type="number" name="preco_max" min="0" step="0.01" value="{{ filtros.preco_max }}" placeholder="Qualquer">
+</label>
+<button type="submit" class="aplicar">
+    Aplicar filtros
 </button>
 <h2>
-    18 resultados
+    {{ materiais|length }} resultado{{ materiais|length|pluralize }}
 </h2>
-<button>
-    Mais recentes
-</button>
+<select name="ordem" class="ordem" aria-label="Ordenar resultados" onchange="this.form.submit()">
+    <option value="recentes" {% if filtros.ordem == 'recentes' %}selected{% endif %}>Mais recentes</option>
+    <option value="menor_preco" {% if filtros.ordem == 'menor_preco' %}selected{% endif %}>Menor preço</option>
+    <option value="maior_preco" {% if filtros.ordem == 'maior_preco' %}selected{% endif %}>Maior preço</option>
+</select>
 <ul>
+    {% for material in materiais %}
     <li>
         <div>
 
         </div>
         <h3>
-            Cálculo — Vol. 1, Stewart
+            {{ material.titulo }}
         </h3>
         <p>
-            MAT1161 · Ana Beatriz, Eng. Química
+            {{ material.categoria.nome }} · {{ material.curso }} · {{ material.vendedor.nome|default:material.vendedor.username }}
         </p>
         <span>
-            R$ 75
+            R$ {{ material.preco|floatformat:2 }}
         </span>
         <span>
-            Bom estado           
+            {{ material.estado_conservacao }}
         </span>
+        {% if user.is_authenticated and material.vendedor_id != user.id %}
+        <a class="conversar" href="/chat/{{ material.pk }}/{{ material.vendedor_id }}/">
+            Conversar com o vendedor
+        </a>
+        {% endif %}
     </li>
-    <li>
-        <div>
-
-        </div>
-        <h3>
-            Calculadora HP 12C Gold
-        </h3>
-        <p>
-            ADM1100 · Rafael M., Eng. Produção
-        </p>
-        <span>
-            R$ 140
-        </span>
-        <span>
-            Como novo
-        </span>
+    {% empty %}
+    <li class="vazio">
+        Nenhum material encontrado com esses filtros.
     </li>
-    <li>
-        <div>
-            
-        </div>
-        <h3>
-            Física 1 — Halliday, 10ª ed.
-        </h3>
-        <p>
-            FIS1033 · Letícia P., Eng. Civil
-        </p>
-        <span>
-            R$ 60
-        </span>
-        <span>
-            Usado           
-        </span>
-
-    </li>
+    {% endfor %}
 </ul>
 </main>
+</form>
 <nav>
-    <a href="#">
+    <a href="{% url 'home' %}">
         Início
     </a>
-    <a href="buscar.html">
+    <a href="{% url 'buscar' %}" class="ativo">
         Buscar
     </a>
-    <a href="conversas.html">
+    <a href="{% url 'anunciar_material' %}">
+        Anunciar
+    </a>
+    <a href="/conversas/">
         Conversas
     </a>
-    <a href="#">  
+    <a href="{% url 'editar_perfil' %}">
         Perfil
     </a>
 </nav>
