@@ -1,15 +1,9 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth.decorators import login_required
-from .forms import (
-    AvaliacaoForm,
-    CadastroForm,
-    LoginForm,
-    EditarPerfilForm,
-    AnunciarMaterialForm,
-    EditarMaterialForm,
-)
-from .models import Compra, Avaliacao, Material, Mensagem
 
+from decimal import Decimal, InvalidOperation
+
+from django.contrib.auth.decorators import login_required
+from django.db.models import Q
+from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import (
     AvaliacaoForm,
@@ -19,12 +13,13 @@ from .forms import (
     AnunciarMaterialForm,
     EditarMaterialForm,
 )
-from .models import Compra, Avaliacao, Material
+from .models import Compra, Avaliacao, Material, Categoria, Mensagem, Usuario
 
 
 def home(request):
     materiais = Material.objects.filter(status="disponivel")
     return render(request, 'index.html', {"materiais": materiais})
+
 
 @login_required
 def notificacoes(request):
@@ -32,9 +27,11 @@ def notificacoes(request):
     vendas = Compra.objects.filter(material__vendedor=request.user)
     return render(request, 'notificacoes.html', {"mensagens": mensagens, "vendas": vendas})
 
+
 def detalhe_material(request, id):
     material = get_object_or_404(Material, pk=id)
     return render(request, 'detalhes.html', {"material": material})
+
 
 @login_required
 def confirmacao(request, id):
@@ -188,3 +185,170 @@ def editar_material(request, material_id):
         'material': material,
     })
 
+
+# ---------- Buscar, Conversas e Chat ----------
+
+ORDENS_BUSCA = {
+    'recentes': '-id',
+    'menor_preco': 'preco',
+    'maior_preco': '-preco',
+}
+
+
+def buscar(request):
+    materiais = Material.objects.filter(status='disponivel').select_related('vendedor', 'categoria')
+
+    q = request.GET.get('q', '').strip()
+    categoria = request.GET.get('categoria', '')
+    curso = request.GET.get('curso', '')
+    estado = request.GET.get('estado', '')
+    preco_max = request.GET.get('preco_max', '').strip().replace(',', '.')
+    ordem = request.GET.get('ordem', 'recentes')
+    if ordem not in ORDENS_BUSCA:
+        ordem = 'recentes'
+
+    if q:
+        materiais = materiais.filter(
+            Q(titulo__icontains=q) | Q(descricao__icontains=q) | Q(curso__icontains=q)
+        )
+    if categoria.isdigit():
+        materiais = materiais.filter(categoria_id=categoria)
+    if curso:
+        materiais = materiais.filter(curso=curso)
+    if estado:
+        materiais = materiais.filter(estado_conservacao=estado)
+    if preco_max:
+        try:
+            valor = Decimal(preco_max)
+            if not valor.is_finite():
+                raise InvalidOperation
+            materiais = materiais.filter(preco__lte=valor)
+        except InvalidOperation:
+            preco_max = ''
+
+    materiais = materiais.order_by(ORDENS_BUSCA[ordem])
+
+    disponiveis = Material.objects.filter(status='disponivel')
+    return render(request, 'buscar.html', {
+        'materiais': materiais,
+        'categorias': Categoria.objects.order_by('nome'),
+        'cursos': disponiveis.order_by('curso').values_list('curso', flat=True).distinct(),
+        'estados': disponiveis.order_by('estado_conservacao').values_list('estado_conservacao', flat=True).distinct(),
+        'filtros': {
+            'q': q,
+            'categoria': categoria,
+            'curso': curso,
+            'estado': estado,
+            'preco_max': preco_max,
+            'ordem': ordem,
+        },
+    })
+
+
+def conversas(request):
+    if not request.user.is_authenticated:
+        return render(request, 'conversas.html', {'precisa_login': True})
+
+    usuario = request.user
+    filtro = request.GET.get('filtro', 'todas')
+    if filtro not in ('todas', 'comprando', 'vendendo'):
+        filtro = 'todas'
+    q = request.GET.get('q', '').strip()
+
+    mensagens = (
+        Mensagem.objects
+        .filter(Q(remetente=usuario) | Q(destinatario=usuario))
+        .select_related('remetente', 'destinatario', 'material__vendedor')
+        .order_by('-data_hora', '-id')
+    )
+
+    # Uma conversa = mesmo material + mesma outra pessoa.
+    # Como as mensagens vêm da mais nova para a mais antiga,
+    # a primeira de cada conversa é a última mensagem trocada.
+    lista = []
+    vistas = set()
+    for mensagem in mensagens:
+        outro = mensagem.destinatario if mensagem.remetente_id == usuario.id else mensagem.remetente
+        chave = (mensagem.material_id, outro.id)
+        if chave in vistas:
+            continue
+        vistas.add(chave)
+
+        vendendo = mensagem.material.vendedor_id == usuario.id
+        if filtro == 'comprando' and vendendo:
+            continue
+        if filtro == 'vendendo' and not vendendo:
+            continue
+        if q:
+            nome_outro = (outro.nome or outro.username).lower()
+            if q.lower() not in nome_outro and q.lower() not in mensagem.material.titulo.lower():
+                continue
+
+        lista.append({
+            'outro': outro,
+            'material': mensagem.material,
+            'ultima': mensagem,
+            'vendendo': vendendo,
+        })
+
+    # Marca as conversas que viraram compra e se o usuário ainda pode avaliar.
+    compras = {
+        compra.material_id: compra
+        for compra in Compra.objects.filter(material_id__in=[c['material'].pk for c in lista])
+    }
+    avaliadas = set(
+        Avaliacao.objects.filter(compra__in=compras.values()).values_list('compra_id', flat=True)
+    )
+    for conversa in lista:
+        compra = compras.get(conversa['material'].pk)
+        participantes = {usuario.id, conversa['outro'].id}
+        conversa['compra'] = compra
+        conversa['negocio_concluido'] = bool(compra and compra.comprador_id in participantes)
+        conversa['pode_avaliar'] = bool(
+            compra and compra.comprador_id == usuario.id and compra.pk not in avaliadas
+        )
+
+    return render(request, 'conversas.html', {
+        'conversas': lista,
+        'filtro': filtro,
+        'q': q,
+    })
+
+
+def chat(request, material_id, usuario_id):
+    if not request.user.is_authenticated:
+        return render(request, 'chat.html', {'precisa_login': True})
+
+    usuario = request.user
+    material = get_object_or_404(Material.objects.select_related('vendedor'), pk=material_id)
+    outro = get_object_or_404(Usuario, pk=usuario_id)
+
+    # A conversa é sempre entre o vendedor do material e outra pessoa.
+    if outro.pk == usuario.pk or material.vendedor_id not in (usuario.pk, outro.pk):
+        raise Http404('Conversa não encontrada.')
+
+    if request.method == 'POST':
+        conteudo = request.POST.get('conteudo', '').strip()
+        if conteudo:
+            Mensagem.objects.create(
+                remetente=usuario,
+                destinatario=outro,
+                material=material,
+                conteudo=conteudo,
+            )
+        return redirect('chat', material_id=material.pk, usuario_id=outro.pk)
+
+    mensagens = (
+        Mensagem.objects
+        .filter(material=material)
+        .filter(
+            Q(remetente=usuario, destinatario=outro) | Q(remetente=outro, destinatario=usuario)
+        )
+        .order_by('data_hora', 'id')
+    )
+
+    return render(request, 'chat.html', {
+        'material': material,
+        'outro': outro,
+        'mensagens': mensagens,
+    })
