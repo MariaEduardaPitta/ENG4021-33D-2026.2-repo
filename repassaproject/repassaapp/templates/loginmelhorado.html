@@ -23,10 +23,11 @@
 
         <form method="POST">
             {% csrf_token %}
+            {{ form.errors }}
 
             <div class="campo-grupo">
                 <label for="email-usuario" class="cor-roxa">E-mail:</label>
-                <input type="email" id="email-usuario" name="email" placeholder="seuemail@universidade.com.br" required>
+                <input type="email" id="email-usuario" name="email" placeholder="seuemail@universidade.com.br" required value="{{ form.email.value|default_if_none:'' }}">
             </div>
 
             <div class="campo-grupo">

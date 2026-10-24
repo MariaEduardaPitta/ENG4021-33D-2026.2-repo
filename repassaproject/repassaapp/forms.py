@@ -1,6 +1,8 @@
 
 from django import forms
-from .models import Avaliacao, Material
+from .models import Avaliacao, Material, Usuario
+from django.contrib.auth.password_validation import validate_password
+import re
 
 
 class AvaliacaoForm(forms.ModelForm):
@@ -16,28 +18,54 @@ class AvaliacaoForm(forms.ModelForm):
 
 
 
-class CadastroForm(forms.Form):
-    nome = forms.CharField(max_length=100, label='Nome')
-    sobrenome = forms.CharField(max_length=100, label='Sobrenome')
+class PerfilForm(forms.Form):
+    nome = forms.CharField(max_length=75, label='Nome')
+    sobrenome = forms.CharField(max_length=74, label='Sobrenome')
+    email = forms.EmailField(max_length=150, label='E-mail')
+    telefone = forms.CharField(max_length=20, required=False, label='Telefone')
+    senha = forms.CharField(widget=forms.PasswordInput, required=False, label='Nova senha')
+
+    def __init__(self, *args, usuario=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.usuario = usuario
+
+    def clean_email(self):
+        email = self.cleaned_data['email'].lower()
+        usuarios = Usuario.objects.all()
+        if self.usuario:
+            usuarios = usuarios.exclude(pk=self.usuario.pk)
+        if usuarios.filter(email__iexact=email).exists() or usuarios.filter(username__iexact=email).exists():
+            raise forms.ValidationError('Este e-mail já está cadastrado.')
+        return email
+
+    def clean_senha(self):
+        senha = self.cleaned_data.get('senha', '')
+        if senha:
+            validate_password(senha, self.usuario)
+        return senha
+
+
+class CadastroForm(PerfilForm):
     cpf = forms.CharField(max_length=14, label='CPF')
     telefone = forms.CharField(max_length=20, label='Telefone')
-    email = forms.EmailField(label='E-mail')
     senha = forms.CharField(widget=forms.PasswordInput, label='Senha')
 
-class EditarPerfilForm(forms.Form):
-    nome = forms.CharField(max_length=100, label='Nome')
-    sobrenome = forms.CharField(max_length=100, label='Sobrenome')
-    email = forms.EmailField(label='E-mail')
-    telefone = forms.CharField(max_length=20, required=False, label='Telefone')
-    senha = forms.CharField(widget=forms.PasswordInput, required=False, label='Nova Senha')
+    def clean_cpf(self):
+        cpf = re.sub(r'[.\-\s]', '', self.cleaned_data['cpf'])
+        if not re.fullmatch(r'[0-9]{11}', cpf):
+            raise forms.ValidationError('Informe os 11 números do CPF.')
+        if Usuario.objects.filter(cpf=cpf).exists():
+            raise forms.ValidationError('Este CPF já está cadastrado.')
+        return cpf
 
+
+class EditarPerfilForm(PerfilForm):
+    pass
 
 
 class LoginForm(forms.Form):
     email = forms.EmailField(label='E-mail')
     senha = forms.CharField(widget=forms.PasswordInput, label='Senha')
-
-
 
 
 class AnunciarMaterialForm(forms.ModelForm):

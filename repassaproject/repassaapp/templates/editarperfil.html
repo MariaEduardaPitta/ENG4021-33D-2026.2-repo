@@ -22,29 +22,31 @@
         </h1>
 
         
+        {% if sucesso %}<p role="status">Perfil atualizado.</p>{% endif %}
         <form method="POST">
             {% csrf_token %}
+            {{ form.errors }}
 
             <div class="linha-dupla">
                 <div class="campo-grupo">
                     <label for="nome-usuario" class="cor-roxa">Nome:</label>
-                    <input type="text" id="nome-usuario" name="nome" placeholder="Seu nome" required>
+                    <input type="text" id="nome-usuario" name="nome" placeholder="Seu nome" required value="{{ form.nome.value|default_if_none:'' }}">
                 </div>
 
                 <div class="campo-grupo">
                     <label for="sobrenome-usuario" class="cor-roxa">Sobrenome:</label>
-                    <input type="text" id="sobrenome-usuario" name="sobrenome" placeholder="Seu sobrenome" required>
+                    <input type="text" id="sobrenome-usuario" name="sobrenome" placeholder="Seu sobrenome" required value="{{ form.sobrenome.value|default_if_none:'' }}">
                 </div>
             </div>
 
             <div class="campo-grupo">
                 <label for="email-usuario" class="cor-roxa">E-mail:</label>
-                <input type="email" id="email-usuario" name="email" class="input-destaque" placeholder="seuemail@universidade.com.br" required>
+                <input type="email" id="email-usuario" name="email" class="input-destaque" placeholder="seuemail@universidade.com.br" required value="{{ form.email.value|default_if_none:'' }}">
             </div>
 
             <div class="campo-grupo">
                 <label for="telefone-usuario" class="cor-roxa">Telefone:</label>
-                <input type="text" id="telefone-usuario" name="telefone" class="input-destaque" placeholder="(XX) XXXXX-XXXX">
+                <input type="text" id="telefone-usuario" name="telefone" class="input-destaque" placeholder="(XX) XXXXX-XXXX" value="{{ form.telefone.value|default_if_none:'' }}">
             </div>
 
             <div class="campo-grupo">
