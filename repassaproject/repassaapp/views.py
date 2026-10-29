@@ -42,8 +42,17 @@ def detalhe_material(request, id):
 
 @login_required
 def confirmacao(request, id):
-    compra = get_object_or_404(Compra, pk=id, comprador=request.user)
-    return render(request, 'confirmacao.html', {"compra": compra})
+    compra = get_object_or_404(
+        Compra.objects.select_related('material__vendedor', 'pagamento'),
+        pk=id,
+        comprador=request.user,
+    )
+    ja_avaliou = Avaliacao.objects.filter(compra=compra).exists()
+    return render(request, 'confirmacao.html', {
+        "compra": compra,
+        "ja_avaliou": ja_avaliou,
+        "entregue": compra.status_entrega == "entregue",
+    })
 
 
 def avaliar_vendedor(request, compra_id):

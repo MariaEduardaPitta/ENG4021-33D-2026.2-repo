@@ -29,10 +29,22 @@
         <div class="row-line"><dt>Status da entrega</dt><dd class="status-entrega">{{ compra.status_entrega|upper }}</dd></div>
       </dl>
     </section>
+    <section class="success-recap acompanhamento" aria-label="Acompanhamento da entrega">
+      <h3>Acompanhamento da entrega</h3>
+      {% if entregue %}
+        <p>✓ Entrega concluída. Agora você pode avaliar o vendedor.</p>
+      {% else %}
+        <p>⏳ Aguardando entrega. Combine com o vendedor pelo chat. A avaliação fica disponível depois que a entrega for concluída.</p>
+      {% endif %}
+    </section>
 
     <div class="success-actions">
-      <!-- Ativar o contato quando a tela de chat estiver disponível. -->
-      <button class="btn btn-primary" type="button" disabled>Falar com o vendedor</button>
+      {% if entregue and not ja_avaliou %}
+        <a class="btn btn-primary" href="{% url 'avaliar_vendedor' compra.pk %}">Avaliar vendedor</a>
+      {% elif ja_avaliou %}
+        <a class="btn btn-secondary" href="{% url 'avaliar_vendedor' compra.pk %}">Ver minha avaliação</a>
+      {% endif %}
+      <a class="btn btn-secondary" href="{% url 'chat' compra.material.id compra.material.vendedor.id %}">Falar com o vendedor</a>
       <a class="btn btn-secondary" href="/">Voltar à página inicial</a>
     </div>
   </main>
