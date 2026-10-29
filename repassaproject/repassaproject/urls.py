@@ -15,6 +15,7 @@ from repassaapp.views import (
     buscar,
     conversas,
     chat,
+    avaliacoes_vendedor,
 )
 
 urlpatterns = [
@@ -24,6 +25,7 @@ urlpatterns = [
     path('material/<int:id>/', detalhe_material, name='detalhe_material'),
     path('confirmacao/<int:id>/', confirmacao, name='confirmacao'),
     path('compras/<int:compra_id>/avaliar/', avaliar_vendedor, name='avaliar_vendedor'),
+    path('vendedores/<int:id>/avaliacoes/', avaliacoes_vendedor, name='avaliacoes_vendedor'),
     path('cadastro/', cadastro_view, name='cadastro'),
     path('login/', login_view, name='login'),
     path('editar-perfil/', editar_perfil_view, name='editar_perfil'),

@@ -2,7 +2,7 @@
 from decimal import Decimal, InvalidOperation
 
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q
+from django.db.models import Q, Avg, Count
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import (
@@ -68,6 +68,18 @@ def avaliar_vendedor(request, compra_id):
         'compra': compra,
         'form': form,
         'avaliacao': avaliacao,
+    })
+
+def avaliacoes_vendedor(request, id):
+    vendedor = get_object_or_404(Usuario, pk=id)
+    avaliacoes = vendedor.avaliacoes_recebidas.select_related('avaliador', 'compra__material')
+    resumo = avaliacoes.aggregate(media=Avg('nota'), quantidade=Count('id'))
+
+    return render(request, 'avaliacoes_vendedor.html', {
+        'vendedor': vendedor,
+        'avaliacoes': avaliacoes,
+        'media': resumo['media'],
+        'quantidade': resumo['quantidade'],
     })
 
 
