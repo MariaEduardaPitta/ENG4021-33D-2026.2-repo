@@ -17,7 +17,7 @@ input { width: 100%; padding: 10px; border: 1px solid #aaa; }
 .filtros { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
 .filtros button { padding: 6px 10px; }
 .card { border: 1px solid #ccc; padding: 16px; margin-bottom: 16px; }
-.material-icone { font-size: 28px; }
+.material-foto { display: block; width: 100%; height: 160px; object-fit: contain; background: #F3E8FF; border-radius: 8px; }
 .card h3 { font-size: 18px; margin: 12px 0; }
 .preco { color: #6b21a8; font-weight: bold; }
 del { color: #666; font-size: 12px; font-weight: normal; }

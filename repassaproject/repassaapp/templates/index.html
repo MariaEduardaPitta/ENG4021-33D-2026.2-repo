@@ -26,7 +26,11 @@
   <div class="lista-materiais">
   {% for material in materiais %}
   <article class="card">
-    <span class="material-icone" aria-hidden="true">📦</span>
+    {% if material.foto %}
+      <img class="material-foto" src="{{ material.foto.url }}" alt="Foto de {{ material.titulo }}">
+    {% else %}
+      <img class="material-foto" src="{% static 'img/logo-repassa.png' %}" alt="Material sem foto">
+    {% endif %}
     <div class="material-info">
             <h3><a href="{% url 'detalhe_material' material.id %}">{{ material.titulo }}</a></h3>
       <p class="preco">R$ {{ material.preco }} <del>novo: R$ {{ material.preco_produto_novo }}</del></p>

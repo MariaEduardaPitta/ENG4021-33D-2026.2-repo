@@ -15,7 +15,11 @@
 
   <main>
     <div class="foto">
-      <span aria-hidden="true">📦</span>
+      {% if material.foto %}
+        <img src="{{ material.foto.url }}" alt="Foto de {{ material.titulo }}">
+      {% else %}
+        <img src="{% static 'img/logo-repassa.png' %}" alt="Material sem foto">
+      {% endif %}
     </div>
 
     <section class="resumo">
