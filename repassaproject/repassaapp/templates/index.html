@@ -32,7 +32,7 @@
       <p class="preco">R$ {{ material.preco }} <del>novo: R$ {{ material.preco_produto_novo }}</del></p>
       <small>{{ material.estado_conservacao }} · {{ material.curso }} · {{ material.categoria.nome }}</small>
       <div class="rodape-card">
-        <span>★ {{ material.vendedor.nota_media }} · {{ material.vendedor.nome }}</span>
+        <span>{% if material.nota_vendedor %}★ {{ material.nota_vendedor|floatformat:1 }}{% else %}Sem avaliações{% endif %} · {{ material.vendedor.nome }}</span>
         <strong class="disponivel">DISPONÍVEL</strong>
       </div>
     </div>

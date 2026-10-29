@@ -17,7 +17,9 @@ from .models import Compra, Avaliacao, Material, Categoria, Mensagem, Usuario
 
 
 def home(request):
-    materiais = Material.objects.filter(status="disponivel")
+    materiais = Material.objects.filter(status="disponivel").select_related('vendedor', 'categoria').annotate(
+        nota_vendedor=Avg('vendedor__avaliacoes_recebidas__nota')
+    )
     return render(request, 'index.html', {"materiais": materiais})
 
 
@@ -29,8 +31,13 @@ def notificacoes(request):
 
 
 def detalhe_material(request, id):
-    material = get_object_or_404(Material, pk=id)
-    return render(request, 'detalhes.html', {"material": material})
+    material = get_object_or_404(Material.objects.select_related('vendedor', 'categoria'), pk=id)
+    resumo = material.vendedor.avaliacoes_recebidas.aggregate(media=Avg('nota'), quantidade=Count('id'))
+    return render(request, 'detalhes.html', {
+        "material": material,
+        "nota_vendedor": resumo['media'],
+        "quantidade_avaliacoes": resumo['quantidade'],
+    })
 
 
 @login_required
