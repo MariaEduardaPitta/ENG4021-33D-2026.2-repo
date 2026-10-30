@@ -33,3 +33,41 @@ urlpatterns = [
     path('conversas/', conversas, name='conversas'),
     path('chat/<int:material_id>/<int:usuario_id>/', chat, name='chat'),
 ]
+
+
+from django.contrib.auth import views as auth_views
+
+urlpatterns = [
+    path(
+        'recuperar-senha/',
+        auth_views.PasswordResetView.as_view(
+            template_name='recuperar_senha.html',
+            email_template_name='emails/recuperar_senha_email.html',
+            subject_template_name='emails/recuperar_senha_assunto.txt',
+            success_url='/recuperar-senha/enviado/'
+        ),
+        name='password_reset'
+    ),
+    path(
+        'recuperar-senha/enviado/',
+        auth_views.PasswordResetDoneView.as_view(
+            template_name='recuperar_senha_enviado.html'
+        ),
+        name='password_reset_done'
+    ),
+    path(
+        'reset/<uidb64>/<token>/',
+        auth_views.PasswordResetConfirmView.as_view(
+            template_name='nova_senha.html',
+            success_url='/reset/concluido/'
+        ),
+        name='password_reset_confirm'
+    ),
+    path(
+        'reset/concluido/',
+        auth_views.PasswordResetCompleteView.as_view(
+            template_name='nova_senha_concluido.html'
+        ),
+        name='password_reset_complete'
+    ),
+]
