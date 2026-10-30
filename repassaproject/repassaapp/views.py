@@ -7,6 +7,7 @@ from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import (
     AvaliacaoForm,
+    AtualizarEntregaForm,
     CadastroForm,
     LoginForm,
     EditarPerfilForm,
@@ -439,4 +440,25 @@ def comprar_material(request, material_id):
     return render(request, 'compra.html', {
         'form': form,
         'material': material
+    })
+
+
+@login_required
+def atualizar_entrega(request, compra_id):
+    compra = get_object_or_404(
+        Compra.objects.select_related('material', 'comprador'),
+        pk=compra_id, material__vendedor=request.user,
+    )
+    status_anterior = compra.status_entrega
+    form = AtualizarEntregaForm(request.POST if request.method == 'POST' else None, instance=compra)
+    if request.method == 'POST' and form.is_valid():
+        atualizado = Compra.objects.filter(pk=compra.pk, status_entrega=status_anterior).update(
+            status_entrega=form.cleaned_data['status_entrega']
+        )
+        if atualizado:
+            return redirect('/compras/{}/entrega/?salvo=1'.format(compra.pk))
+        form.add_error(None, 'A entrega mudou enquanto você editava. Recarregue a página.')
+    return render(request, 'entrega.html', {
+        'compra': compra, 'form': form, 'status_atual': status_anterior,
+        'salvo': request.GET.get('salvo') == '1',
     })
