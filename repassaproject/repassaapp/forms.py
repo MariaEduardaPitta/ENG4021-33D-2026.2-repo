@@ -84,4 +84,30 @@ class AnunciarMaterialForm(forms.ModelForm):
 
 
 class EditarMaterialForm(AnunciarMaterialForm):
-    pass
+    class CompraForm(forms.Form):
+    ENTREGA_CHOICES = [
+        ('entrega', 'Receber no endereço'),
+        ('retirada', 'Combinar retirada com o vendedor'),
+    ]
+
+    forma_entrega = forms.ChoiceField(
+        choices=ENTREGA_CHOICES,
+        label='Forma de entrega'
+    )
+    cep = forms.CharField(max_length=9, required=False, label='CEP')
+    logradouro = forms.CharField(max_length=150, required=False, label='Rua')
+    numero = forms.CharField(max_length=10, required=False, label='Número')
+    complemento = forms.CharField(max_length=100, required=False, label='Complemento')
+    bairro = forms.CharField(max_length=100, required=False, label='Bairro')
+    cidade = forms.CharField(max_length=100, required=False, label='Cidade')
+    uf = forms.CharField(max_length=2, required=False, label='Estado')
+
+    def clean(self):
+        dados = super().clean()
+
+        if dados.get('forma_entrega') == 'entrega':
+            for campo in ['cep', 'logradouro', 'numero', 'bairro', 'cidade', 'uf']:
+                if not dados.get(campo):
+                    self.add_error(campo, 'Este campo é obrigatório para entrega.')
+
+        return dados
