@@ -37,7 +37,7 @@ urlpatterns = [
 
 from django.contrib.auth import views as auth_views
 
-urlpatterns = [
+urlpatterns += [
     path(
         'recuperar-senha/',
         auth_views.PasswordResetView.as_view(
