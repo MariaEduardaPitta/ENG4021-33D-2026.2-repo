@@ -1,13 +1,13 @@
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Comprar - Repassa</title>
-    <!-- Link para o arquivo CSS separado na pasta static -->
     <link rel="stylesheet" href="{% static 'css/compra.css' %}">
 </head>
-
 <body>
     <div class="cabecalho">
         <div class="logo">
@@ -15,76 +15,150 @@
             <div class="nome-logo">Repassa</div>
         </div>
         <div class="menu">
-            <div class="item-menu">⌂ Início</div>
-            <div class="item-menu">⌕ Buscar</div>
-            <div class="item-menu">⊕ Anunciar</div>
-            <div class="item-menu">◯ Conversas</div>
-            <div class="item-menu">♙ Perfil</div>
+            <a href="{% url 'home' %}" class="item-menu">⌂ Início</a>
+            <a href="{% url 'buscar' %}" class="item-menu">⌕ Buscar</a>
+            <a href="{% url 'anunciar_material' %}" class="item-menu">⊕ Anunciar</a>
+            <a href="{% url 'conversas' %}" class="item-menu">◯ Conversas</a>
+            <a href="{% url 'editar_perfil' %}" class="item-menu">♙ Perfil</a>
         </div>
     </div>
 
     <div class="pagina">
-        <h1>Livro de Cálculo Vol. 1</h1>
+        <h1>{{ material.titulo }}</h1>
 
         <div class="linha-preco">
-            <p class="preco">R$ 70,00</p>
-            <p class="preco-novo">Novo: R$ 180,00</p>
+            <p class="preco">R$ {{ material.preco }}</p>
+            <p class="preco-novo">Novo: R$ {{ material.preco_produto_novo }}</p>
         </div>
 
         <div class="disponivel">✓ <b>Disponível para compra</b></div>
 
         <h2>Descrição</h2>
-        <p class="descricao">Edição completa com marcações leves a lápis e abas de estudo removíveis.</p>
+        <p class="descricao">{{ material.descricao }}</p>
 
         <div class="vendedor">
             <h2>Vendedor</h2>
-
             <div class="dados-vendedor">
-                <div class="foto-vendedor">R</div>
+                <div class="foto-vendedor">{{ material.vendedor.nome|first|upper }}</div>
                 <div>
-                    <div class="nome-vendedor">Rafael Santos</div>
-                    <p class="informacao-vendedor">Universidade de São Paulo</p>
-                    <p class="informacao-vendedor">Engenharia Elétrica</p>
-                    <p>⭐ 4,9 · 31 avaliações</p>
-                </div>
-            </div>
-
-            <div class="informacoes">
-                <div class="informacao">
-                    <p class="titulo-informacao">Membro desde</p>
-                    <p class="valor-informacao">2023</p>
-                </div>
-                <div class="informacao">
-                    <p class="titulo-informacao">Avaliações</p>
-                    <p class="valor-informacao">31</p>
-                </div>
-                <div class="informacao">
-                    <p class="titulo-informacao">Confiança</p>
-                    <p class="valor-informacao verificado">✓ Verificado</p>
+                    <div class="nome-vendedor">{{ material.vendedor.nome }}</div>
+                    <p class="informacao-vendedor">
+                        {{ material.vendedor.faculdade.nome|default:"Faculdade não informada" }}
+                    </p>
+                    <p class="informacao-vendedor">{{ material.vendedor.curso }}</p>
                 </div>
             </div>
         </div>
 
-        <div class="botoes">
-            <button class="comprar">Comprar</button>
-            <button class="mensagem">Enviar mensagem</button>
-        </div>
+        <h2>Entrega</h2>
+        <form method="post" id="form-compra">
+            {% csrf_token %}
+            <div class="campos-entrega">
+                {{ form.non_field_errors }}
+                {% for campo in form %}
+                    <label for="{{ campo.id_for_label }}">{{ campo.label }}</label>
+                    {{ campo }}
+                    {% for erro in campo.errors %}
+                        <p class="erro">{{ erro }}</p>
+                    {% endfor %}
+                {% endfor %}
+                <p class="aviso-cep" id="aviso-cep">
+                    Informe o CEP para preencher o endereço automaticamente.
+                </p>
+            </div>
+
+            <div class="botoes">
+                <button type="button" class="comprar" id="abrir-confirmacao">
+                    Comprar
+                </button>
+                <a class="mensagem" href="{% url 'detalhe_material' material.id %}">
+                    Voltar ao material
+                </a>
+            </div>
+        </form>
     </div>
 
-    <div class="fundo-confirmacao">
+    <div class="fundo-confirmacao" id="fundo-confirmacao">
         <div class="confirmacao">
-            <h2>Confirmar interesse em comprar?</h2>
+            <h2>Confirmar compra?</h2>
             <p class="texto-confirmacao">
-                Você está confirmando interesse em <b>Livro de Cálculo Vol. 1</b> por R$ 70,00.
-                Os detalhes de entrega serão combinados diretamente com o vendedor pelo chat.
+                Você está confirmando a compra de
+                <b>{{ material.titulo }}</b> por R$ {{ material.preco }}.
             </p>
-            <form action="../Lucas-Lemos/templates/confirmacao.html">
+            <p>Esta etapa registra a compra, sem realizar pagamento online.</p>
             <div class="botoes-confirmacao">
-                <button class="cancelar" formaction="../Lucas-Lemos/templates/index.html">Cancelar</button>
-                <button class="confirmar">Confirmar compra</button>
+                <button type="button" class="cancelar" id="cancelar">Cancelar</button>
+                <button type="submit" form="form-compra" class="confirmar">
+                    Confirmar compra
+                </button>
             </div>
-            </form>
         </div>
     </div>
+
+    <script>
+        const cep = document.getElementById('id_cep');
+        const aviso = document.getElementById('aviso-cep');
+        const entrega = document.getElementById('id_forma_entrega');
+        const camposEndereco = ['cep', 'logradouro', 'numero', 'complemento', 'bairro', 'cidade', 'uf'];
+
+        function atualizarEntrega() {
+            const mostrar = entrega.value === 'entrega';
+            camposEndereco.forEach(nome => {
+                const campo = document.getElementById('id_' + nome);
+                campo.closest('label')?.removeAttribute('hidden');
+                campo.style.display = mostrar ? '' : 'none';
+                const label = document.querySelector('label[for="' + campo.id + '"]');
+                if (label) label.style.display = mostrar ? '' : 'none';
+            });
+            aviso.style.display = mostrar ? '' : 'none';
+        }
+
+        entrega.addEventListener('change', atualizarEntrega);
+        atualizarEntrega();
+
+        cep.addEventListener('blur', async function () {
+            const numeroCep = cep.value.replace(/\D/g, '');
+
+            if (numeroCep.length !== 8) {
+                aviso.textContent = 'Digite um CEP com 8 números.';
+                return;
+            }
+
+            aviso.textContent = 'Buscando endereço...';
+
+            try {
+                const resposta = await fetch('https://viacep.com.br/ws/' + numeroCep + '/json/');
+                if (!resposta.ok) throw new Error('Falha na consulta');
+
+                const dados = await resposta.json();
+
+                if (dados.erro) {
+                    aviso.textContent = 'CEP não encontrado. Preencha o endereço manualmente.';
+                    return;
+                }
+
+                document.getElementById('id_logradouro').value = dados.logradouro || '';
+                document.getElementById('id_bairro').value = dados.bairro || '';
+                document.getElementById('id_cidade').value = dados.localidade || '';
+                document.getElementById('id_uf').value = dados.uf || '';
+                aviso.textContent = 'Endereço encontrado! Confira os dados e informe o número.';
+            } catch (erro) {
+                aviso.textContent = 'Não foi possível consultar o CEP. Preencha manualmente.';
+            }
+        });
+
+        const modal = document.getElementById('fundo-confirmacao');
+
+        document.getElementById('abrir-confirmacao').addEventListener('click', () => {
+            const formulario = document.getElementById('form-compra');
+            if (formulario.reportValidity()) {
+                modal.style.display = 'flex';
+            }
+        });
+
+        document.getElementById('cancelar').addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+    </script>
 </body>
 </html>

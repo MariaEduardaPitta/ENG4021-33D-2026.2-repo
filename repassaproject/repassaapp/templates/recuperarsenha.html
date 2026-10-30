@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar Senha - Repassa</title>
+    <link rel="stylesheet" href="{% static 'css/recuperacao.css' %}">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-header">
+            <h2>Esqueceu a senha?</h2>
+            <p>Digite seu e-mail cadastrado para receber as instruções de redefinição.</p>
+        </div>
+
+        <form method="POST" class="auth-form">
+            {% csrf_token %}
+            
+            {% if form.errors %}
+                <ul class="error-list">
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            <div class="form-group">
+                <label for="id_email">E-mail</label>
+                <input type="email" name="email" id="id_email" class="form-input" placeholder="seu@email.com" required>
+            </div>
+
+            <button type="submit" class="btn-submit">Enviar Link de Recuperação</button>
+        </form>
+
+        <div class="auth-footer">
+            <a href="{% url 'login' %}">&larr; Voltar para o Login</a>
+        </div>
+    </div>
+</body>
+</html>

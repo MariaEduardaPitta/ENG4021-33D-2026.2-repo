@@ -59,13 +59,21 @@
       <a href="{% url 'avaliacoes_vendedor' material.vendedor.id %}">Ver avaliações</a>
     </section>
 
-    {% if material.status == "disponivel" %}
-    <div class="acoes">
-      <!-- Ligar ao chat e à compra quando essas URLs existirem. -->
-      <button class="btn btn-secundario" type="button" disabled>Conversar com vendedor</button>
-      <button class="btn btn-principal" type="button" disabled>Comprar</button>
-    </div>
-    {% endif %}
+  {% if material.status == "disponivel" %}
+<div class="acoes">
+  <button class="btn btn-secundario" type="button" disabled>
+    Conversar com vendedor
+  </button>
+
+  {% if user.is_authenticated and material.vendedor_id == user.id %}
+    <span>Este anúncio é seu.</span>
+  {% else %}
+    <a href="{% url 'comprar_material' material.id %}" class="btn btn-principal">
+      Comprar
+    </a>
+  {% endif %}
+</div>
+{% endif %}
   </main>
 </body>
 </html>
