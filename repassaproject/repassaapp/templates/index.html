@@ -8,7 +8,20 @@
   <link rel="stylesheet" href="{% static 'css/index.css' %}">
 </head>
 <body>
-<header><img class="logo" src="{% static 'img/logo-repassa.png' %}" alt="Logo do REPASSA"><strong>REPASSA</strong><a href="/notificacoes/" aria-label="Notificações">🔔 <span class="contador">3</span></a></header>
+<header>
+  <img class="logo" src="{% static 'img/logo-repassa.png' %}" alt="Logo do REPASSA"><strong>REPASSA</strong>
+  <nav class="conta">
+    {% if user.is_authenticated %}
+      <a href="/notificacoes/" aria-label="Notificações">🔔 <span class="contador">3</span></a>
+      <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit">Sair</button>
+      </form>
+    {% else %}
+      <a href="{% url 'login' %}">Entrar</a>
+    {% endif %}
+  </nav>
+</header>
 
 <main>
   <div class="marca"><img class="logo" src="{% static 'img/logo-repassa.png' %}" alt=""><h1>REPASSA</h1></div>
@@ -26,13 +39,17 @@
   <div class="lista-materiais">
   {% for material in materiais %}
   <article class="card">
-    <span class="material-icone" aria-hidden="true">📦</span>
+    {% if material.foto %}
+      <img class="material-foto" src="{{ material.foto.url }}" alt="Foto de {{ material.titulo }}">
+    {% else %}
+      <img class="material-foto" src="{% static 'img/logo-repassa.png' %}" alt="Material sem foto">
+    {% endif %}
     <div class="material-info">
             <h3><a href="{% url 'detalhe_material' material.id %}">{{ material.titulo }}</a></h3>
       <p class="preco">R$ {{ material.preco }} <del>novo: R$ {{ material.preco_produto_novo }}</del></p>
       <small>{{ material.estado_conservacao }} · {{ material.curso }} · {{ material.categoria.nome }}</small>
       <div class="rodape-card">
-        <span>★ {{ material.vendedor.nota_media }} · {{ material.vendedor.nome }}</span>
+        <span>{% if material.nota_vendedor %}★ {{ material.nota_vendedor|floatformat:1 }}{% else %}Sem avaliações{% endif %} · {{ material.vendedor.nome }}</span>
         <strong class="disponivel">DISPONÍVEL</strong>
       </div>
     </div>

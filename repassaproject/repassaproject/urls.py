@@ -1,6 +1,8 @@
 
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 from repassaapp.views import (
     home,
     notificacoes,
@@ -9,13 +11,14 @@ from repassaapp.views import (
     avaliar_vendedor,
     cadastro_view,
     login_view,
+    logout_view,
     editar_perfil_view,
     anunciar_material,
     editar_material,
     buscar,
     conversas,
     chat,
-    comprar_material,
+    avaliacoes_vendedor,
 )
 
 urlpatterns = [
@@ -26,8 +29,10 @@ urlpatterns = [
     path('confirmacao/<int:id>/', confirmacao, name='confirmacao'),
     path('comprar/<int:material_id>/', comprar_material, name='comprar_material'),
     path('compras/<int:compra_id>/avaliar/', avaliar_vendedor, name='avaliar_vendedor'),
+    path('vendedores/<int:id>/avaliacoes/', avaliacoes_vendedor, name='avaliacoes_vendedor'),
     path('cadastro/', cadastro_view, name='cadastro'),
     path('login/', login_view, name='login'),
+    path('logout/', logout_view, name='logout'),
     path('editar-perfil/', editar_perfil_view, name='editar_perfil'),
     path('anunciar/', anunciar_material, name='anunciar_material'),
     path('editar-material/<int:material_id>/', editar_material, name='editar_material'),
@@ -36,6 +41,8 @@ urlpatterns = [
     path('chat/<int:material_id>/<int:usuario_id>/', chat, name='chat'),
 ]
 
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 from django.contrib.auth import views as auth_views
 

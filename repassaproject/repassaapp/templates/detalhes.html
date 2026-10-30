@@ -15,7 +15,11 @@
 
   <main>
     <div class="foto">
-      <span aria-hidden="true">📦</span>
+      {% if material.foto %}
+        <img src="{{ material.foto.url }}" alt="Foto de {{ material.titulo }}">
+      {% else %}
+        <img src="{% static 'img/logo-repassa.png' %}" alt="Material sem foto">
+      {% endif %}
     </div>
 
     <section class="resumo">
@@ -47,7 +51,12 @@
     <section class="bloco">
       <h3>Vendedor</h3>
       <p class="vendedor-nome">{{ material.vendedor.nome }}</p>
-      <p>★ {{ material.vendedor.nota_media }}</p>
+      {% if quantidade_avaliacoes %}
+        <p>★ {{ nota_vendedor|floatformat:1 }} ({{ quantidade_avaliacoes }} avaliaç{{ quantidade_avaliacoes|pluralize:"ão,ões" }})</p>
+      {% else %}
+        <p>Sem avaliações</p>
+      {% endif %}
+      <a href="{% url 'avaliacoes_vendedor' material.vendedor.id %}">Ver avaliações</a>
     </section>
 
   {% if material.status == "disponivel" %}

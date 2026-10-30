@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avaliações de {{ vendedor.nome }} - Repassa</title>
+    <link rel="stylesheet" href="{% static 'css/avaliacao.css' %}">
+</head>
+<body>
+    <header><a href="/">REPASSA</a></header>
+    <main>
+        <h1>Avaliações de {{ vendedor.nome }}</h1>
+
+        <section class="resumo">
+            {% if quantidade %}
+                <p><strong>★ {{ media|floatformat:1 }}</strong> de 5</p>
+                <p>{{ quantidade }} avaliaç{{ quantidade|pluralize:"ão,ões" }}</p>
+            {% else %}
+                <p>Este vendedor ainda não recebeu avaliações.</p>
+            {% endif %}
+        </section>
+
+        {% for avaliacao in avaliacoes %}
+            <article class="avaliacao">
+                <p><strong>{{ avaliacao.nota }} de 5</strong> · {{ avaliacao.avaliador.nome }}</p>
+                <p>Material: {{ avaliacao.compra.material.titulo }}</p>
+                {% if avaliacao.comentario %}
+                    <p>{{ avaliacao.comentario }}</p>
+                {% endif %}
+            </article>
+        {% endfor %}
+
+        <a class="voltar" href="/">Voltar ao início</a>
+    </main>
+</body>
+</html>

@@ -8,7 +8,7 @@ header h1 { font-size: 20px; margin: 0; color: #6b21a8; }
 main { max-width: 600px; margin: 0 auto; padding: 16px 16px 32px; }
 
 .foto { display: flex; justify-content: center; align-items: center; height: 240px; background: #F3E8FF; border-radius: 8px; }
-.foto span { font-size: 72px; }
+.foto img { max-width: 100%; max-height: 100%; object-fit: contain; }
 
 .resumo { padding: 16px 0; border-bottom: 1px solid #eee; }
 .resumo h2 { font-size: 22px; margin: 10px 0 8px; }

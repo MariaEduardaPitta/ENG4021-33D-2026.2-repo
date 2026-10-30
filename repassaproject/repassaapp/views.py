@@ -2,7 +2,7 @@
 from decimal import Decimal, InvalidOperation
 
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q
+from django.db.models import Q, Avg, Count
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import (
@@ -20,7 +20,9 @@ from .forms import CompraForm
 
 
 def home(request):
-    materiais = Material.objects.filter(status="disponivel")
+    materiais = Material.objects.filter(status="disponivel").select_related('vendedor', 'categoria').annotate(
+        nota_vendedor=Avg('vendedor__avaliacoes_recebidas__nota')
+    )
     return render(request, 'index.html', {"materiais": materiais})
 
 
@@ -32,14 +34,28 @@ def notificacoes(request):
 
 
 def detalhe_material(request, id):
-    material = get_object_or_404(Material, pk=id)
-    return render(request, 'detalhes.html', {"material": material})
+    material = get_object_or_404(Material.objects.select_related('vendedor', 'categoria'), pk=id)
+    resumo = material.vendedor.avaliacoes_recebidas.aggregate(media=Avg('nota'), quantidade=Count('id'))
+    return render(request, 'detalhes.html', {
+        "material": material,
+        "nota_vendedor": resumo['media'],
+        "quantidade_avaliacoes": resumo['quantidade'],
+    })
 
 
 @login_required
 def confirmacao(request, id):
-    compra = get_object_or_404(Compra, pk=id, comprador=request.user)
-    return render(request, 'confirmacao.html', {"compra": compra})
+    compra = get_object_or_404(
+        Compra.objects.select_related('material__vendedor', 'pagamento'),
+        pk=id,
+        comprador=request.user,
+    )
+    ja_avaliou = Avaliacao.objects.filter(compra=compra).exists()
+    return render(request, 'confirmacao.html', {
+        "compra": compra,
+        "ja_avaliou": ja_avaliou,
+        "entregue": compra.status_entrega == "entregue",
+    })
 
 
 def avaliar_vendedor(request, compra_id):
@@ -73,10 +89,22 @@ def avaliar_vendedor(request, compra_id):
         'avaliacao': avaliacao,
     })
 
+def avaliacoes_vendedor(request, id):
+    vendedor = get_object_or_404(Usuario, pk=id)
+    avaliacoes = vendedor.avaliacoes_recebidas.select_related('avaliador', 'compra__material')
+    resumo = avaliacoes.aggregate(media=Avg('nota'), quantidade=Count('id'))
+
+    return render(request, 'avaliacoes_vendedor.html', {
+        'vendedor': vendedor,
+        'avaliacoes': avaliacoes,
+        'media': resumo['media'],
+        'quantidade': resumo['quantidade'],
+    })
 
 
 
-from django.contrib.auth import authenticate, login, update_session_auth_hash
+
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.utils.http import url_has_allowed_host_and_scheme
 from .models import Usuario
 
@@ -140,6 +168,11 @@ def login_view(request):
             return redirect('home')
         form.add_error(None, 'E-mail ou senha inválidos.')
     return render(request, 'loginmelhorado.html', {'form': form})
+
+def logout_view(request):
+    if request.method == 'POST':
+        logout(request)
+    return redirect('home')
 
 
 def anunciar_material(request):
