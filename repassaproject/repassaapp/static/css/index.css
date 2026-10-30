@@ -11,6 +11,10 @@ h2 { font-size: 22px; }
 .menu-inferior span { margin-right: 4px; }
 .logo { width: 40px; height: 40px; }
 header a { margin-left: auto; }
+.conta { margin-left: auto; display: flex; align-items: center; gap: 12px; }
+.conta a { margin-left: 0; }
+.conta form { margin: 0; }
+.conta button { padding: 6px 12px; border: 1px solid #7c3aed; border-radius: 4px; background: white; color: #7c3aed; font-size: 14px; cursor: pointer; }
 .contador { font-size: 14px; }
 .marca { display: flex; align-items: center; gap: 12px; }
 input { width: 100%; padding: 10px; border: 1px solid #aaa; }

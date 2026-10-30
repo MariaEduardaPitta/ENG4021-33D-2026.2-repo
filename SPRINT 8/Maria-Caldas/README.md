@@ -8,6 +8,7 @@ O que fiz:
 - Nota do vendedor: a página inicial e os detalhes do material não usam mais o campo `nota_media` (que ficava sempre em 0). Agora a nota é a média calculada das avaliações. Na tela de detalhes também tem um link "Ver avaliações"
 - Fotos dos materiais: `index.html` e `detalhes.html` mostram a foto cadastrada, ou o logo do REPASSA quando o material não tem foto. Configurei `MEDIA_URL` e `MEDIA_ROOT` no `settings.py`, a URL de mídia no `urls.py` (só no modo DEBUG) e coloquei `media/` no `.gitignore` para as fotos de teste não irem para o repositório
 - Confirmação de compra: o botão "Falar com o vendedor" agora leva para o chat. Adicionei o acompanhamento da entrega e as ações de acordo com a situação da compra: "Avaliar vendedor" quando a entrega foi concluída, e "Ver minha avaliação" quando a compra já foi avaliada
+- Logout: criei a view e a URL `/logout/` e coloquei no cabeçalho da página inicial o link "Entrar" para quem não está logado e o botão "Sair" para quem está. O logout só funciona pelo botão (POST), por segurança. O sininho de notificações agora só aparece para quem está logado. Testei o fluxo cadastro → login → acesso restrito → logout
 
 Também fiz a atividade individual de Login/Cadastro no meu repositório: https://github.com/condecaldasmaria-spec/ENG4021-2026.2
 
@@ -19,5 +20,6 @@ Para testar:
 - Avaliações: crie uma avaliação pelo admin e abra `/vendedores/<id do vendedor>/avaliacoes/`
 - Fotos: no admin, coloque uma foto em um material e veja a página inicial e os detalhes
 - Confirmação: crie uma compra pelo admin com você como compradora e abra `/confirmacao/<id da compra>/`. Mude o status da entrega para `entregue` para ver o botão de avaliar
+- Logout: crie uma conta em `/cadastro/`, entre em `/login/`, abra `/notificacoes/`, clique em "Sair" na página inicial e tente abrir `/notificacoes/` de novo (deve voltar para o login)
 
 Os códigos estão em `repassaproject/repassaapp`.

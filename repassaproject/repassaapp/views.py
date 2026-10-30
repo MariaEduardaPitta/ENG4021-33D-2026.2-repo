@@ -101,7 +101,7 @@ def avaliacoes_vendedor(request, id):
 
 
 
-from django.contrib.auth import authenticate, login, update_session_auth_hash
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.utils.http import url_has_allowed_host_and_scheme
 from .models import Usuario
 
@@ -165,6 +165,11 @@ def login_view(request):
             return redirect('home')
         form.add_error(None, 'E-mail ou senha inválidos.')
     return render(request, 'loginmelhorado.html', {'form': form})
+
+def logout_view(request):
+    if request.method == 'POST':
+        logout(request)
+    return redirect('home')
 
 
 def anunciar_material(request):
