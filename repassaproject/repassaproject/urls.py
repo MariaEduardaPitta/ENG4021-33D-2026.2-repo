@@ -5,6 +5,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 from repassaapp.views import (
     home,
+    comprar_material,
+    atualizar_entrega,
     notificacoes,
     detalhe_material,
     confirmacao,
@@ -22,6 +24,7 @@ from repassaapp.views import (
 )
 
 urlpatterns = [
+    path('compras/<int:compra_id>/entrega/', atualizar_entrega, name='atualizar_entrega'),
     path('admin/', admin.site.urls),
     path('', home, name='home'),
     path('notificacoes/', notificacoes),
@@ -50,7 +53,7 @@ urlpatterns += [
     path(
         'recuperar-senha/',
         auth_views.PasswordResetView.as_view(
-            template_name='recuperar_senha.html',
+            template_name='recuperarsenha.html',
             email_template_name='emails/recuperar_senha_email.html',
             subject_template_name='emails/recuperar_senha_assunto.txt',
             success_url='/recuperar-senha/enviado/'
@@ -60,7 +63,7 @@ urlpatterns += [
     path(
         'recuperar-senha/enviado/',
         auth_views.PasswordResetDoneView.as_view(
-            template_name='recuperar_senha_enviado.html'
+            template_name='recuperarsenha_enviado.html'
         ),
         name='password_reset_done'
     ),
@@ -75,7 +78,7 @@ urlpatterns += [
     path(
         'reset/concluido/',
         auth_views.PasswordResetCompleteView.as_view(
-            template_name='nova_senha_concluido.html'
+            template_name='novasenha_concluida.html'
         ),
         name='password_reset_complete'
     ),

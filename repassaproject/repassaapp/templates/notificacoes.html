@@ -6,8 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Notificações — REPASSA</title>
   <link rel="stylesheet" href="{% static 'css/notificacoes.css' %}">
+  <link rel="stylesheet" href="{% static 'css/responsivo.css' %}">
 </head>
-<body>
+<body data-tela="notificacoes">
   <header>
     <a href="/">Voltar</a>
     <h1>Notificações</h1>
@@ -30,6 +31,7 @@
       <div>
         <h2>Seu material foi vendido!</h2>
         <p>{{ venda.material.titulo }} · comprado por {{ venda.comprador.nome }}</p>
+        <p><a href="{% url 'atualizar_entrega' venda.pk %}">Atualizar entrega</a></p>
         <small>{{ venda.data_compra|date:"d/m/Y H:i" }}</small>
       </div>
     </article>
