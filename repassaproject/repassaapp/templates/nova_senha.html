@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Senha - Repassa</title>
+    <link rel="stylesheet" href="{% static 'css/recuperacao.css' %}">
+</head>
+<body>
+    <div class="auth-container">
+        {% if validlink %}
+            <div class="auth-header">
+                <h2>Crie uma nova senha</h2>
+                <p>Digite sua nova senha nos campos abaixo para concluir a redefinição.</p>
+            </div>
+
+            <form method="POST" class="auth-form">
+                {% csrf_token %}
+
+                {% if form.errors %}
+                    <ul class="error-list">
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                <div class="form-group">
+                    <label for="id_new_password1">Nova Senha</label>
+                    <input type="password" name="new_password1" id="id_new_password1" class="form-input" placeholder="Digite a nova senha" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="id_new_password2">Confirmar Nova Senha</label>
+                    <input type="password" name="new_password2" id="id_new_password2" class="form-input" placeholder="Confirme a nova senha" required>
+                </div>
+
+                <button type="submit" class="btn-submit">Salvar Nova Senha</button>
+            </form>
+        {% else %}
+            <div class="auth-header">
+                <h2>Link Inválido ou Expirado</h2>
+                <p>O link de redefinição é inválido ou já foi utilizado. Solicite uma nova recuperação.</p>
+            </div>
+            <div class="auth-footer" style="margin-top: 16px;">
+                <a href="{% url 'password_reset' %}" class="btn-submit">Solicitar novamente</a>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>

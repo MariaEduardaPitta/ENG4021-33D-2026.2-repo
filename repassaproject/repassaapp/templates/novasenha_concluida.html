@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Senha Alterada - Repassa</title>
+    <link rel="stylesheet" href="{% static 'css/recuperacao.css' %}">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-header">
+            <h2>Senha redefinida com sucesso!</h2>
+            <p>Sua senha foi atualizada no banco de dados. Agora você pode acessar sua conta normalmente.</p>
+        </div>
+
+        <div class="auth-footer" style="margin-top: 24px;">
+            <a href="{% url 'login' %}" class="btn-submit">Ir para o Login</a>
+        </div>
+    </div>
+</body>
+</html>

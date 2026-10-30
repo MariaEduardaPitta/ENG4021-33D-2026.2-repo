@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>E-mail Enviado - Repassa</title>
+    <link rel="stylesheet" href="{% static 'css/recuperacao.css' %}">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-header">
+            <h2>E-mail Enviado!</h2>
+            <p>Se o e-mail informado estiver cadastrado, você receberá um link com as instruções para redefinir sua senha em instantes.</p>
+        </div>
+
+        <div class="auth-footer">
+            <a href="{% url 'login' %}">Voltar à tela de Login</a>
+        </div>
+    </div>
+</body>
+</html>
