@@ -14,6 +14,9 @@ from .forms import (
     EditarMaterialForm,
 )
 from .models import Compra, Avaliacao, Material, Categoria, Mensagem, Usuario
+from django.db import transaction, IntegrityError
+from django.http import HttpResponseForbidden
+from .forms import CompraForm
 
 
 def home(request):
@@ -351,4 +354,56 @@ def chat(request, material_id, usuario_id):
         'material': material,
         'outro': outro,
         'mensagens': mensagens,
+    })
+
+@login_required(login_url='login')
+def comprar_material(request, material_id):
+    material = get_object_or_404(Material, pk=material_id)
+
+    if material.vendedor_id == request.user.id:
+        return HttpResponseForbidden('Você não pode comprar seu próprio anúncio.')
+
+    if material.status == 'vendido':
+        return HttpResponseForbidden('Este material já foi vendido.')
+
+    form = CompraForm(request.POST or None)
+
+    if request.method == 'POST' and form.is_valid():
+        dados = form.cleaned_data
+
+        if dados['forma_entrega'] == 'retirada':
+            endereco = 'Retirada combinada com o vendedor'
+        else:
+            endereco = (
+                f"{dados['logradouro']}, {dados['numero']}, "
+                f"{dados.get('complemento', '')}, {dados['bairro']}, "
+                f"{dados['cidade']}/{dados['uf']} - CEP {dados['cep']}"
+            )
+
+        try:
+            with transaction.atomic():
+                material = Material.objects.select_for_update().get(pk=material_id)
+
+                if material.status != 'disponivel' or Compra.objects.filter(material=material).exists():
+                    return HttpResponseForbidden('Este material não está disponível.')
+
+                compra = Compra.objects.create(
+                    comprador=request.user,
+                    material=material,
+                    valor_total=material.preco,
+                    forma_entrega=dados['forma_entrega'],
+                    endereco_local_entrega=endereco
+                )
+
+                material.status = 'vendido'
+                material.save(update_fields=['status'])
+
+        except IntegrityError:
+            return HttpResponseForbidden('Este material já foi comprado.')
+
+        return redirect('confirmacao', id=compra.id)
+
+    return render(request, 'compra.html', {
+        'form': form,
+        'material': material
     })
