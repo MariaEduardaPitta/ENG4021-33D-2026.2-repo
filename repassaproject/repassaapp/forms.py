@@ -1,6 +1,6 @@
 
 from django import forms
-from .models import Avaliacao, Material, Usuario
+from .models import Avaliacao, Material, Usuario, Compra
 from django.contrib.auth.password_validation import validate_password
 import re
 
@@ -84,7 +84,10 @@ class AnunciarMaterialForm(forms.ModelForm):
 
 
 class EditarMaterialForm(AnunciarMaterialForm):
-    class CompraForm(forms.Form):
+    pass
+
+
+class CompraForm(forms.Form):
     ENTREGA_CHOICES = [
         ('entrega', 'Receber no endereço'),
         ('retirada', 'Combinar retirada com o vendedor'),
@@ -111,3 +114,20 @@ class EditarMaterialForm(AnunciarMaterialForm):
                     self.add_error(campo, 'Este campo é obrigatório para entrega.')
 
         return dados
+
+
+class AtualizarEntregaForm(forms.ModelForm):
+    status_entrega = forms.ChoiceField(label='Status da entrega')
+
+    class Meta:
+        model = Compra
+        fields = ['status_entrega']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        opcoes = {
+            'aguardando': [('aguardando', 'Aguardando'), ('em_andamento', 'Em andamento')],
+            'em_andamento': [('em_andamento', 'Em andamento'), ('entregue', 'Entregue')],
+            'entregue': [('entregue', 'Entregue')],
+        }
+        self.fields['status_entrega'].choices = opcoes.get(self.instance.status_entrega, [])

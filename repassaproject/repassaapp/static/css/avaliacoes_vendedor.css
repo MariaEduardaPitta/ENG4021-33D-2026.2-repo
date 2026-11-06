@@ -1,0 +1,15 @@
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Arial, sans-serif; color: #25252d; background: #fafafa; }
+header { padding: 20px; border-bottom: 1px solid #ddd; background: white; }
+a { color: #5b21b6; }
+main { max-width: 760px; margin: 24px auto; padding: 0 20px 24px; }
+h1 { font-size: 26px; color: #5b21b6; }
+p { line-height: 1.6; }
+.resumo { padding: 16px; background: #f3e8ff; border: 1px solid #ddd; }
+.avaliacao { padding: 16px; margin: 16px 0; border: 1px solid #ddd; background: white; }
+.avaliacao p { white-space: pre-wrap; }
+.voltar { display: inline-block; padding: 12px 0; }
+@media (max-width: 480px) {
+  main { padding: 0 16px 20px; }
+  h1 { font-size: 22px; }
+}

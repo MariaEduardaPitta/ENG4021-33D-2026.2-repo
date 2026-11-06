@@ -5,9 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Avaliações de {{ vendedor.nome }} - Repassa</title>
-    <link rel="stylesheet" href="{% static 'css/avaliacao.css' %}">
+    <link rel="stylesheet" href="{% static 'css/avaliacoes_vendedor.css' %}">
+  <link rel="stylesheet" href="{% static 'css/responsivo.css' %}">
 </head>
-<body>
+<body data-tela="avaliacoes_vendedor">
     <header><a href="/">REPASSA</a></header>
     <main>
         <h1>Avaliações de {{ vendedor.nome }}</h1>

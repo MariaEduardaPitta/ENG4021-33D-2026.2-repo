@@ -1,0 +1,12 @@
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Arial, sans-serif; color: #25252d; }
+a { color: #5b21b6; }
+header { padding: 20px; border-bottom: 1px solid #ddd; }
+main { max-width: 600px; margin: 24px auto; padding: 16px; }
+h1 { font-size: 26px; color: #5b21b6; }
+p { line-height: 1.5; }
+label { display: block; margin-bottom: 8px; }
+select, button { width: 100%; padding: 12px; font: inherit; margin-bottom: 16px; }
+button { border: 0; background: #7c3aed; color: white; cursor: pointer; }
+.sucesso { padding: 12px; background: #e7f7ee; color: #17603a; }
+.errorlist { color: #a11; padding-left: 20px; }
