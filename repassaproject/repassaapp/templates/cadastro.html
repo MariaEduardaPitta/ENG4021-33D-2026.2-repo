@@ -5,49 +5,80 @@
         <meta charset="UTF-8">
         <title>Tela Cadastro</title>
         <link rel="stylesheet" href="{% static 'css/cadastro.css' %}">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{% static 'css/responsivo.css' %}">
-</head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{% static 'css/responsivo.css' %}">
+        <style>
+            .erro-campo {
+                color: #dc2626;
+                font-size: 0.8rem;
+                margin-top: 4px;
+                display: block;
+            }
+        </style>
+    </head>
     <body data-tela="cadastro">
         <h1 class="cor-roxa">Repassa</h1>
         <h5 class="cor-roxa">MATERIAIS QUE CONTINUAM HISTÓRIAS</h5>
         <h1 class="texto-centro cor-roxa titulo-grande">Criar conta</h1>
 
-        
         <form method="POST">
             {% csrf_token %}
-            {{ form.errors }}
+
+            
+            {% if form.non_field_errors %}
+                <div style="background-color: #fef2f2; border: 1px solid #fecaca; color: #dc2626; padding: 10px; border-radius: 8px; margin-bottom: 15px; text-align: center; font-size: 0.9rem;">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
 
             <div class="texto-centro titulo-medio">
-                <label for="nome-usuario" class="titulo-medio cor-roxa">Nome:</label>
-                <input type="text" id="nome-usuario" name="nome" placeholder="Digite seu nome" value="{{ form.nome.value|default_if_none:'' }}">
+                <label for="{{ form.nome.id_for_label }}" class="titulo-medio cor-roxa">{{ form.nome.label }}:</label>
+                {{ form.nome }}
+                {% if form.nome.errors %}
+                    <span class="erro-campo">{{ form.nome.errors.0 }}</span>
+                {% endif %}
                 
-                <label for="sobrenome-usuario" class="titulo-medio cor-roxa">Sobrenome:</label>
-                <input type="text" id="sobrenome-usuario" name="sobrenome" placeholder="Digite seu sobrenome" value="{{ form.sobrenome.value|default_if_none:'' }}">
+                <label for="{{ form.sobrenome.id_for_label }}" class="titulo-medio cor-roxa">{{ form.sobrenome.label }}:</label>
+                {{ form.sobrenome }}
+                {% if form.sobrenome.errors %}
+                    <span class="erro-campo">{{ form.sobrenome.errors.0 }}</span>
+                {% endif %}
             </div>
             <br><br>
             
             <div class="texto-centro titulo-medio">
-                <label for="cpf-usuario" class="titulo-medio cor-roxa">CPF:</label>
-                <input type="text" id="cpf-usuario" name="cpf" class="input-cpfemailsenha" placeholder="XXX.XXX.XXX-XX" value="{{ form.cpf.value|default_if_none:'' }}">
+                <label for="{{ form.cpf.id_for_label }}" class="titulo-medio cor-roxa">{{ form.cpf.label }}:</label>
+                {{ form.cpf }}
+                {% if form.cpf.errors %}
+                    <span class="erro-campo">{{ form.cpf.errors.0 }}</span>
+                {% endif %}
             </div>
             <br><br>
             
             <div class="texto-centro titulo-medio">
-                <label for="telefone-usuario" class="titulo-medio cor-roxa">Telefone:</label>
-                <input type="text" id="telefone-usuario" name="telefone" class="input-telefone" placeholder="(XX) XXXXX-XXXX" value="{{ form.telefone.value|default_if_none:'' }}">
+                <label for="{{ form.telefone.id_for_label }}" class="titulo-medio cor-roxa">{{ form.telefone.label }}:</label>
+                {{ form.telefone }}
+                {% if form.telefone.errors %}
+                    <span class="erro-campo">{{ form.telefone.errors.0 }}</span>
+                {% endif %}
             </div>
             <br><br>
             
             <div class="texto-centro titulo-medio">
-                <label for="email-usuario" class="titulo-medio cor-roxa">E-mail:</label>
-                <input type="email" id="email-usuario" name="email" class="input-cpfemailsenha" placeholder="seuemail@universidade.com.br" value="{{ form.email.value|default_if_none:'' }}">
+                <label for="{{ form.email.id_for_label }}" class="titulo-medio cor-roxa">{{ form.email.label }}:</label>
+                {{ form.email }}
+                {% if form.email.errors %}
+                    <span class="erro-campo">{{ form.email.errors.0 }}</span>
+                {% endif %}
             </div>
             <br><br>
             
             <div class="texto-centro titulo-medio">
-                <label for="senha-usuario" class="titulo-medio cor-roxa">Senha:</label>
-                <input type="password" id="senha-usuario" name="senha" class="input-cpfemailsenha" placeholder="Digite sua senha">
+                <label for="{{ form.senha.id_for_label }}" class="titulo-medio cor-roxa">{{ form.senha.label }}:</label>
+                {{ form.senha }}
+                {% if form.senha.errors %}
+                    <span class="erro-campo">{{ form.senha.errors.0 }}</span>
+                {% endif %}
             </div>
             <br><br>
 
