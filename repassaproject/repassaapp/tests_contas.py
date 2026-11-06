@@ -36,7 +36,7 @@ class ContasTest(TestCase):
             if senha==self.dados['senha']:
                 Usuario.objects.update(is_active=False)
             r=self.client.post('/login/', {'email':self.dados['email'],'senha':senha})
-            self.assertContains(r,'E-mail ou senha inválidos.')
+            self.assertContains(r,'E-mail ou senha incorretos. Tente novamente.')
             self.assertNotIn('_auth_user_id',self.client.session)
 
     def test_edicao_campos_senha_e_sessao(self):
