@@ -28,3 +28,5 @@ Prints da responsividade:
 | Detalhes | [375 px](testes/detalhes-celular.png) | [768 px](testes/detalhes-tablet.png) | [1280 px](testes/detalhes-computador.png) |
 
 Os códigos estão em `repassaproject/repassaapp`.
+
+https://drive.google.com/drive/folders/1MPVOual1L1huDqlofznJc2lrMsNYW563. - link da pasta com os videos explicando cada tarefa
