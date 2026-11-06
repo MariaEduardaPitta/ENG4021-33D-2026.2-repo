@@ -60,6 +60,12 @@
       {% endif %}
       <a href="{% url 'avaliacoes_vendedor' material.vendedor.id %}">Ver avaliações</a>
     </section>
+    <section class="bloco">
+      <h3>Compartilhar anúncio</h3>
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data={{ request.build_absolute_uri|urlencode:'' }}"
+           alt="QR Code com o link deste anúncio" width="180" height="180">
+      <p>Aponte a câmera do celular para abrir este anúncio.</p>
+    </section>
 
   {% if material.status == "disponivel" %}
 <div class="acoes">
