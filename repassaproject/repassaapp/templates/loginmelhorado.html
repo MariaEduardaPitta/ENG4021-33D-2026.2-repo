@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tela Login - Repassa</title>
     <link rel="stylesheet" href="{% static 'css/loginmelhorado.css' %}">
-  <link rel="stylesheet" href="{% static 'css/responsivo.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsivo.css' %}">
 </head>
 <body data-tela="loginmelhorado">
 
@@ -24,16 +24,35 @@
 
         <form method="POST">
             {% csrf_token %}
-            {{ form.errors }}
+            
+            
+            {% if request.GET.next %}
+                <input type="hidden" name="next" value="{{ request.GET.next }}">
+            {% endif %}
+
+            
+            {% if form.non_field_errors %}
+                <div style="background-color: #fef2f2; border: 1px solid #fecaca; color: #dc2626; padding: 12px; border-radius: 8px; font-size: 0.9rem; margin-bottom: 16px; text-align: center;">
+                    {% for error in form.non_field_errors %}
+                        <p style="margin: 0;">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
 
             <div class="campo-grupo">
                 <label for="email-usuario" class="cor-roxa">E-mail:</label>
                 <input type="email" id="email-usuario" name="email" placeholder="seuemail@universidade.com.br" required value="{{ form.email.value|default_if_none:'' }}">
+                {% if form.email.errors %}
+                    <span style="color: #dc2626; font-size: 0.8rem;">{{ form.email.errors.0 }}</span>
+                {% endif %}
             </div>
 
             <div class="campo-grupo">
                 <label for="senha-usuario" class="cor-roxa">Senha:</label>
                 <input type="password" id="senha-usuario" name="senha" placeholder="Digite sua senha" required>
+                {% if form.senha.errors %}
+                    <span style="color: #dc2626; font-size: 0.8rem;">{{ form.senha.errors.0 }}</span>
+                {% endif %}
             </div>
 
             <div class="texto-centro">
@@ -43,7 +62,7 @@
 
         <div class="links-uteis">
             <h4 class="texto-centro link-esqueci">
-                Esqueci minha senha
+                <a href="{% url 'password_reset' %}" style="text-decoration: none; color: inherit;">Esqueci minha senha</a>
             </h4>
             
             <div class="bloco-cadastro">

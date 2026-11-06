@@ -48,9 +48,27 @@ class PerfilForm(forms.Form):
 
 
 class CadastroForm(PerfilForm):
-    cpf = forms.CharField(max_length=14, label='CPF')
-    telefone = forms.CharField(max_length=20, label='Telefone')
-    senha = forms.CharField(widget=forms.PasswordInput, label='Senha')
+    cpf = forms.CharField(
+        max_length=14, 
+        label='CPF',
+        widget=forms.TextInput(attrs={'class': 'input-cpfemailsenha', 'placeholder': 'XXX.XXX.XXX-XX'})
+    )
+    telefone = forms.CharField(
+        max_length=20, 
+        required=True,  
+        label='Telefone',
+        widget=forms.TextInput(attrs={'class': 'input-telefone', 'placeholder': '(XX) XXXXX-XXXX'})
+    )
+    senha = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'input-cpfemailsenha', 'placeholder': 'Digite sua senha'}), 
+        label='Senha'
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['nome'].widget.attrs.update({'placeholder': 'Digite seu nome'})
+        self.fields['sobrenome'].widget.attrs.update({'placeholder': 'Digite seu sobrenome'})
+        self.fields['email'].widget.attrs.update({'class': 'input-cpfemailsenha', 'placeholder': 'seuemail@universidade.com.br'})
 
     def clean_cpf(self):
         cpf = re.sub(r'[.\-\s]', '', self.cleaned_data['cpf'])

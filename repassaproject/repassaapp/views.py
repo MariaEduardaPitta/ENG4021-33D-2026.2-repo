@@ -111,6 +111,9 @@ from .models import Usuario
 
 
 def cadastro_view(request):
+    if request.user.is_authenticated:
+        return redirect('home')
+
     form = CadastroForm(request.POST if request.method == 'POST' else None)
     if request.method == 'POST' and form.is_valid():
         dados = form.cleaned_data
@@ -121,6 +124,7 @@ def cadastro_view(request):
             cpf=dados['cpf'], whatsapp=dados['telefone'],
         )
         return redirect('login')
+    
     return render(request, 'cadastro.html', {'form': form})
 
 
@@ -154,20 +158,29 @@ def editar_perfil_view(request):
 
 
 def login_view(request):
+    if request.user.is_authenticated:
+        return redirect('home')
+
     form = LoginForm(request.POST if request.method == 'POST' else None)
     if request.method == 'POST' and form.is_valid():
         conta = Usuario.objects.filter(email__iexact=form.cleaned_data['email']).first()
         usuario = authenticate(
-            request, username=conta.username if conta else form.cleaned_data['email'],
+            request,
+            username=conta.username if conta else form.cleaned_data['email'],
             password=form.cleaned_data['senha'],
         )
         if usuario is not None:
             login(request, usuario)
-            destino = request.GET.get('next', '')
-            if destino and url_has_allowed_host_and_scheme(destino, {request.get_host()}, require_https=request.is_secure()):
+            destino = request.GET.get('next') or request.POST.get('next', '')
+            if destino and url_has_allowed_host_and_scheme(
+                destino, {request.get_host()}, require_https=request.is_secure()
+            ):
                 return redirect(destino)
             return redirect('home')
-        form.add_error(None, 'E-mail ou senha inválidos.')
+        
+        
+        form.add_error(None, 'E-mail ou senha incorretos. Tente novamente.')
+
     return render(request, 'loginmelhorado.html', {'form': form})
 
 def logout_view(request):
