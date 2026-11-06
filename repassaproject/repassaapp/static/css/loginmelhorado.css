@@ -125,3 +125,9 @@ body {
     text-decoration: underline;
     font-weight: bold;
 }
+
+@media (max-width: 600px) {
+    body { padding: 16px; }
+    .titulo-marca { font-size: 32px; }
+    .titulo-grande { font-size: 20px; margin: 20px 0; }
+}

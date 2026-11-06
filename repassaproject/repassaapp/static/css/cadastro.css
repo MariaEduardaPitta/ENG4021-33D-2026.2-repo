@@ -41,3 +41,11 @@
     width: 24%;
     height: 35px;     
 }
+
+h1, h5 { text-align: center; }
+.botao-cadastro { border: none; border-radius: 8px; background-color: #7C3AED; color: white; font-weight: bold; cursor: pointer; }
+.botao-cadastro:hover { background-color: #5B21B6; }
+
+@media (min-width: 768px) {
+    .titulo-medio > label:first-of-type { min-width: 110px; }
+}
