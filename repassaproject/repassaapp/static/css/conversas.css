@@ -23,3 +23,14 @@ li > a > span { margin-left: 56px; font-size: 12px; color: #71717A; }
 nav { position: fixed; bottom: 0; width: 100%; max-width: 440px; display: flex; justify-content: space-around; padding: 16px 0; border-top: 1px solid #ddd; background: white; }
 nav a { font-size: 13px; color: #71717A; text-decoration: none; }
 nav a.ativo { font-weight: bold; color: #7C3AED; }
+
+@media (min-width: 768px) {
+  header { padding: 32px 24px; }
+  header h1 { font-size: 32px; }
+  main { padding: 24px; }
+  li { padding: 16px; }
+  li:hover { border-color: #7C3AED; }
+  li img { width: 52px; height: 52px; }
+  li h2, li p { margin-left: 68px; }
+  li > a > span { margin-left: 68px; }
+}

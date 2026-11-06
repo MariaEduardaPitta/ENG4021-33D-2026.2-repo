@@ -19,3 +19,13 @@ footer { position: fixed; bottom: 0; width: 100%; max-width: 440px; padding: 12p
 footer form { display: flex; gap: 8px; }
 footer input { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 20px; font-size: 15px; }
 footer button { padding: 12px 18px; border: none; border-radius: 20px; background: #7C3AED; color: white; font-size: 15px; cursor: pointer; }
+
+
+@media (min-width: 768px) {
+  header { padding: 20px 24px; }
+  header h1 { font-size: 20px; }
+  main { padding: 24px; }
+  li { max-width: 60%; }
+  li p { font-size: 16px; }
+  footer { padding: 16px 24px; }
+}
