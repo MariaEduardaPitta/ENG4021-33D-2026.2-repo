@@ -32,3 +32,16 @@ dd { margin: 0; text-align: right; }
 .btn-principal { background: #7C3AED; color: white; }
 .btn-secundario { background: #F3E8FF; color: #5B21B6; }
 .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+@media (min-width: 768px) {
+  main {
+    max-width: 900px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 32px;
+  }
+  main > * { grid-column: 1 / -1; }
+  .foto { grid-column: 1; height: 320px; margin-top: 16px; }
+  .resumo { grid-column: 2; align-self: center; border-bottom: none; }
+  .acoes { flex-direction: row; justify-content: flex-end; }
+}
