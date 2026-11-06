@@ -28,6 +28,7 @@
     {{ material.titulo }} · R$ {{ material.preco|floatformat:2 }}
 </p>
 {% endif %}
+    {% include 'partials/conta.html' %}
 </header>
 <main>
 {% if precisa_login %}

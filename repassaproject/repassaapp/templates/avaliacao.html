@@ -9,7 +9,10 @@
   <link rel="stylesheet" href="{% static 'css/responsivo.css' %}">
 </head>
 <body data-tela="avaliacao">
-    <header><a href="/">REPASSA</a></header>
+    <header>
+        <a href="/">REPASSA</a>
+        {% include 'partials/conta.html' %}
+    </header>
     <main>
         <h1>Avaliar vendedor</h1>
         {% if precisa_login %}

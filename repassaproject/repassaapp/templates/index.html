@@ -11,17 +11,7 @@
 <body data-tela="index">
 <header>
   <img class="logo" src="{% static 'img/logo-repassa.png' %}" alt="Logo do REPASSA"><strong>REPASSA</strong>
-  <nav class="conta">
-    {% if user.is_authenticated %}
-      <a href="/notificacoes/" aria-label="Notificações">🔔 <span class="contador">3</span></a>
-      <form method="post" action="{% url 'logout' %}">
-        {% csrf_token %}
-        <button type="submit">Sair</button>
-      </form>
-    {% else %}
-      <a href="{% url 'login' %}">Entrar</a>
-    {% endif %}
-  </nav>
+  {% include 'partials/conta.html' %}
 </header>
 
 <main>

@@ -1,0 +1,11 @@
+<div class="conta">
+    {% if user.is_authenticated %}
+      <a href="/notificacoes/" aria-label="Notificações">🔔 <span class="contador">3</span></a>
+      <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit">Sair</button>
+      </form>
+    {% else %}
+      <a href="{% url 'login' %}">Entrar</a>
+    {% endif %}
+</div>
