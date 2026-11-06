@@ -69,13 +69,12 @@
 
   {% if material.status == "disponivel" %}
 <div class="acoes">
-  <button class="btn btn-secundario" type="button" disabled>
-    Conversar com vendedor
-  </button>
-
   {% if user.is_authenticated and material.vendedor_id == user.id %}
     <span>Este anúncio é seu.</span>
   {% else %}
+    <a href="{% url 'chat' material.id material.vendedor.id %}" class="btn btn-secundario">
+      Conversar com vendedor
+    </a>
     <a href="{% url 'comprar_material' material.id %}" class="btn btn-principal">
       Comprar
     </a>
