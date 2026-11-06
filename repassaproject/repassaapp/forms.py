@@ -84,7 +84,10 @@ class AnunciarMaterialForm(forms.ModelForm):
 
 
 class EditarMaterialForm(AnunciarMaterialForm):
-    class CompraForm(forms.Form):
+    pass
+
+
+class CompraForm(forms.Form):
     ENTREGA_CHOICES = [
         ('entrega', 'Receber no endereço'),
         ('retirada', 'Combinar retirada com o vendedor'),

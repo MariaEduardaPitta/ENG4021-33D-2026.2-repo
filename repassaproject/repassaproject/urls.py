@@ -19,6 +19,7 @@ from repassaapp.views import (
     conversas,
     chat,
     avaliacoes_vendedor,
+    comprar_material,
 )
 
 urlpatterns = [
