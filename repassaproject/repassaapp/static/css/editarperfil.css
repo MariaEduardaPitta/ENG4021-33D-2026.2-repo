@@ -135,3 +135,12 @@ body {
         gap: 0;
     }
 }
+
+@media (max-width: 600px) {
+    body { padding: 12px; align-items: flex-start; }
+    .titulo-marca { font-size: 1.8rem; }
+}
+
+@media (min-width: 768px) {
+    .perfil-box { max-width: 600px; padding: 48px; }
+}

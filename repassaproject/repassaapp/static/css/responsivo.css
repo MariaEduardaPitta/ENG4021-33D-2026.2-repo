@@ -43,7 +43,7 @@ body[data-tela="cadastro"] .botao-cadastro { width: 100%; height: auto; padding:
 }
 
 body[data-tela="chat"] header { display: grid; grid-template-columns: auto 44px minmax(0, 1fr); gap: 4px 12px; }
-body[data-tela="chat"] header a, body[data-tela="chat"] header div { float: none; margin: 0; grid-row: 1 / 3; }
+body[data-tela="chat"] header a, body[data-tela="chat"] header img { float: none; margin: 0; grid-row: 1 / 3; }
 body[data-tela="chat"] header h1 { grid-column: 3; }
 body[data-tela="chat"] header p { grid-column: 3; }
 @media (max-width: 400px) {

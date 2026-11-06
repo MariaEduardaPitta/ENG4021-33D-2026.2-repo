@@ -2,7 +2,7 @@
 body { max-width: 440px; margin: 0 auto; padding-bottom: 80px; font-family: Arial, sans-serif; color: #25252D; background: #FAFAF8; }
 header { overflow: hidden; padding: 16px; background: #7C3AED; }
 header a { float: left; margin-right: 12px; line-height: 44px; color: white; text-decoration: none; }
-header div { float: left; width: 44px; height: 44px; margin-right: 12px; border-radius: 50%; background: #F3E8FF; }
+header img { float: left; width: 44px; height: 44px; margin-right: 12px; border-radius: 50%; background: #F3E8FF; }
 header h1 { margin: 4px 0 2px; font-size: 18px; color: white; }
 header p { margin: 0; font-size: 13px; color: #F3E8FF; }
 main { padding: 16px; }
@@ -19,3 +19,13 @@ footer { position: fixed; bottom: 0; width: 100%; max-width: 440px; padding: 12p
 footer form { display: flex; gap: 8px; }
 footer input { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 20px; font-size: 15px; }
 footer button { padding: 12px 18px; border: none; border-radius: 20px; background: #7C3AED; color: white; font-size: 15px; cursor: pointer; }
+
+
+@media (min-width: 768px) {
+  header { padding: 20px 24px; }
+  header h1 { font-size: 20px; }
+  main { padding: 24px; }
+  li { max-width: 60%; }
+  li p { font-size: 16px; }
+  footer { padding: 16px 24px; }
+}
