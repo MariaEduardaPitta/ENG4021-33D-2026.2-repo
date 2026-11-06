@@ -41,9 +41,7 @@
     {% for conversa in conversas %}
     <li>
         <a href="/chat/{{ conversa.material.pk }}/{{ conversa.outro.pk }}/">
-            <div>
-
-            </div>
+            <img src="https://ui-avatars.com/api/?name={{ conversa.outro.nome|default:conversa.outro.username|urlencode }}&background=F3E8FF&color=7C3AED&rounded=true&size=88" alt="">
             <h2>
                 {{ conversa.outro.nome|default:conversa.outro.username }}
             </h2>

@@ -13,9 +13,7 @@
 <a href="{% url 'conversas' %}">
    Voltar
 </a>
-<div>
-
-</div>
+<img src="https://ui-avatars.com/api/?name={{ outro.nome|default:outro.username|default:'?'|urlencode }}&background=F3E8FF&color=7C3AED&rounded=true&size=88" alt="">
 {% if precisa_login %}
 <h1>
     Chat

@@ -2,7 +2,7 @@
 body { max-width: 440px; margin: 0 auto; padding-bottom: 80px; font-family: Arial, sans-serif; color: #25252D; background: #FAFAF8; }
 header { overflow: hidden; padding: 16px; background: #7C3AED; }
 header a { float: left; margin-right: 12px; line-height: 44px; color: white; text-decoration: none; }
-header div { float: left; width: 44px; height: 44px; margin-right: 12px; border-radius: 50%; background: #F3E8FF; }
+header img { float: left; width: 44px; height: 44px; margin-right: 12px; border-radius: 50%; background: #F3E8FF; }
 header h1 { margin: 4px 0 2px; font-size: 18px; color: white; }
 header p { margin: 0; font-size: 13px; color: #F3E8FF; }
 main { padding: 16px; }
