@@ -12,6 +12,7 @@
   <header>
     <a href="/">Voltar</a>
     <h1>Detalhes do material</h1>
+    {% include 'partials/conta.html' %}
   </header>
 
   <main>
@@ -59,16 +60,21 @@
       {% endif %}
       <a href="{% url 'avaliacoes_vendedor' material.vendedor.id %}">Ver avaliações</a>
     </section>
+    <section class="bloco">
+      <h3>Compartilhar anúncio</h3>
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data={{ request.build_absolute_uri|urlencode:'' }}"
+           alt="QR Code com o link deste anúncio" width="180" height="180">
+      <p>Aponte a câmera do celular para abrir este anúncio.</p>
+    </section>
 
   {% if material.status == "disponivel" %}
 <div class="acoes">
-  <button class="btn btn-secundario" type="button" disabled>
-    Conversar com vendedor
-  </button>
-
   {% if user.is_authenticated and material.vendedor_id == user.id %}
     <span>Este anúncio é seu.</span>
   {% else %}
+    <a href="{% url 'chat' material.id material.vendedor.id %}" class="btn btn-secundario">
+      Conversar com vendedor
+    </a>
     <a href="{% url 'comprar_material' material.id %}" class="btn btn-principal">
       Comprar
     </a>

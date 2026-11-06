@@ -188,11 +188,8 @@ def logout_view(request):
         logout(request)
     return redirect('home')
 
-
+@login_required(login_url='login')
 def anunciar_material(request):
-    if not request.user.is_authenticated:
-        return redirect('login')
-
     if request.method == 'POST':
         form = AnunciarMaterialForm(request.POST, request.FILES)
 
@@ -206,11 +203,8 @@ def anunciar_material(request):
 
     return render(request, 'anunciar.html', {'form': form})
 
-
+@login_required(login_url='login')
 def editar_material(request, material_id):
-    if not request.user.is_authenticated:
-        return redirect('login')
-
     material = get_object_or_404(
         Material,
         pk=material_id,
@@ -294,11 +288,8 @@ def buscar(request):
         },
     })
 
-
+@login_required(login_url='login')
 def conversas(request):
-    if not request.user.is_authenticated:
-        return render(request, 'conversas.html', {'precisa_login': True})
-
     usuario = request.user
     filtro = request.GET.get('filtro', 'todas')
     if filtro not in ('todas', 'comprando', 'vendendo'):
@@ -364,11 +355,8 @@ def conversas(request):
         'q': q,
     })
 
-
+@login_required(login_url='login')
 def chat(request, material_id, usuario_id):
-    if not request.user.is_authenticated:
-        return render(request, 'chat.html', {'precisa_login': True})
-
     usuario = request.user
     material = get_object_or_404(Material.objects.select_related('vendedor'), pk=material_id)
     outro = get_object_or_404(Usuario, pk=usuario_id)

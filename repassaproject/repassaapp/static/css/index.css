@@ -11,11 +11,6 @@ h2 { font-size: 22px; }
 .menu-inferior span { margin-right: 4px; }
 .logo { width: 40px; height: 40px; }
 header a { margin-left: auto; }
-.conta { margin-left: auto; display: flex; align-items: center; gap: 12px; }
-.conta a { margin-left: 0; }
-.conta form { margin: 0; }
-.conta button { padding: 6px 12px; border: 1px solid #7c3aed; border-radius: 4px; background: white; color: #7c3aed; font-size: 14px; cursor: pointer; }
-.contador { font-size: 14px; }
 .marca { display: flex; align-items: center; gap: 12px; }
 input { width: 100%; padding: 10px; border: 1px solid #aaa; }
 .filtros { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
@@ -27,3 +22,14 @@ input { width: 100%; padding: 10px; border: 1px solid #aaa; }
 del { color: #666; font-size: 12px; font-weight: normal; }
 .rodape-card { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; margin-top: 12px; font-size: 12px; }
 .disponivel { color: #24723c; }
+.lista-materiais { display: grid; gap: 16px; }
+.card { margin-bottom: 0; }
+
+@media (min-width: 768px) {
+  main { max-width: 960px; }
+  .lista-materiais { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 1024px) {
+  .lista-materiais { grid-template-columns: repeat(3, 1fr); }
+}

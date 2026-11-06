@@ -17,6 +17,7 @@
 <a class="novo" href="{% url 'buscar' %}" aria-label="Iniciar nova conversa" title="Buscar um material para conversar">
     +
 </a>
+{% include 'partials/conta.html' %}
 <input type="search" name="q" value="{{ q }}" placeholder="Procurar conversa" aria-label="Procurar conversa">
 <input type="hidden" name="filtro" value="{{ filtro }}">
 </header>

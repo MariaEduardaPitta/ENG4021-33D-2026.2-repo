@@ -12,6 +12,7 @@
   <header>
     <a href="/">Voltar</a>
     <h1>Notificações</h1>
+    {% include 'partials/conta.html' %}
   </header>
     <main>
     {% for mensagem in mensagens %}
@@ -41,12 +42,12 @@
     <p>Você não tem notificações por enquanto.</p>
     {% endif %}
   </main>
-  <nav class="menu-inferior" aria-label="Navegação principal">
-  <a href="index.html" aria-current="page"><span aria-hidden="true">⌂</span>Início</a>
-  <button type="button" disabled><span aria-hidden="true">⌕</span>Buscar</button>
-  <a href="../../Maria-Eduarda-Pitta/anunciar.html" style="color: #71717A; font-weight: normal;"><span aria-hidden="true">＋</span>Anunciar</a>
-  <button type="button" disabled><span aria-hidden="true">✉</span>Conversas</button>
-  <button type="button" disabled><span aria-hidden="true">♙</span>Perfil</button>
+ <nav class="menu-inferior" aria-label="Navegação principal">
+  <a href="{% url 'home' %}" aria-current="page"><span aria-hidden="true">⌂</span>Início</a>
+  <a href="{% url 'buscar' %}"><span aria-hidden="true">⌕</span>Buscar</a>
+  <a href="{% url 'anunciar_material' %}"><span aria-hidden="true">＋</span>Anunciar</a>
+  <a href="{% url 'conversas' %}"><span aria-hidden="true">✉</span>Conversas</a>
+  <a href="{% url 'editar_perfil' %}"><span aria-hidden="true">♙</span>Perfil</a>
 </nav>
 </body>
 </html>

@@ -11,17 +11,7 @@
 <body data-tela="index">
 <header>
   <img class="logo" src="{% static 'img/logo-repassa.png' %}" alt="Logo do REPASSA"><strong>REPASSA</strong>
-  <nav class="conta">
-    {% if user.is_authenticated %}
-      <a href="/notificacoes/" aria-label="Notificações">🔔 <span class="contador">3</span></a>
-      <form method="post" action="{% url 'logout' %}">
-        {% csrf_token %}
-        <button type="submit">Sair</button>
-      </form>
-    {% else %}
-      <a href="{% url 'login' %}">Entrar</a>
-    {% endif %}
-  </nav>
+  {% include 'partials/conta.html' %}
 </header>
 
 <main>
@@ -63,11 +53,11 @@
 
 </main>
 <nav class="menu-inferior" aria-label="Navegação principal">
-  <a href="index.html" aria-current="page"><span aria-hidden="true">⌂</span>Início</a>
-  <button type="button" disabled><span aria-hidden="true">⌕</span>Buscar</button>
-  <a href="../../Maria-Eduarda-Pitta/anunciar.html" style="color: #71717A; font-weight: normal;"><span aria-hidden="true">＋</span>Anunciar</a>
-  <button type="button" disabled><span aria-hidden="true">✉</span>Conversas</button>
-  <button type="button" disabled><span aria-hidden="true">♙</span>Perfil</button>
+  <a href="{% url 'home' %}" aria-current="page"><span aria-hidden="true">⌂</span>Início</a>
+  <a href="{% url 'buscar' %}"><span aria-hidden="true">⌕</span>Buscar</a>
+  <a href="{% url 'anunciar_material' %}"><span aria-hidden="true">＋</span>Anunciar</a>
+  <a href="{% url 'conversas' %}"><span aria-hidden="true">✉</span>Conversas</a>
+  <a href="{% url 'editar_perfil' %}"><span aria-hidden="true">♙</span>Perfil</a>
 </nav>
 </body>
 </html>

@@ -3,6 +3,8 @@ from django import forms
 from .models import Avaliacao, Material, Usuario, Compra
 from django.contrib.auth.password_validation import validate_password
 import re
+import unicodedata
+from .servicos import consultar_cep, ViaCepIndisponivel
 
 
 class AvaliacaoForm(forms.ModelForm):
@@ -130,9 +132,36 @@ class CompraForm(forms.Form):
             for campo in ['cep', 'logradouro', 'numero', 'bairro', 'cidade', 'uf']:
                 if not dados.get(campo):
                     self.add_error(campo, 'Este campo é obrigatório para entrega.')
+            
+            if not self.errors:                    
+                self.validar_endereco(dados)
 
         return dados
 
+    def validar_endereco(self, dados):
+        cep = re.sub(r'\D', '', dados['cep'])
+        if len(cep) != 8:
+            self.add_error('cep', 'Digite um CEP com 8 números.')
+            return
+        dados['cep'] = cep
+
+        try:
+            endereco = consultar_cep(cep)
+        except ViaCepIndisponivel:
+            return
+
+        if endereco is None:
+            self.add_error('cep', 'CEP não encontrado.')
+            return
+
+        if normalizar(dados['cidade']) != normalizar(endereco['localidade']):
+            self.add_error('cidade', f"Este CEP é de {endereco['localidade']}.")
+        if normalizar(dados['uf']) != normalizar(endereco['uf']):
+            self.add_error('uf', f"Este CEP é de {endereco['uf']}.")
+
+def normalizar(texto):
+    sem_acento = unicodedata.normalize('NFD', texto).encode('ascii', 'ignore').decode()
+    return sem_acento.strip().lower()
 
 class AtualizarEntregaForm(forms.ModelForm):
     status_entrega = forms.ChoiceField(label='Status da entrega')

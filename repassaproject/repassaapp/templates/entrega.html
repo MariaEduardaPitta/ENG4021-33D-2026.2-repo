@@ -9,7 +9,10 @@
   <link rel="stylesheet" href="{% static 'css/responsivo.css' %}">
 </head>
 <body data-tela="entrega">
-  <header><a href="{% url 'home' %}">REPASSA</a></header>
+  <header>
+        <a href="/">REPASSA</a>
+        {% include 'partials/conta.html' %}
+  </header>
   <main>
     <h1>Atualizar entrega</h1>
     <p><strong>Material:</strong> {{ compra.material.titulo }}</p>
