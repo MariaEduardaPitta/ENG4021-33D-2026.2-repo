@@ -1,3 +1,4 @@
+from unittest.mock import patch
 from django.test import TestCase, override_settings
 from django.core import mail
 from django.contrib.auth.tokens import default_token_generator
@@ -9,7 +10,8 @@ from .models import Usuario
 
 @override_settings(EMAIL_BACKEND='django.core.mail.backends.locmem.EmailBackend')
 class RecuperacaoTest(TestCase):
-    def test_recupera_senha_com_templates_e_rotas(self):
+    @patch('repassaapp.forms.consultar_senha_vazada', return_value=0)
+    def test_recupera_senha_com_templates_e_rotas(self, consulta):
         user = Usuario.objects.create_user(username='teste', email='teste@example.com',
                                           cpf='77777777777', password='SenhaAntiga123!')
         self.assertEqual(self.client.get('/').status_code, 200)

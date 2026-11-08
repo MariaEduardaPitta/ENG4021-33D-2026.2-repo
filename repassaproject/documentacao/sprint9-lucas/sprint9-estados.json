@@ -1,0 +1,41 @@
+[
+  {
+    "name": "senha-vazada",
+    "width": 375,
+    "height": 500,
+    "warning": "Essa senha já apareceu em vazamentos. Escolha outra senha para proteger sua conta.",
+    "scroll": 375,
+    "top": 20
+  },
+  {
+    "name": "link-invalido-recuperacao",
+    "width": 375,
+    "ok": true
+  },
+  {
+    "name": "senha-vazada",
+    "width": 768,
+    "height": 500,
+    "warning": "Essa senha já apareceu em vazamentos. Escolha outra senha para proteger sua conta.",
+    "scroll": 768,
+    "top": 20
+  },
+  {
+    "name": "link-invalido-recuperacao",
+    "width": 768,
+    "ok": true
+  },
+  {
+    "name": "senha-vazada",
+    "width": 1280,
+    "height": 500,
+    "warning": "Essa senha já apareceu em vazamentos. Escolha outra senha para proteger sua conta.",
+    "scroll": 1280,
+    "top": 20
+  },
+  {
+    "name": "link-invalido-recuperacao",
+    "width": 1280,
+    "ok": true
+  }
+]

@@ -1,6 +1,7 @@
 
 from django.contrib import admin
 from django.urls import path
+from repassaapp.forms import NovaSenhaForm
 from django.conf import settings
 from django.conf.urls.static import static
 from repassaapp.views import (
@@ -70,6 +71,7 @@ urlpatterns += [
     path(
         'reset/<uidb64>/<token>/',
         auth_views.PasswordResetConfirmView.as_view(
+            form_class=NovaSenhaForm,
             template_name='nova_senha.html',
             success_url='/reset/concluido/'
         ),
