@@ -23,7 +23,7 @@ body[data-tela="cadastro"] input { flex: 1; padding: 10px; font-size: 16px; }
 body[data-tela="cadastro"] label { font-size: 18px; margin-left: 0; }
 body[data-tela="cadastro"] .botao-cadastro { width: 100%; height: auto; padding: 12px; }
 @media (min-width: 768px) {
-  body[data-tela="buscar"], body[data-tela="conversas"], body[data-tela="chat"], body[data-tela="confirmacao"] { max-width: 760px; }
+  body[data-tela="buscar"], body[data-tela="conversas"], body[data-tela="chat"], { max-width: 760px; }
   body[data-tela="buscar"] nav, body[data-tela="conversas"] nav, body[data-tela="chat"] footer { max-width: 760px; }
 }
 @media (max-width: 600px) {
