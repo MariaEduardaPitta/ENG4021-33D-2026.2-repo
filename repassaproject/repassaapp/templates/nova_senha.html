@@ -16,11 +16,12 @@
                 <p>Digite sua nova senha nos campos abaixo para concluir a redefinição.</p>
             </div>
 
+            <p class="aviso-senha">Ao salvar, verificamos se a senha aparece em vazamentos conhecidos. A senha completa não é enviada ao serviço de consulta.</p>
             <form method="POST" class="auth-form">
                 {% csrf_token %}
 
                 {% if form.errors %}
-                    <ul class="error-list">
+                    <ul class="error-list" role="alert">
                         {% for field in form %}
                             {% for error in field.errors %}
                                 <li>{{ error }}</li>
@@ -31,12 +32,12 @@
 
                 <div class="form-group">
                     <label for="id_new_password1">Nova Senha</label>
-                    <input type="password" name="new_password1" id="id_new_password1" class="form-input" placeholder="Digite a nova senha" required>
+                    <input type="password" name="new_password1" id="id_new_password1" class="form-input" autocomplete="new-password" placeholder="Digite a nova senha" required>
                 </div>
 
                 <div class="form-group">
                     <label for="id_new_password2">Confirmar Nova Senha</label>
-                    <input type="password" name="new_password2" id="id_new_password2" class="form-input" placeholder="Confirme a nova senha" required>
+                    <input type="password" name="new_password2" id="id_new_password2" class="form-input" autocomplete="new-password" placeholder="Confirme a nova senha" required>
                 </div>
 
                 <button type="submit" class="btn-submit">Salvar Nova Senha</button>

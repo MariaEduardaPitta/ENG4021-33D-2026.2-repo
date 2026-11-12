@@ -1,5 +1,7 @@
 
 from django import forms
+from django.contrib.auth.forms import SetPasswordForm
+from .pwned_passwords import consultar_senha_vazada, ConsultaSenhaIndisponivel
 from .models import Avaliacao, Material, Usuario, Compra
 from django.contrib.auth.password_validation import validate_password
 import re
@@ -178,3 +180,22 @@ class AtualizarEntregaForm(forms.ModelForm):
             'entregue': [('entregue', 'Entregue')],
         }
         self.fields['status_entrega'].choices = opcoes.get(self.instance.status_entrega, [])
+
+
+class NovaSenhaForm(SetPasswordForm):
+    def clean_new_password2(self):
+        senha = super().clean_new_password2()
+        if senha:
+            try:
+                quantidade = consultar_senha_vazada(senha)
+            except ConsultaSenhaIndisponivel:
+                raise forms.ValidationError(
+                    'Não foi possível verificar vazamentos agora. Tente novamente em instantes.',
+                    code='consulta_indisponivel',
+                )
+            if quantidade > 0:
+                raise forms.ValidationError(
+                    'Essa senha já apareceu em vazamentos. Escolha outra senha para proteger sua conta.',
+                    code='senha_vazada',
+                )
+        return senha
