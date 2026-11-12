@@ -1,21 +1,10 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ material.titulo }} — REPASSA</title>
-  <link rel="stylesheet" href="{% static 'css/detalhes.css' %}">
-  <link rel="stylesheet" href="{% static 'css/responsivo.css' %}">
-</head>
-<body data-tela="detalhes">
-  <header>
-    <a href="/">Voltar</a>
-    <h1>Detalhes do material</h1>
-    {% include 'partials/conta.html' %}
-  </header>
+{% block titulo %}{{ material.titulo }}{% endblock %}
+{% block tela %}detalhes{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'css/detalhes.css' %}">{% endblock %}
 
-  <main>
+  {% block conteudo %}
     <div class="foto">
       {% if material.foto %}
         <img src="{{ material.foto.url }}" alt="Foto de {{ material.titulo }}">
@@ -72,15 +61,13 @@
   {% if user.is_authenticated and material.vendedor_id == user.id %}
     <span>Este anúncio é seu.</span>
   {% else %}
-    <a href="{% url 'chat' material.id material.vendedor.id %}" class="btn btn-secundario">
+    <a href="{% url 'chat' material.id material.vendedor.id %}" class="botao botao-secundario">
       Conversar com vendedor
     </a>
-    <a href="{% url 'comprar_material' material.id %}" class="btn btn-principal">
+    <a href="{% url 'comprar_material' material.id %}" class="botao">
       Comprar
     </a>
   {% endif %}
 </div>
 {% endif %}
-  </main>
-</body>
-</html>
+  {% endblock %}
