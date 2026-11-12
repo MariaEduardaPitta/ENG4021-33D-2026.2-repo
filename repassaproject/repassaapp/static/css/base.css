@@ -1,0 +1,75 @@
+/* Cores e fontes do Design System */
+:root {
+  --roxo: #7C3AED;
+  --roxo-escuro: #5B21B6;
+  --lilas: #F3E8FF;
+  --coral: #FF6B5E;
+  --fundo: #FAFAF8;
+  --branco: #FFFFFF;
+  --texto: #25252D;
+  --cinza: #71717A;
+  --borda: #E4E4E7;
+  --verde: #22A06B;
+  --ambar: #F59E0B;
+  --vermelho: #DC3545;
+  --fonte-titulo: 'Poppins', Arial, sans-serif;
+  --fonte-texto: 'Inter', Arial, sans-serif;
+  --raio: 12px;
+}
+
+/* Base */
+* { box-sizing: border-box; }
+body { margin: 0; font-family: var(--fonte-texto); font-size: 16px; color: var(--texto); background: var(--fundo); }
+a { color: var(--roxo); }
+a:hover { color: var(--roxo-escuro); }
+h1, h2 { font-family: var(--fonte-titulo); color: var(--roxo-escuro); }
+h1 { font-size: 28px; font-weight: 700; }
+h2 { font-size: 22px; font-weight: 600; }
+h3 { font-size: 18px; font-weight: 600; }
+main { max-width: 600px; margin: 0 auto; padding: 24px 16px 96px; }
+
+/* Cabeçalho */
+header { display: flex; align-items: center; gap: 16px; padding: 12px 16px; background: var(--branco); border-bottom: 1px solid var(--borda); }
+.marca { display: flex; align-items: center; gap: 10px; color: var(--roxo-escuro); text-decoration: none; font-family: var(--fonte-titulo); font-size: 20px; }
+.logo { width: 40px; height: 40px; }
+
+/* Botões */
+button, .botao { font-family: var(--fonte-texto); font-size: 16px; font-weight: 600; padding: 10px 18px; border-radius: 8px; border: 2px solid var(--roxo); background: var(--roxo); color: var(--branco); cursor: pointer; text-decoration: none; display: inline-block; }
+button:hover, .botao:hover { background: var(--roxo-escuro); border-color: var(--roxo-escuro); color: var(--branco); }
+.botao-secundario { background: var(--branco); color: var(--roxo); }
+.botao-secundario:hover { background: var(--lilas); color: var(--roxo-escuro); }
+.botao-perigo { background: var(--vermelho); border-color: var(--vermelho); }
+button:disabled { background: var(--borda); border-color: var(--borda); color: var(--cinza); cursor: not-allowed; }
+
+/* Campos de formulário */
+input, select, textarea { width: 100%; font-family: var(--fonte-texto); font-size: 16px; padding: 12px; border: 1px solid var(--borda); border-radius: 8px; background: var(--branco); color: var(--texto); }
+input:focus, select:focus, textarea:focus { outline: none; border-color: var(--roxo); box-shadow: 0 0 0 3px var(--lilas); }
+label { display: block; font-weight: 600; margin-bottom: 6px; }
+
+/* Cards */
+.card { background: var(--branco); border: 1px solid var(--borda); border-radius: var(--raio); padding: 16px; }
+.preco { color: var(--coral); font-weight: 700; font-size: 18px; }
+del { color: var(--cinza); font-size: 13px; font-weight: 400; }
+small, .texto-auxiliar { color: var(--cinza); font-size: 14px; }
+
+/* Status */
+.disponivel { color: var(--verde); }
+.vendido { color: var(--cinza); }
+.tag { display: inline-block; padding: 4px 10px; border-radius: 999px; background: var(--lilas); color: var(--roxo-escuro); font-size: 13px; font-weight: 600; }
+
+/* Mensagens de feedback */
+.alerta { padding: 12px 16px; border-radius: 8px; margin-bottom: 16px; border-left: 4px solid; }
+.alerta-sucesso { background: #E7F7EE; border-color: var(--verde); }
+.alerta-atencao { background: #FEF3C7; border-color: var(--ambar); }
+.alerta-erro { background: #FDECEE; border-color: var(--vermelho); }
+.alerta-info { background: var(--lilas); border-color: var(--roxo); }
+
+/* Menu de baixo (fixo, estilo app) */
+.menu-inferior { position: fixed; bottom: 0; left: 0; right: 0; display: flex; justify-content: space-around; padding: 10px 8px; background: var(--branco); border-top: 1px solid var(--borda); }
+.menu-inferior a { display: flex; flex-direction: column; align-items: center; gap: 2px; font-size: 13px; color: var(--cinza); text-decoration: none; }
+.menu-inferior a:hover { color: var(--roxo); }
+.menu-inferior span { font-size: 20px; }
+
+@media (min-width: 768px) {
+  main { max-width: 960px; }
+}
