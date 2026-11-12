@@ -1,20 +1,11 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Notificações — REPASSA</title>
-  <link rel="stylesheet" href="{% static 'css/notificacoes.css' %}">
-  <link rel="stylesheet" href="{% static 'css/responsivo.css' %}">
-</head>
-<body data-tela="notificacoes">
-  <header>
-    <a href="/">Voltar</a>
-    <h1>Notificações</h1>
-    {% include 'partials/conta.html' %}
-  </header>
-    <main>
+{% block titulo %}Notificações{% endblock %}
+{% block tela %}notificacoes{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'css/notificacoes.css' %}">{% endblock %}
+{% block conteudo %}
+  <h1>Notificações</h1>
+  <div class="lista-notificacoes">
     {% for mensagem in mensagens %}
     <article class="notificacao">
       <span class="icone mensagem" aria-hidden="true">✉</span>
@@ -41,15 +32,7 @@
     {% if not mensagens and not vendas %}
     <p>Você não tem notificações por enquanto.</p>
     {% endif %}
-  </main>
- <nav class="menu-inferior" aria-label="Navegação principal">
-  <a href="{% url 'home' %}" aria-current="page"><span aria-hidden="true">⌂</span>Início</a>
-  <a href="{% url 'buscar' %}"><span aria-hidden="true">⌕</span>Buscar</a>
-  <a href="{% url 'anunciar_material' %}"><span aria-hidden="true">＋</span>Anunciar</a>
-  <a href="{% url 'conversas' %}"><span aria-hidden="true">✉</span>Conversas</a>
-  <a href="{% url 'editar_perfil' %}"><span aria-hidden="true">♙</span>Perfil</a>
-</nav>
-</body>
-</html>
+  </div>
+{% endblock %}
 
 
