@@ -1,3 +1,4 @@
+
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import MinValueValidator, MaxValueValidator, RegexValidator
@@ -40,7 +41,7 @@ class Usuario(AbstractUser):
 
     def __str__(self):
         return self.nome
-    
+
     @property
     def is_verificado(self):
         if not self.email:
@@ -89,6 +90,7 @@ class Material(models.Model):
         default="disponivel",
         choices=[
             ("disponivel", "Disponível"),
+            ("reservado", "Reservado"),
             ("vendido", "Vendido")
         ]
     )
