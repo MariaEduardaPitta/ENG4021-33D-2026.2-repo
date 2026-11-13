@@ -2,7 +2,7 @@
 from django import forms
 from django.contrib.auth.forms import SetPasswordForm
 from .pwned_passwords import consultar_senha_vazada, ConsultaSenhaIndisponivel
-from .models import Avaliacao, Material, Usuario, Compra
+from .models import Avaliacao, Material, Usuario, Compra, Faculdade
 from django.contrib.auth.password_validation import validate_password
 import re
 import unicodedata

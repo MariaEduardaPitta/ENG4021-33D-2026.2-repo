@@ -1,0 +1,29 @@
+.perfil { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-bottom: 24px; }
+.avatar { width: 72px; height: 72px; flex-shrink: 0; display: flex; justify-content: center; align-items: center; border-radius: 50%; background: var(--lilas); color: var(--roxo); font-family: var(--fonte-titulo); font-size: 30px; font-weight: 700; }
+.perfil-dados { flex: 1; min-width: 200px; }
+.perfil-dados h1 { margin: 0 0 4px; font-size: 24px; }
+.perfil-dados p { margin: 2px 0; font-size: 14px; color: var(--cinza); }
+.perfil-dados .nota { color: var(--roxo-escuro); font-weight: 600; }
+.editar { font-size: 14px; padding: 8px 16px; }
+
+.secao { margin-bottom: 28px; }
+.secao-topo { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.secao-topo h2 { margin: 0; font-size: 20px; }
+.secao-topo a { font-size: 14px; font-weight: 600; text-decoration: none; }
+
+.item { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 10px; }
+.item h3 { margin: 0 0 4px; font-size: 16px; }
+.item h3 a { color: var(--texto); text-decoration: none; }
+.item h3 a:hover { color: var(--roxo); }
+.item p { margin: 0; font-size: 14px; color: var(--cinza); }
+.item .preco { font-size: 16px; color: var(--coral); }
+.item-texto { min-width: 0; }
+.item-acoes { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; flex-shrink: 0; font-size: 14px; }
+.item-acoes a { font-weight: 600; text-decoration: none; }
+
+.tag-status { padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; background: #F4F4F5; color: var(--cinza); }
+.tag-status.disponivel, .tag-status.entrega-entregue { background: #E7F7EE; color: var(--verde); }
+.tag-status.entrega-aguardando { background: #FEF3C7; color: #92400E; }
+.tag-status.entrega-em_andamento { background: var(--lilas); color: var(--roxo-escuro); }
+
+.vazio { color: var(--cinza); font-size: 14px; }

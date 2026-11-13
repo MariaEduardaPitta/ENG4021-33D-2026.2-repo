@@ -1,0 +1,7 @@
+.perfil-vendedor { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+.avatar { width: 72px; height: 72px; flex-shrink: 0; display: flex; justify-content: center; align-items: center; border-radius: 50%; background: var(--lilas); color: var(--roxo); font-family: var(--fonte-titulo); font-size: 30px; font-weight: 700; }
+.perfil-vendedor h1 { margin: 0 0 4px; font-size: 24px; }
+.perfil-vendedor p { margin: 2px 0; font-size: 14px; color: var(--cinza); }
+.perfil-vendedor .nota { color: var(--roxo-escuro); font-weight: 600; }
+.perfil-vendedor a { font-size: 14px; font-weight: 600; }
+.vazio { color: var(--cinza); }

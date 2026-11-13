@@ -1,10 +1,11 @@
 from django.test import TestCase
-from .models import Usuario
+from .models import Usuario, Faculdade
 
 
 class ContasTest(TestCase):
     def setUp(self):
-        self.dados = dict(nome='Ana', sobrenome='Silva', cpf='123.456.789-01', telefone='21900000000', email='ana@example.com', senha='TesteConta2026!')
+        self.faculdade = Faculdade.objects.create(nome='PUC-Rio', localizacao='Rio')
+        self.dados = dict(nome='Ana', sobrenome='Silva', cpf='123.456.789-01', telefone='21900000000', email='ana@example.com', senha='TesteConta2026!', curso='Engenharia', faculdade=self.faculdade.pk)
 
     def cadastrar(self):
         return self.client.post('/cadastro/', self.dados)
@@ -43,7 +44,7 @@ class ContasTest(TestCase):
         self.cadastrar();u=Usuario.objects.get();self.client.force_login(u)
         r=self.client.get('/editar-perfil/')
         self.assertContains(r,'value="Ana"')
-        dados=dict(nome='Ana Maria',sobrenome='Souza',email='novo@example.com',telefone='21888888888',senha='NovaSenha2026!')
+        dados=dict(nome='Ana Maria',sobrenome='Souza',email='novo@example.com',telefone='21888888888',senha='NovaSenha2026!',curso='Engenharia',faculdade=self.faculdade.pk)
         r=self.client.post('/editar-perfil/',dados,follow=True)
         self.assertContains(r,'Perfil atualizado.')
         u.refresh_from_db()
@@ -56,7 +57,7 @@ class ContasTest(TestCase):
     def test_edicao_email_repetido_e_senha_em_branco(self):
         self.cadastrar();u=Usuario.objects.get();self.client.force_login(u)
         Usuario.objects.create_user(username='outro',email='outro@example.com',cpf='11122233344',nome='Outro')
-        dados=dict(nome='Ana',sobrenome='Silva',email='outro@example.com',telefone='',senha='')
+        dados=dict(nome='Ana',sobrenome='Silva',email='outro@example.com',telefone='',senha='',curso='Engenharia',faculdade=self.faculdade.pk)
         r=self.client.post('/editar-perfil/',dados)
         self.assertTrue(r.context['form'].errors)
         u.refresh_from_db();self.assertEqual(u.email,self.dados['email'])

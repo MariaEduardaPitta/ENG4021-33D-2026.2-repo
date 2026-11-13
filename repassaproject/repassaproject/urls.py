@@ -22,6 +22,7 @@ from repassaapp.views import (
     conversas,
     chat,
     avaliacoes_vendedor,
+    meu_perfil,
     perfil_vendedor,
 )
 
@@ -38,6 +39,7 @@ urlpatterns = [
     path('cadastro/', cadastro_view, name='cadastro'),
     path('login/', login_view, name='login'),
     path('logout/', logout_view, name='logout'),
+    path('perfil/', meu_perfil, name='meu_perfil'),
     path('editar-perfil/', editar_perfil_view, name='editar_perfil'),
     path('anunciar/', anunciar_material, name='anunciar_material'),
     path('editar-material/<int:material_id>/', editar_material, name='editar_material'),

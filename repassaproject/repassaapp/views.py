@@ -24,8 +24,26 @@ def home(request):
     materiais = Material.objects.filter(status="disponivel").select_related('vendedor', 'categoria').annotate(
         nota_vendedor=Avg('vendedor__avaliacoes_recebidas__nota')
     )
-    return render(request, 'index.html', {"materiais": materiais})
+    categorias = Categoria.objects.order_by('nome')
+    return render(request, 'index.html', {"materiais": materiais, "categorias": categorias})
 
+@login_required
+def meu_perfil(request):
+    usuario = request.user
+    resumo = usuario.avaliacoes_recebidas.aggregate(media=Avg('nota'), quantidade=Count('id'))
+    meus_anuncios = Material.objects.filter(vendedor=usuario).select_related('categoria').order_by('-id')
+    minhas_compras = (
+        Compra.objects.filter(comprador=usuario)
+        .select_related('material__vendedor', 'avaliacao')
+        .order_by('-data_compra')
+    )
+    return render(request, 'meu_perfil.html', {
+        'usuario': usuario,
+        'nota_media': resumo['media'],
+        'quantidade_avaliacoes': resumo['quantidade'],
+        'meus_anuncios': meus_anuncios,
+        'minhas_compras': minhas_compras,
+    })
 
 @login_required
 def notificacoes(request):

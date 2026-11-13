@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %}Meu perfil{% endblock %}
+{% block tela %}meu_perfil{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'css/meu_perfil.css' %}">{% endblock %}
+
+{% block conteudo %}
+<section class="card perfil">
+    <div class="avatar">{{ usuario.nome|default:usuario.username|first|upper }}</div>
+    <div class="perfil-dados">
+        <h1>{{ usuario.nome|default:usuario.username }}</h1>
+        <p>{{ usuario.email }}</p>
+        <p>{{ usuario.faculdade.nome|default:"Faculdade não informada" }}{% if usuario.curso %} · {{ usuario.curso }}{% endif %}</p>
+        <p class="nota">
+            {% if quantidade_avaliacoes %}
+                ★ {{ nota_media|floatformat:1 }} ({{ quantidade_avaliacoes }} avaliaç{{ quantidade_avaliacoes|pluralize:"ão,ões" }})
+            {% else %}
+                Sem avaliações ainda
+            {% endif %}
+        </p>
+    </div>
+    <a href="{% url 'editar_perfil' %}" class="botao botao-secundario editar">Editar perfil</a>
+</section>
+
+<section class="secao">
+    <div class="secao-topo">
+        <h2>Meus anúncios</h2>
+        <a href="{% url 'anunciar_material' %}">+ Anunciar</a>
+    </div>
+    {% for material in meus_anuncios %}
+        <article class="card item">
+            <div class="item-texto">
+                <h3><a href="{% url 'detalhe_material' material.pk %}">{{ material.titulo }}</a></h3>
+                <p class="preco">R$ {{ material.preco }}</p>
+            </div>
+            <div class="item-acoes">
+                {% if material.status == 'disponivel' %}
+                    <span class="tag-status disponivel">Disponível</span>
+                    <a href="{% url 'editar_material' material.pk %}">Editar</a>
+                {% else %}
+                    <span class="tag-status vendido">Vendido</span>
+                    {% if material.compra %}
+                        <a href="{% url 'atualizar_entrega' material.compra.pk %}">Atualizar entrega</a>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </article>
+    {% empty %}
+        <p class="vazio">Você ainda não anunciou nenhum material.</p>
+    {% endfor %}
+</section>
+
+<section class="secao">
+    <div class="secao-topo">
+        <h2>Minhas compras</h2>
+    </div>
+    {% for compra in minhas_compras %}
+        <article class="card item">
+            <div class="item-texto">
+                <h3><a href="{% url 'confirmacao' compra.pk %}">{{ compra.material.titulo }}</a></h3>
+                <p>{{ compra.data_compra|date:"d/m/Y" }} · vendido por {{ compra.material.vendedor.nome }}</p>
+            </div>
+            <div class="item-acoes">
+                <span class="tag-status entrega-{{ compra.status_entrega }}">
+                    {% if compra.status_entrega == 'entregue' %}Entregue{% elif compra.status_entrega == 'em_andamento' %}Em andamento{% else %}Aguardando entrega{% endif %}
+                </span>
+                {% if compra.status_entrega == 'entregue' and not compra.avaliacao %}
+                    <a href="{% url 'avaliar_vendedor' compra.pk %}">Avaliar</a>
+                {% endif %}
+            </div>
+        </article>
+    {% empty %}
+        <p class="vazio">Você ainda não comprou nenhum material.</p>
+    {% endfor %}
+</section>
+{% endblock %}
