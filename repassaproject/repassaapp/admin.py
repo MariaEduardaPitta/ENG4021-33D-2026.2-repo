@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from .models import Faculdade, Usuario, Categoria, Material, Compra, Pagamento, Avaliacao, Mensagem
+from .models import Faculdade, Usuario, Categoria, Material, Compra, Pagamento, Avaliacao, Mensagem, Favorito
 
 
 class CriarUsuarioAdminForm(UserCreationForm):
@@ -30,4 +30,4 @@ class UsuarioAdmin(UserAdmin):
     )
 
 
-admin.site.register([Faculdade, Categoria, Material, Compra, Pagamento, Avaliacao, Mensagem])
+admin.site.register([Faculdade, Categoria, Material, Compra, Pagamento, Avaliacao, Mensagem, Favorito])

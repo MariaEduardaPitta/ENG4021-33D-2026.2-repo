@@ -52,6 +52,16 @@
             </label>
 
             <label class="filtro">
+                Faculdade do vendedor
+                <select name="faculdade">
+                    <option value="">Todas</option>
+                    {% for faculdade in faculdades %}
+                    <option value="{{ faculdade.pk }}" {% if filtros.faculdade == faculdade.pk|stringformat:"s" %}selected{% endif %}>{{ faculdade.nome }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+
+            <label class="filtro">
                 Preço máximo (R$)
                 <input type="number" name="preco_max" min="0" step="0.01" value="{{ filtros.preco_max }}" placeholder="Qualquer">
             </label>
@@ -61,7 +71,7 @@
     </section>
 
     <div class="resultados-topo">
-        <h2>{{ materiais|length }} resultado{{ materiais|length|pluralize }}</h2>
+        <h2>{{ pagina.paginator.count }} resultado{{ pagina.paginator.count|pluralize }}</h2>
         <select name="ordem" class="ordem" aria-label="Ordenar resultados" onchange="this.form.submit()">
             <option value="recentes" {% if filtros.ordem == 'recentes' %}selected{% endif %}>Mais recentes</option>
             <option value="menor_preco" {% if filtros.ordem == 'menor_preco' %}selected{% endif %}>Menor preço</option>
@@ -85,6 +95,15 @@
             <span>{{ material.vendedor.nome|default:material.vendedor.username }}</span>
             {% if user.is_authenticated and material.vendedor_id != user.id %}
             <a href="{% url 'chat' material.pk material.vendedor_id %}">Conversar</a>
+            <form method="post" action="{% url 'alternar_favorito' material.pk %}" class="form-favoritar">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                {% if material.pk in favoritos_ids %}
+                <button type="submit" class="favoritar-icone" aria-label="Remover dos favoritos" title="Remover dos favoritos">♥</button>
+                {% else %}
+                <button type="submit" class="favoritar-icone" aria-label="Salvar nos favoritos" title="Salvar nos favoritos">♡</button>
+                {% endif %}
+            </form>
             {% endif %}
         </div>
     </article>
@@ -92,4 +111,17 @@
     <p class="vazio">Nenhum material encontrado com esses filtros.</p>
     {% endfor %}
 </div>
+
+
+{% if pagina.paginator.num_pages > 1 %}
+<nav class="paginacao" aria-label="Páginas de resultados">
+    {% if pagina.has_previous %}
+        <a class="botao botao-secundario" href="?{% if parametros %}{{ parametros }}&amp;{% endif %}pagina={{ pagina.previous_page_number }}">← Anterior</a>
+    {% endif %}
+    <span>Página {{ pagina.number }} de {{ pagina.paginator.num_pages }}</span>
+    {% if pagina.has_next %}
+        <a class="botao botao-secundario" href="?{% if parametros %}{{ parametros }}&amp;{% endif %}pagina={{ pagina.next_page_number }}">Próxima →</a>
+    {% endif %}
+</nav>
+{% endif %}
 {% endblock %}

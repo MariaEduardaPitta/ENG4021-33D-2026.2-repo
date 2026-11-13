@@ -199,6 +199,30 @@ class Mensagem(models.Model):
     )
     conteudo = models.TextField()
     data_hora = models.DateTimeField(auto_now_add=True)
+    lida = models.BooleanField(default=False)
 
     def __str__(self):
         return f"Mensagem {self.pk}"
+
+
+class Favorito(models.Model):
+    usuario = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="favoritos"
+    )
+    material = models.ForeignKey(
+        Material,
+        on_delete=models.CASCADE,
+        related_name="favoritado_por"
+    )
+    criado_em = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-criado_em"]
+        constraints = [
+            models.UniqueConstraint(fields=["usuario", "material"], name="favorito_unico")
+        ]
+
+    def __str__(self):
+        return f"{self.usuario} favoritou {self.material}"

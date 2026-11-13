@@ -38,7 +38,7 @@
   <a href="{% url 'home' %}">⌂ Início</a>
   <a href="{% url 'buscar' %}">⌕ Buscar</a>
   <a href="{% url 'anunciar_material' %}">＋ Anunciar</a>
-  <a href="{% url 'conversas' %}">✉ Conversas</a>
+  <a href="{% url 'conversas' %}">✉ Conversas{% if nao_lidas %} ({{ nao_lidas }}){% endif %}</a>
   <a href="{% url 'meu_perfil' %}">♙ Perfil</a>
 </nav>
 {% endblock %}
