@@ -47,11 +47,6 @@ Dentro da pasta `repassaproject`, com Django instalado:
 python manage.py migrate
 python manage.py runserver
 ```
-
-**Testes realizados:**
-
-As alterações foram realizadas diretamente pelo GitHub. Foi feita uma conferência do código HTML, CSS e JavaScript para verificar a implementação da consulta à API Open Library e das adaptações de responsividade.
-
-Também foram preparados vídeos demonstrativos das alterações realizadas.
+.
 
 Não foram realizados testes completos de execução em ambiente local. A consulta à API Open Library e a apresentação das telas em diferentes dispositivos ainda precisam ser validadas com o servidor Django em funcionamento.
