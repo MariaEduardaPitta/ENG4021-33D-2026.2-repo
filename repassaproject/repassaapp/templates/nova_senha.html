@@ -1,14 +1,11 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nova Senha - Repassa</title>
-    <link rel="stylesheet" href="{% static 'css/recuperacao.css' %}">
-  <link rel="stylesheet" href="{% static 'css/responsivo.css' %}">
-</head>
-<body data-tela="nova_senha">
+
+{% block titulo %}Nova senha{% endblock %}
+{% block tela %}nova_senha{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'css/recuperacao.css' %}">{% endblock %}
+
+{% block conteudo %}
     <div class="auth-container">
         {% if validlink %}
             <div class="auth-header">
@@ -21,7 +18,7 @@
                 {% csrf_token %}
 
                 {% if form.errors %}
-                    <ul class="error-list" role="alert">
+                    <ul class="alerta alerta-erro error-list" role="alert">
                         {% for field in form %}
                             {% for error in field.errors %}
                                 <li>{{ error }}</li>
@@ -40,17 +37,18 @@
                     <input type="password" name="new_password2" id="id_new_password2" class="form-input" autocomplete="new-password" placeholder="Confirme a nova senha" required>
                 </div>
 
-                <button type="submit" class="btn-submit">Salvar Nova Senha</button>
+                <button type="submit" class="botao btn-submit">Salvar Nova Senha</button>
             </form>
         {% else %}
             <div class="auth-header">
                 <h2>Link Inválido ou Expirado</h2>
                 <p>O link de redefinição é inválido ou já foi utilizado. Solicite uma nova recuperação.</p>
             </div>
-            <div class="auth-footer" style="margin-top: 16px;">
-                <a href="{% url 'password_reset' %}" class="btn-submit">Solicitar novamente</a>
+            <div class="auth-footer">
+                <a href="{% url 'password_reset' %}" class="botao btn-submit">Solicitar novamente</a>
             </div>
         {% endif %}
     </div>
-</body>
-</html>
+{% endblock %}
+
+{% block menu %}{% endblock %}

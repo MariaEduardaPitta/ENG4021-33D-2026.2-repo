@@ -1,23 +1,21 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Senha Alterada - Repassa</title>
-    <link rel="stylesheet" href="{% static 'css/recuperacao.css' %}">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{% static 'css/responsivo.css' %}">
-</head>
-<body data-tela="novasenha_concluida">
+
+{% block titulo %}Senha alterada{% endblock %}
+{% block tela %}novasenha_concluida{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'css/recuperacao.css' %}">{% endblock %}
+
+{% block conteudo %}
     <div class="auth-container">
         <div class="auth-header">
             <h2>Senha redefinida com sucesso!</h2>
             <p>Sua senha foi atualizada no banco de dados. Agora você pode acessar sua conta normalmente.</p>
         </div>
 
-        <div class="auth-footer" style="margin-top: 24px;">
-            <a href="{% url 'login' %}" class="btn-submit">Ir para o Login</a>
+        <div class="auth-footer">
+            <a href="{% url 'login' %}" class="botao btn-submit">Ir para o Login</a>
         </div>
     </div>
-</body>
-</html>
+{% endblock %}
+
+{% block menu %}{% endblock %}

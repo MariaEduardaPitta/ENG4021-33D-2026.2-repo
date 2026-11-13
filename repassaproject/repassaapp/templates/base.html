@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block titulo %}REPASSA{% endblock %} — REPASSA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
+  {% block css %}{% endblock %}
+</head>
+<body data-tela="{% block tela %}{% endblock %}">
+<header>
+  <a class="marca" href="{% url 'home' %}">
+    <img class="logo" src="{% static 'img/logo-repassa.png' %}" alt="Logo do REPASSA"><strong>REPASSA</strong>
+  </a>
+  {% include 'partials/conta.html' %}
+</header>
+
+<main>
+  {% block conteudo %}{% endblock %}
+</main>
+
+{% block menu %}
+<nav class="menu-inferior" aria-label="Navegação principal">
+  <a href="{% url 'home' %}">⌂ Início</a>
+  <a href="{% url 'buscar' %}">⌕ Buscar</a>
+  <a href="{% url 'anunciar_material' %}">＋ Anunciar</a>
+  <a href="{% url 'conversas' %}">✉ Conversas</a>
+  <a href="{% url 'editar_perfil' %}">♙ Perfil</a>
+</nav>
+{% endblock %}
+</body>
+</html>

@@ -1,12 +1,11 @@
-* { box-sizing: border-box; }
-body { margin: 0; font-family: Arial, sans-serif; color: #25252d; }
-a { color: #5b21b6; }
-header { padding: 20px; border-bottom: 1px solid #ddd; }
-main { max-width: 600px; margin: 24px auto; padding: 16px; }
-h1 { font-size: 26px; color: #5b21b6; }
-p { line-height: 1.5; }
-label { display: block; margin-bottom: 8px; }
-select, button { width: 100%; padding: 12px; font: inherit; margin-bottom: 16px; }
-button { border: 0; background: #7c3aed; color: white; cursor: pointer; }
-.sucesso { padding: 12px; background: #e7f7ee; color: #17603a; }
-.errorlist { color: #a11; padding-left: 20px; }
+.caixa-entrega { max-width: 600px; margin: 0 auto; }
+.caixa-entrega h1 { margin-top: 0; }
+.dados-entrega { margin: 0 0 16px; }
+.dados-entrega div { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--borda); font-size: 14px; }
+.dados-entrega dt { color: var(--cinza); }
+.dados-entrega dd { margin: 0; text-align: right; }
+.explicacao { color: var(--cinza); font-size: 14px; line-height: 1.5; }
+.caixa-entrega select { margin-bottom: 16px; }
+.caixa-entrega button { width: 100%; }
+.links { display: flex; flex-direction: column; gap: 8px; margin-top: 24px; font-size: 14px; }
+.caixa-entrega ul { margin: 6px 0 0; padding: 0; list-style: none; color: var(--vermelho); font-size: 13px; }

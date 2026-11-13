@@ -1,24 +1,17 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Avaliações de {{ vendedor.nome }} - Repassa</title>
-    <link rel="stylesheet" href="{% static 'css/avaliacoes_vendedor.css' %}">
-  <link rel="stylesheet" href="{% static 'css/responsivo.css' %}">
-</head>
-<body data-tela="avaliacoes_vendedor">
-    <header>
-        <a href="/">REPASSA</a>
-        {% include 'partials/conta.html' %}
-    </header>
-    <main>
+
+{% block titulo %}Avaliações de {{ vendedor.nome }}{% endblock %}
+{% block tela %}avaliacoes_vendedor{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'css/avaliacoes_vendedor.css' %}">{% endblock %}
+
+{% block conteudo %}
+    <div class="pagina-avaliacoes">
         <h1>Avaliações de {{ vendedor.nome }}</h1>
 
         <section class="resumo">
             {% if quantidade %}
-                <p><strong>★ {{ media|floatformat:1 }}</strong> de 5</p>
+                <p class="nota-media">★ {{ media|floatformat:1 }} <span>de 5</span></p>
                 <p>{{ quantidade }} avaliaç{{ quantidade|pluralize:"ão,ões" }}</p>
             {% else %}
                 <p>Este vendedor ainda não recebeu avaliações.</p>
@@ -26,16 +19,15 @@
         </section>
 
         {% for avaliacao in avaliacoes %}
-            <article class="avaliacao">
+            <article class="card avaliacao">
                 <p><strong>{{ avaliacao.nota }} de 5</strong> · {{ avaliacao.avaliador.nome }}</p>
-                <p>Material: {{ avaliacao.compra.material.titulo }}</p>
+                <p class="material">Material: {{ avaliacao.compra.material.titulo }}</p>
                 {% if avaliacao.comentario %}
-                    <p>{{ avaliacao.comentario }}</p>
+                    <p class="comentario">{{ avaliacao.comentario }}</p>
                 {% endif %}
             </article>
         {% endfor %}
 
         <a class="voltar" href="/">Voltar ao início</a>
-    </main>
-</body>
-</html>
+    </div>
+{% endblock %}

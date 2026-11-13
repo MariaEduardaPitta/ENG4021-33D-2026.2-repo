@@ -1,38 +1,23 @@
-* { box-sizing: border-box; }
-body { max-width: 440px; margin: 0 auto; padding-bottom: 70px; font-family: Arial, sans-serif; color: #25252D; background: #FAFAF8; }
-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; padding: 24px 16px; background: #7C3AED; }
-header h1 { margin: 0; font-size: 28px; color: white; }
-header button { padding: 10px 14px; border: none; border-radius: 20px; background: white; color: #7C3AED; font-size: 14px; font-weight: bold; cursor: pointer; }
-header input { width: 100%; padding: 12px; border: none; border-radius: 8px; font-size: 15px; }
-main { padding: 16px; }
-main h2 { display: inline-block; margin: 8px 0 12px; font-size: 22px; }
-.link { margin-left: 12px; font-size: 14px; font-weight: bold; color: #7C3AED; text-decoration: none; }
-.filtro { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 8px; padding: 10px 14px; border: 1px solid #ddd; border-radius: 8px; background: white; font-size: 15px; }
-.filtro select, .filtro input { max-width: 55%; padding: 6px; border: none; background: none; font-size: 14px; color: #71717A; text-align: right; }
-.aplicar { width: 100%; margin: 4px 0 16px; padding: 12px; border: none; border-radius: 8px; background: #7C3AED; color: white; font-size: 15px; font-weight: bold; cursor: pointer; }
-.ordem { margin-left: 12px; border: none; background: none; font-size: 14px; font-weight: bold; color: #7C3AED; }
-ul { margin: 0; padding: 0; list-style: none; }
-li { overflow: hidden; margin-bottom: 10px; padding: 12px; border: 1px solid #ddd; border-radius: 8px; background: white; }
-li div { float: left; width: 64px; height: 76px; border-radius: 8px; background: #F3E8FF; }
-li h3 { margin: 0 0 6px 76px; font-size: 16px; }
-li p { margin: 0 0 8px 76px; font-size: 14px; color: #71717A; }
-li > span { margin-left: 12px; font-size: 18px; font-weight: bold; color: #FF6B5E; }
-li > span + span { margin-left: 8px; padding: 2px 8px; border-radius: 10px; font-size: 12px; background: #F3E8FF; color: #5B21B6; }
-.conversar { display: block; margin: 10px 0 0 76px; font-size: 14px; font-weight: bold; color: #7C3AED; text-decoration: none; }
-.vazio { padding: 24px; text-align: center; color: #71717A; }
-nav { position: fixed; bottom: 0; width: 100%; max-width: 440px; display: flex; justify-content: space-around; padding: 16px 0; border-top: 1px solid #ddd; background: white; }
-nav a { font-size: 13px; color: #71717A; text-decoration: none; }
-nav a.ativo { font-weight: bold; color: #7C3AED; }
+.busca { display: flex; gap: 8px; margin-bottom: 16px; }
+.busca input { flex: 1; }
+
+.filtros-box { margin-bottom: 24px; }
+.filtros-topo { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.filtros-topo h2 { margin: 0; font-size: 18px; }
+.filtros-topo a { font-size: 14px; font-weight: 600; text-decoration: none; }
+
+.filtros-grade { display: grid; gap: 12px; }
+.filtro { display: block; font-size: 14px; font-weight: 600; }
+.filtro select, .filtro input { margin-top: 6px; }
+
+.aplicar { width: 100%; margin-top: 16px; }
+
+.resultados-topo { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 12px; }
+.resultados-topo h2 { margin: 0; font-size: 20px; }
+.ordem { width: auto; font-size: 14px; padding: 8px 12px; }
+
+.vazio { color: var(--cinza); text-align: center; padding: 24px; grid-column: 1 / -1; }
 
 @media (min-width: 768px) {
-  header { padding: 32px 24px; }
-  header h1 { font-size: 32px; }
-  main { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 12px; align-items: center; padding: 24px; }
-  main h2 { margin: 8px 0 4px; }
-  .link, .ordem { justify-self: end; margin-left: 0; }
-  .filtro { margin-bottom: 0; }
-  .aplicar { grid-column: 1 / -1; margin: 4px 0 8px; }
-  ul { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-  li { margin-bottom: 0; }
-  li:hover { border-color: #7C3AED; }
+  .filtros-grade { grid-template-columns: repeat(2, 1fr); }
 }

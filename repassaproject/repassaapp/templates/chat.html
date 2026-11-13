@@ -1,69 +1,44 @@
+{% extends 'base.html' %}
 {% load static tz %}
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <link rel="stylesheet" href="{% static 'css/chat.css' %}">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat</title>
-  <link rel="stylesheet" href="{% static 'css/responsivo.css' %}">
-</head>
-<body data-tela="chat">
-<header>
-<a href="{% url 'conversas' %}">
-   Voltar
-</a>
-<img src="https://ui-avatars.com/api/?name={{ outro.nome|default:outro.username|default:'?'|urlencode }}&background=F3E8FF&color=7C3AED&rounded=true&size=88" alt="">
-{% if precisa_login %}
-<h1>
-    Chat
-</h1>
-{% else %}
-<h1>
-    {{ outro.nome|default:outro.username }}
-</h1>
-<p>
-    {{ material.titulo }} · R$ {{ material.preco|floatformat:2 }}
-</p>
-{% endif %}
-    {% include 'partials/conta.html' %}
-</header>
-<main>
+
+{% block titulo %}Chat{% endblock %}
+{% block tela %}chat{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'css/chat.css' %}">{% endblock %}
+
+{% block conteudo %}
 {% if precisa_login %}
 <p class="aviso">
     Entre na sua conta para ver esta conversa.
     <a href="{% url 'login' %}">Fazer login</a>
 </p>
 {% else %}
-<ul>
+<div class="contato">
+    <a href="{% url 'conversas' %}" class="voltar" aria-label="Voltar para conversas">←</a>
+    <img src="https://ui-avatars.com/api/?name={{ outro.nome|default:outro.username|default:'?'|urlencode }}&background=F3E8FF&color=7C3AED&rounded=true&size=88" alt="">
+    <div>
+        <h1>{{ outro.nome|default:outro.username }}</h1>
+        <a href="{% url 'detalhe_material' material.pk %}" class="material">{{ material.titulo }} · R$ {{ material.preco|floatformat:2 }}</a>
+    </div>
+</div>
+
+<ul class="mensagens">
     {% for mensagem in mensagens %}
     <li class="{% if mensagem.remetente_id == user.id %}enviada{% else %}recebida{% endif %}">
-        <p>
-            {{ mensagem.conteudo|linebreaksbr }}
-        </p>
-        <span>
-            {{ mensagem.data_hora|timezone:"America/Sao_Paulo"|date:"d/m H:i" }}
-        </span>
+        <p>{{ mensagem.conteudo|linebreaksbr }}</p>
+        <span>{{ mensagem.data_hora|timezone:"America/Sao_Paulo"|date:"d/m H:i" }}</span>
     </li>
     {% empty %}
-    <li class="vazio">
-        Nenhuma mensagem ainda. Mande a primeira!
-    </li>
+    <li class="vazio">Nenhuma mensagem ainda. Mande a primeira!</li>
     {% endfor %}
 </ul>
-{% endif %}
-</main>
-{% if not precisa_login %}
-<footer>
-    <form method="post">
-        {% csrf_token %}
-        <input name="conteudo" placeholder="Digite uma mensagem" aria-label="Mensagem" autocomplete="off" required>
-        <button type="submit">
-            Enviar
-        </button>
-    </form>
-</footer>
+
+<form method="post" class="enviar">
+    {% csrf_token %}
+    <input name="conteudo" placeholder="Digite uma mensagem" aria-label="Mensagem" autocomplete="off" required>
+    <button type="submit">Enviar</button>
+</form>
 <script>window.scrollTo(0, document.body.scrollHeight);</script>
 {% endif %}
-</body>
-</html>
+{% endblock %}
+
+{% block menu %}{% endblock %}

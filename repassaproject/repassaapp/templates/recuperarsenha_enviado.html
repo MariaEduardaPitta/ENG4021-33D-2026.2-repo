@@ -1,14 +1,11 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>E-mail Enviado - Repassa</title>
-    <link rel="stylesheet" href="{% static 'css/recuperacao.css' %}">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{% static 'css/responsivo.css' %}">
-</head>
-<body data-tela="recuperarsenha_enviado">
+
+{% block titulo %}E-mail enviado{% endblock %}
+{% block tela %}recuperarsenha_enviado{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'css/recuperacao.css' %}">{% endblock %}
+
+{% block conteudo %}
     <div class="auth-container">
         <div class="auth-header">
             <h2>E-mail Enviado!</h2>
@@ -19,5 +16,6 @@
             <a href="{% url 'login' %}">Voltar à tela de Login</a>
         </div>
     </div>
-</body>
-</html>
+{% endblock %}
+
+{% block menu %}{% endblock %}

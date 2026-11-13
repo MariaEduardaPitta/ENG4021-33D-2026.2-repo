@@ -1,40 +1,36 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Atualizar entrega — Repassa</title>
-  <link rel="stylesheet" href="{% static 'css/entrega.css' %}">
-  <link rel="stylesheet" href="{% static 'css/responsivo.css' %}">
-</head>
-<body data-tela="entrega">
-  <header>
-        <a href="/">REPASSA</a>
-        {% include 'partials/conta.html' %}
-  </header>
-  <main>
-    <h1>Atualizar entrega</h1>
-    <p><strong>Material:</strong> {{ compra.material.titulo }}</p>
-    <p><strong>Comprador:</strong> {{ compra.comprador.nome }}</p>
-    <p><strong>Forma de entrega:</strong> {{ compra.forma_entrega }}</p>
-    <p><strong>Local:</strong> {{ compra.endereco_local_entrega }}</p>
-    {% if salvo %}<p class="sucesso" role="status">Entrega atualizada com sucesso.</p>{% endif %}
-    {% if status_atual == 'entregue' %}
-      <p>A entrega foi concluída. O comprador já pode avaliar o vendedor.</p>
-    {% else %}
-      <p>Avance de aguardando para em andamento e, depois da entrega, para entregue.</p>
-      <form method="post">
-        {% csrf_token %}
-        {{ form.non_field_errors }}
-        {{ form.status_entrega.label_tag }}
-        {{ form.status_entrega }}
-        {{ form.status_entrega.errors }}
-        <button type="submit">Salvar entrega</button>
-      </form>
-    {% endif %}
-    <p><a href="{% url 'chat' compra.material_id compra.comprador_id %}">Conversar com o comprador</a></p>
-    <a href="/notificacoes/">Voltar às notificações</a>
-  </main>
-</body>
-</html>
+
+{% block titulo %}Atualizar entrega{% endblock %}
+{% block tela %}entrega{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'css/entrega.css' %}">{% endblock %}
+
+{% block conteudo %}
+    <div class="card caixa-entrega">
+        <h1>Atualizar entrega</h1>
+        <dl class="dados-entrega">
+            <div><dt>Material</dt><dd>{{ compra.material.titulo }}</dd></div>
+            <div><dt>Comprador</dt><dd>{{ compra.comprador.nome }}</dd></div>
+            <div><dt>Forma de entrega</dt><dd>{{ compra.forma_entrega }}</dd></div>
+            <div><dt>Local</dt><dd>{{ compra.endereco_local_entrega }}</dd></div>
+        </dl>
+        {% if salvo %}<div class="alerta alerta-sucesso" role="status">Entrega atualizada com sucesso.</div>{% endif %}
+        {% if status_atual == 'entregue' %}
+            <div class="alerta alerta-info">A entrega foi concluída. O comprador já pode avaliar o vendedor.</div>
+        {% else %}
+            <p class="explicacao">Avance de aguardando para em andamento e, depois da entrega, para entregue.</p>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+                {{ form.status_entrega.label_tag }}
+                {{ form.status_entrega }}
+                {{ form.status_entrega.errors }}
+                <button type="submit">Salvar entrega</button>
+            </form>
+        {% endif %}
+        <div class="links">
+            <a href="{% url 'chat' compra.material_id compra.comprador_id %}">Conversar com o comprador</a>
+            <a href="/notificacoes/">Voltar às notificações</a>
+        </div>
+    </div>
+{% endblock %}
