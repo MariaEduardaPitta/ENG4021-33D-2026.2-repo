@@ -24,7 +24,6 @@
         <form method="POST">
             {% csrf_token %}
 
-            
             {% if form.non_field_errors %}
                 <div style="background-color: #fef2f2; border: 1px solid #fecaca; color: #dc2626; padding: 10px; border-radius: 8px; margin-bottom: 15px; text-align: center; font-size: 0.9rem;">
                     {{ form.non_field_errors }}
@@ -60,6 +59,24 @@
                 {{ form.telefone }}
                 {% if form.telefone.errors %}
                     <span class="erro-campo">{{ form.telefone.errors.0 }}</span>
+                {% endif %}
+            </div>
+            <br><br>
+
+            <div class="texto-centro titulo-medio">
+                <label for="{{ form.curso.id_for_label }}" class="titulo-medio cor-roxa">{{ form.curso.label }}:</label>
+                {{ form.curso }}
+                {% if form.curso.errors %}
+                    <span class="erro-campo">{{ form.curso.errors.0 }}</span>
+                {% endif %}
+            </div>
+            <br><br>
+
+            <div class="texto-centro titulo-medio">
+                <label for="{{ form.faculdade.id_for_label }}" class="titulo-medio cor-roxa">{{ form.faculdade.label }}:</label>
+                {{ form.faculdade }}
+                {% if form.faculdade.errors %}
+                    <span class="erro-campo">{{ form.faculdade.errors.0 }}</span>
                 {% endif %}
             </div>
             <br><br>

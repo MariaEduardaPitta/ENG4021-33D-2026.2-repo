@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de {{ vendedor.nome }} - Repassa</title>
+    <link rel="stylesheet" href="{% static 'css/avaliacoes_vendedor.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsivo.css' %}">
+</head>
+<body data-tela="perfil_vendedor">
+    <header>
+        <a href="/">REPASSA</a>
+    </header>
+    <main>
+        <h1>{{ vendedor.nome }}</h1>
+        <section class="resumo">
+            <p><strong>Faculdade:</strong> {{ vendedor.faculdade.nome|default:"Não informada" }}</p>
+            <p><strong>Curso:</strong> {{ vendedor.curso|default:"Não informado" }}</p>
+            <p><strong>Nota Média:</strong> ★ {{ nota_media|floatformat:1 }} ({{ total_avaliacoes }} avaliaç{{ total_avaliacoes|pluralize:"ão,ões" }})</p>
+            <a href="{% url 'avaliacoes_vendedor' vendedor.pk %}">Ver todas as avaliações</a>
+        </section>
+
+        <h2>Anúncios Ativos</h2>
+        {% if materiais_ativos %}
+            <div class="lista-materiais">
+                {% for material in materiais_ativos %}
+                    <article class="material-card">
+                        <h3><a href="{% url 'detalhe_material' material.pk %}">{{ material.titulo }}</a></h3>
+                        <p>R$ {{ material.preco }}</p>
+                        <p>Curso: {{ material.curso }}</p>
+                    </article>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>Este vendedor não possui anúncios ativos no momento.</p>
+        {% endif %}
+
+        <br>
+        <a class="voltar" href="/">Voltar ao início</a>
+    </main>
+</body>
+</html>

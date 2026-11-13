@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Perfil - Repassa</title>
     <link rel="stylesheet" href="{% static 'css/editarperfil.css' %}">
-  <link rel="stylesheet" href="{% static 'css/responsivo.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsivo.css' %}">
 </head>
 <body data-tela="editarperfil">
 
@@ -21,9 +21,9 @@
         <h1 class="texto-centro cor-roxa titulo-grande">
             Editar Perfil
         </h1>
-
         
-        {% if sucesso %}<p role="status">Perfil atualizado.</p>{% endif %}
+        {% if sucesso %}<p role="status" style="color: green; text-align: center; margin-bottom: 15px;">Perfil atualizado com sucesso!</p>{% endif %}
+        
         <form method="POST">
             {% csrf_token %}
             {{ form.errors }}
@@ -51,6 +51,16 @@
             </div>
 
             <div class="campo-grupo">
+                <label for="curso-usuario" class="cor-roxa">Curso:</label>
+                <input type="text" id="curso-usuario" name="curso" class="input-destaque" placeholder="Seu curso" required value="{{ form.curso.value|default_if_none:'' }}">
+            </div>
+
+            <div class="campo-grupo">
+                <label for="faculdade-usuario" class="cor-roxa">Faculdade:</label>
+                {{ form.faculdade }}
+            </div>
+
+            <div class="campo-grupo">
                 <label for="senha-atual" class="cor-roxa">Nova Senha (deixe em branco para não alterar):</label>
                 <input type="password" id="senha-atual" name="senha" class="input-destaque" placeholder="Digite a nova senha">
             </div>
@@ -61,7 +71,7 @@
         </form>
 
         <div class="links-uteis texto-centro">
-            <a href="{% url 'login' %}" class="link-cancelar">Cancelar e Voltar</a>
+            <a href="{% url 'home' %}" class="link-cancelar">Cancelar e Voltar</a>
         </div>
     </div>
 
