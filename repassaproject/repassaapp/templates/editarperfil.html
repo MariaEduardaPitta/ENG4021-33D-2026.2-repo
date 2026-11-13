@@ -1,55 +1,76 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block titulo %}Editar perfil{% endblock %}
+
+{% block titulo %}Editar Perfil - Repassa{% endblock %}
 {% block tela %}editarperfil{% endblock %}
-{% block css %}<link rel="stylesheet" href="{% static 'css/editarperfil.css' %}">{% endblock %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/editarperfil.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsivo.css' %}">
+{% endblock %}
 
 {% block conteudo %}
-<body data-tela="editarperfil">
+<div class="perfil-box">
+    <h1 class="cor-roxa texto-centro titulo-marca">
+        Repassa
+    </h1>
+    <h5 class="cor-subtexto texto-centro"> 
+        MATERIAIS QUE CONTINUAM HISTÓRIAS
+    </h5>
 
-    <div class="perfil-box">
-        <h1 class="titulo-grande">Editar perfil</h1>
+    <h1 class="texto-centro cor-roxa titulo-grande">
+        Editar Perfil
+    </h1>
+    
+    {% if sucesso %}<p role="status" style="color: green; text-align: center; margin-bottom: 15px;">Perfil atualizado com sucesso!</p>{% endif %}
+    
+    <form method="POST">
+        {% csrf_token %}
+        {% if form.errors %}<div class="alerta alerta-erro">{{ form.errors }}</div>{% endif %}
 
-        
-        {% if sucesso %}<p class="alerta alerta-sucesso" role="status">Perfil atualizado.</p>{% endif %}
-        <form method="POST">
-            {% csrf_token %}
-            {% if form.errors %}<div class="alerta alerta-erro">{{ form.errors }}</div>{% endif %}
-
-            <div class="linha-dupla">
-                <div class="campo-grupo">
-                    <label for="nome-usuario">Nome</label>
-                    <input type="text" id="nome-usuario" name="nome" placeholder="Seu nome" required value="{{ form.nome.value|default_if_none:'' }}">
-                </div>
-
-                <div class="campo-grupo">
-                    <label for="sobrenome-usuario">Sobrenome</label>
-                    <input type="text" id="sobrenome-usuario" name="sobrenome" placeholder="Seu sobrenome" required value="{{ form.sobrenome.value|default_if_none:'' }}">
-                </div>
+        <div class="linha-dupla">
+            <div class="campo-grupo">
+                <label for="nome-usuario">Nome</label>
+                <input type="text" id="nome-usuario" name="nome" placeholder="Seu nome" required value="{{ form.nome.value|default_if_none:'' }}">
             </div>
 
             <div class="campo-grupo">
-                <label for="email-usuario">E-mail</label>
-                <input type="email" id="email-usuario" name="email" placeholder="seuemail@universidade.com.br" required value="{{ form.email.value|default_if_none:'' }}">
+                <label for="sobrenome-usuario">Sobrenome</label>
+                <input type="text" id="sobrenome-usuario" name="sobrenome" placeholder="Seu sobrenome" required value="{{ form.sobrenome.value|default_if_none:'' }}">
             </div>
-
-            <div class="campo-grupo">
-                <label for="telefone-usuario">Telefone</label>
-                <input type="text" id="telefone-usuario" name="telefone" placeholder="(XX) XXXXX-XXXX" value="{{ form.telefone.value|default_if_none:'' }}">
-            </div>
-
-            <div class="campo-grupo">
-                <label for="senha-atual">Nova senha <span class="dica">(deixe em branco para não alterar)</span></label>
-                <input type="password" id="senha-atual" name="senha" placeholder="Digite a nova senha">
-            </div>
-
-            <div class="texto-centro botoes-grupo">
-            </div>
-        </form>
-
-        <div class="links-uteis">
-            <a href="{% url 'home' %}" class="link-cancelar">Cancelar e Voltar</a>
         </div>
-    </div>
 
+        <div class="campo-grupo">
+            <label for="email-usuario">E-mail</label>
+            <input type="email" id="email-usuario" name="email" placeholder="seuemail@universidade.com.br" required value="{{ form.email.value|default_if_none:'' }}">
+        </div>
+
+        <div class="campo-grupo">
+            <label for="telefone-usuario">Telefone</label>
+            <input type="text" id="telefone-usuario" name="telefone" placeholder="(XX) XXXXX-XXXX" value="{{ form.telefone.value|default_if_none:'' }}">
+        </div>
+
+        <div class="campo-grupo">
+            <label for="curso-usuario" class="cor-roxa">Curso:</label>
+            <input type="text" id="curso-usuario" name="curso" class="input-destaque" placeholder="Seu curso" required value="{{ form.curso.value|default_if_none:'' }}">
+        </div>
+
+        <div class="campo-grupo">
+            <label for="faculdade-usuario" class="cor-roxa">Faculdade:</label>
+            {{ form.faculdade }}
+        </div>
+
+        <div class="campo-grupo">
+            <label for="senha-atual" class="cor-roxa">Nova Senha (deixe em branco para não alterar):</label>
+            <input type="password" id="senha-atual" name="senha" class="input-destaque" placeholder="Digite a nova senha">
+        </div>
+
+        <div class="texto-centro botoes-grupo">
+            <button type="submit">Salvar</button>
+        </div>
+    </form>
+
+    <div class="links-uteis texto-centro">
+        <a href="{% url 'home' %}" class="link-cancelar">Cancelar e Voltar</a>
+    </div>
+</div>
 {% endblock %}

@@ -27,11 +27,20 @@ class PerfilForm(forms.Form):
     sobrenome = forms.CharField(max_length=74, label='Sobrenome')
     email = forms.EmailField(max_length=150, label='E-mail')
     telefone = forms.CharField(max_length=20, required=False, label='Telefone')
+    curso = forms.CharField(max_length=100, label='Curso')  # Certifique-se de que o curso já existe ou inclua aqui
+    faculdade = forms.ModelChoiceField(
+        queryset=Faculdade.objects.all(),
+        label='Faculdade',
+        empty_label='Selecione sua faculdade',
+        widget=forms.Select(attrs={'class': 'input-destaque'})
+    )
     senha = forms.CharField(widget=forms.PasswordInput, required=False, label='Nova senha')
 
     def __init__(self, *args, usuario=None, **kwargs):
         super().__init__(*args, **kwargs)
         self.usuario = usuario
+        if 'curso' in self.fields:
+            self.fields['curso'].widget.attrs.update({'class': 'input-destaque', 'placeholder': 'Seu curso'})
 
     def clean_email(self):
         email = self.cleaned_data['email'].lower()
@@ -47,7 +56,6 @@ class PerfilForm(forms.Form):
         if senha:
             validate_password(senha, self.usuario)
         return senha
-
 
 class CadastroForm(PerfilForm):
     cpf = forms.CharField(
