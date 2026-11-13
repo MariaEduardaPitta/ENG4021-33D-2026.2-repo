@@ -79,6 +79,13 @@
         </div>
 
         <div class="campo">
+            <label for="{{ form.disciplina.id_for_label }}">Disciplina</label>
+            {{ form.disciplina }}
+            {{ form.disciplina.errors }}
+            <p class="ajuda">Exemplo: Cálculo I, Programação I ou Física I.</p>
+        </div>
+
+        <div class="campo">
             <label for="{{ form.estado_conservacao.id_for_label }}">Estado de conservação</label>
             {{ form.estado_conservacao }}
             {{ form.estado_conservacao.errors }}
