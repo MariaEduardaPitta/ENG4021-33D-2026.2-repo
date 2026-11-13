@@ -57,6 +57,18 @@
     <h2>{{ material.titulo }}</h2>
     <p class="preco">R$ {{ material.preco }}</p>
     <p class="preco-novo">Novo: <del>R$ {{ material.preco_produto_novo }}</del></p>
+    
+    {% if user.is_authenticated and material.vendedor_id != user.id %}
+      <form method="post" action="{% url 'alternar_favorito' material.id %}" class="form-favoritar">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ request.get_full_path }}">
+        <button type="submit" class="favoritar{% if favoritado %} ativo{% endif %}">
+          {% if favoritado %}♥ Salvo nos favoritos{% else %}♡ Salvar nos favoritos{% endif %}
+        </button>
+      </form>
+    {% elif not user.is_authenticated %}
+      <a class="favoritar" href="{% url 'login' %}?next={{ request.get_full_path|urlencode }}">♡ Entre para salvar nos favoritos</a>
+    {% endif %}
   </section>
 
   <section class="bloco">

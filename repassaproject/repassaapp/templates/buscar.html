@@ -95,6 +95,15 @@
             <span>{{ material.vendedor.nome|default:material.vendedor.username }}</span>
             {% if user.is_authenticated and material.vendedor_id != user.id %}
             <a href="{% url 'chat' material.pk material.vendedor_id %}">Conversar</a>
+            <form method="post" action="{% url 'alternar_favorito' material.pk %}" class="form-favoritar">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                {% if material.pk in favoritos_ids %}
+                <button type="submit" class="favoritar-icone" aria-label="Remover dos favoritos" title="Remover dos favoritos">♥</button>
+                {% else %}
+                <button type="submit" class="favoritar-icone" aria-label="Salvar nos favoritos" title="Salvar nos favoritos">♡</button>
+                {% endif %}
+            </form>
             {% endif %}
         </div>
     </article>
@@ -102,4 +111,17 @@
     <p class="vazio">Nenhum material encontrado com esses filtros.</p>
     {% endfor %}
 </div>
+
+
+{% if pagina.paginator.num_pages > 1 %}
+<nav class="paginacao" aria-label="Páginas de resultados">
+    {% if pagina.has_previous %}
+        <a class="botao botao-secundario" href="?{% if parametros %}{{ parametros }}&amp;{% endif %}pagina={{ pagina.previous_page_number }}">← Anterior</a>
+    {% endif %}
+    <span>Página {{ pagina.number }} de {{ pagina.paginator.num_pages }}</span>
+    {% if pagina.has_next %}
+        <a class="botao botao-secundario" href="?{% if parametros %}{{ parametros }}&amp;{% endif %}pagina={{ pagina.next_page_number }}">Próxima →</a>
+    {% endif %}
+</nav>
+{% endif %}
 {% endblock %}
