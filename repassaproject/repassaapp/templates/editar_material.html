@@ -1,3 +1,4 @@
+
 {% extends 'base.html' %}
 {% load static %}
 
@@ -19,11 +20,37 @@
         {% endif %}
 
         <div class="campo">
-            <label for="{{ form.foto.id_for_label }}">Foto do material</label>
+            <label for="{{ form.foto.id_for_label }}">Foto principal do material</label>
             <div class="foto-upload">
                 {{ form.foto }}
             </div>
             {{ form.foto.errors }}
+        </div>
+
+        <div class="campo">
+            <label>Fotos adicionais cadastradas</label>
+
+            {% for foto in material.fotos.all %}
+                <div class="foto-adicional">
+                    <img src="{{ foto.imagem.url }}"
+                         alt="Foto adicional de {{ material.titulo }}"
+                         style="width: 120px; height: 120px; object-fit: cover; border-radius: 8px;">
+
+                    <label>
+                        <input type="checkbox" name="excluir_fotos" value="{{ foto.id }}">
+                        Excluir esta foto
+                    </label>
+                </div>
+            {% empty %}
+                <p class="ajuda">Este anúncio ainda não possui fotos adicionais.</p>
+            {% endfor %}
+        </div>
+
+        <div class="campo">
+            <label for="fotos-adicionais">Adicionar novas fotos</label>
+            <input type="file" id="fotos-adicionais"
+                   name="fotos_adicionais" accept="image/*" multiple>
+            <p class="ajuda">Você pode selecionar várias fotos ao mesmo tempo.</p>
         </div>
 
         <div class="campo">
