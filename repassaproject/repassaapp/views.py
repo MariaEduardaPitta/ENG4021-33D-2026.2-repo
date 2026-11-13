@@ -296,7 +296,19 @@ def editar_material(request, material_id):
         )
 
         if form.is_valid():
-            form.save()
+            with transaction.atomic():
+                form.save()
+
+                fotos_excluir = request.POST.getlist('excluir_fotos')
+                material.fotos.filter(id__in=fotos_excluir).delete()
+
+                for imagem in request.FILES.getlist('fotos_adicionais'):
+                    FotoMaterial.objects.create(
+                        material=material,
+                        imagem=imagem,
+                    )
+
+            messages.success(request, 'Anúncio atualizado com sucesso!')
             return redirect('home')
     else:
         form = EditarMaterialForm(instance=material)
@@ -305,6 +317,7 @@ def editar_material(request, material_id):
         'form': form,
         'material': material,
     })
+
 
 
 # ---------- Buscar, Conversas e Chat ----------
