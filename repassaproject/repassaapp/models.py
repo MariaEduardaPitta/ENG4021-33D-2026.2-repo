@@ -75,6 +75,7 @@ class Material(models.Model):
     estado_conservacao = models.CharField(max_length=50)
     foto = models.FileField(upload_to="materiais/", blank=True)
     curso = models.CharField(max_length=100)
+    disciplina = models.CharField(max_length=100, blank=True)
     vendedor = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.PROTECT,
