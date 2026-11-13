@@ -319,7 +319,6 @@ def editar_material(request, material_id):
     })
 
 
-
 # ---------- Buscar, Conversas e Chat ----------
 
 ORDENS_BUSCA = {
@@ -335,22 +334,34 @@ def buscar(request):
     q = request.GET.get('q', '').strip()
     categoria = request.GET.get('categoria', '')
     curso = request.GET.get('curso', '')
+    disciplina = request.GET.get('disciplina', '').strip()
     estado = request.GET.get('estado', '')
     preco_max = request.GET.get('preco_max', '').strip().replace(',', '.')
     ordem = request.GET.get('ordem', 'recentes')
+
     if ordem not in ORDENS_BUSCA:
         ordem = 'recentes'
 
     if q:
         materiais = materiais.filter(
-            Q(titulo__icontains=q) | Q(descricao__icontains=q) | Q(curso__icontains=q)
+            Q(titulo__icontains=q) |
+            Q(descricao__icontains=q) |
+            Q(curso__icontains=q) |
+            Q(disciplina__icontains=q)
         )
+
     if categoria.isdigit():
         materiais = materiais.filter(categoria_id=categoria)
+
     if curso:
         materiais = materiais.filter(curso=curso)
+
+    if disciplina:
+        materiais = materiais.filter(disciplina__icontains=disciplina)
+
     if estado:
         materiais = materiais.filter(estado_conservacao=estado)
+
     if preco_max:
         try:
             valor = Decimal(preco_max)
@@ -363,15 +374,18 @@ def buscar(request):
     materiais = materiais.order_by(ORDENS_BUSCA[ordem])
 
     disponiveis = Material.objects.filter(status='disponivel')
+
     return render(request, 'buscar.html', {
         'materiais': materiais,
         'categorias': Categoria.objects.order_by('nome'),
         'cursos': disponiveis.order_by('curso').values_list('curso', flat=True).distinct(),
+        'disciplinas': disponiveis.exclude(disciplina='').order_by('disciplina').values_list('disciplina', flat=True).distinct(),
         'estados': disponiveis.order_by('estado_conservacao').values_list('estado_conservacao', flat=True).distinct(),
         'filtros': {
             'q': q,
             'categoria': categoria,
             'curso': curso,
+            'disciplina': disciplina,
             'estado': estado,
             'preco_max': preco_max,
             'ordem': ordem,
