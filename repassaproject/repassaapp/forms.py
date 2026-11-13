@@ -20,14 +20,12 @@ class AvaliacaoForm(forms.ModelForm):
         }
 
 
-
-
 class PerfilForm(forms.Form):
     nome = forms.CharField(max_length=75, label='Nome')
     sobrenome = forms.CharField(max_length=74, label='Sobrenome')
     email = forms.EmailField(max_length=150, label='E-mail')
     telefone = forms.CharField(max_length=20, required=False, label='Telefone')
-    curso = forms.CharField(max_length=100, label='Curso')  # Certifique-se de que o curso já existe ou inclua aqui
+    curso = forms.CharField(max_length=100, label='Curso')
     faculdade = forms.ModelChoiceField(
         queryset=Faculdade.objects.all(),
         label='Faculdade',
@@ -57,20 +55,21 @@ class PerfilForm(forms.Form):
             validate_password(senha, self.usuario)
         return senha
 
+
 class CadastroForm(PerfilForm):
     cpf = forms.CharField(
-        max_length=14, 
+        max_length=14,
         label='CPF',
         widget=forms.TextInput(attrs={'class': 'input-cpfemailsenha', 'placeholder': 'XXX.XXX.XXX-XX'})
     )
     telefone = forms.CharField(
-        max_length=20, 
-        required=True,  
+        max_length=20,
+        required=True,
         label='Telefone',
         widget=forms.TextInput(attrs={'class': 'input-telefone', 'placeholder': '(XX) XXXXX-XXXX'})
     )
     senha = forms.CharField(
-        widget=forms.PasswordInput(attrs={'class': 'input-cpfemailsenha', 'placeholder': 'Digite sua senha'}), 
+        widget=forms.PasswordInput(attrs={'class': 'input-cpfemailsenha', 'placeholder': 'Digite sua senha'}),
         label='Senha'
     )
 
@@ -109,6 +108,7 @@ class AnunciarMaterialForm(forms.ModelForm):
             'estado_conservacao',
             'foto',
             'curso',
+            'disciplina',
             'categoria'
         ]
 
@@ -142,8 +142,8 @@ class CompraForm(forms.Form):
             for campo in ['cep', 'logradouro', 'numero', 'bairro', 'cidade', 'uf']:
                 if not dados.get(campo):
                     self.add_error(campo, 'Este campo é obrigatório para entrega.')
-            
-            if not self.errors:                    
+
+            if not self.errors:
                 self.validar_endereco(dados)
 
         return dados
@@ -169,9 +169,11 @@ class CompraForm(forms.Form):
         if normalizar(dados['uf']) != normalizar(endereco['uf']):
             self.add_error('uf', f"Este CEP é de {endereco['uf']}.")
 
+
 def normalizar(texto):
     sem_acento = unicodedata.normalize('NFD', texto).encode('ascii', 'ignore').decode()
     return sem_acento.strip().lower()
+
 
 class AtualizarEntregaForm(forms.ModelForm):
     status_entrega = forms.ChoiceField(label='Status da entrega')
