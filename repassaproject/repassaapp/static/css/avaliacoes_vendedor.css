@@ -1,4 +1,5 @@
-.pagina-avaliacoes { max-width: 760px; margin: 0 auto; }
+
+.pagina-avaliacoes { max-width: 760px; width: 100%; margin: 0 auto; box-sizing: border-box; }
 .resumo { padding: 16px; margin-bottom: 16px; background: var(--lilas); border-radius: var(--raio); }
 .resumo p { margin: 4px 0; }
 .nota-media { font-family: var(--fonte-titulo); font-size: 28px; font-weight: 700; color: var(--roxo-escuro); }
@@ -6,5 +7,26 @@
 .avaliacao { margin-bottom: 12px; }
 .avaliacao p { margin: 4px 0; line-height: 1.5; }
 .avaliacao .material { font-size: 14px; color: var(--cinza); }
-.comentario { white-space: pre-wrap; }
+.comentario { white-space: pre-wrap; overflow-wrap: anywhere; }
 .voltar { display: inline-block; padding: 12px 0; }
+
+.pagina-avaliacoes img { max-width: 100%; height: auto; }
+.pagina-avaliacoes .resumo,
+.pagina-avaliacoes .avaliacao { min-width: 0; overflow-wrap: anywhere; }
+
+@media (max-width: 600px) {
+    .pagina-avaliacoes { padding: 0 12px; }
+    .resumo { padding: 14px; }
+    .nota-media { font-size: 24px; }
+    .nota-media span { font-size: 14px; }
+    .avaliacao { margin-bottom: 10px; }
+    .avaliacao p { font-size: 14px; }
+    .voltar { padding: 14px 0; }
+}
+
+@media (max-width: 360px) {
+    .pagina-avaliacoes { padding: 0 8px; }
+    .resumo { padding: 12px; }
+    .nota-media { font-size: 22px; }
+    .avaliacao p { font-size: 13px; }
+}
