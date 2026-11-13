@@ -20,9 +20,16 @@
         {% endif %}
 
         <div class="campo">
-            <label for="{{ form.foto.id_for_label }}">Foto do material</label>
+            <label for="{{ form.foto.id_for_label }}">Foto principal do material</label>
             <div class="foto-upload">{{ form.foto }}</div>
             {{ form.foto.errors }}
+        </div>
+
+        <div class="campo">
+            <label for="fotos-adicionais">Fotos adicionais do material</label>
+            <input type="file" id="fotos-adicionais" name="fotos_adicionais"
+                   accept="image/*" multiple>
+            <p class="ajuda">Você pode selecionar várias fotos ao mesmo tempo.</p>
         </div>
 
         <div class="campo">
