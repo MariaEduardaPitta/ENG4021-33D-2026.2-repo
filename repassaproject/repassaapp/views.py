@@ -24,7 +24,8 @@ def home(request):
     materiais = Material.objects.filter(status="disponivel").select_related('vendedor', 'categoria').annotate(
         nota_vendedor=Avg('vendedor__avaliacoes_recebidas__nota')
     )
-    return render(request, 'index.html', {"materiais": materiais})
+    categorias = Categoria.objects.order_by('nome')
+    return render(request, 'index.html', {"materiais": materiais, "categorias": categorias})
 
 
 @login_required

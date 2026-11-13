@@ -1,3 +1,7 @@
+.busca-inicio { display: flex; gap: 8px; }
+.busca-inicio input { flex: 1; }
+
 .filtros { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 24px; }
-.filtros button { padding: 8px 16px; border-radius: 999px; border: 1px solid var(--borda); background: var(--branco); color: var(--texto); font-weight: 400; font-size: 14px; }
-.filtros button:hover { background: var(--lilas); border-color: var(--roxo); color: var(--roxo-escuro); }
+.filtros a { padding: 8px 16px; border-radius: 999px; border: 1px solid var(--borda); background: var(--branco); color: var(--texto); font-size: 14px; text-decoration: none; }
+.filtros a:hover { background: var(--lilas); border-color: var(--roxo); color: var(--roxo-escuro); }
+.filtros .mais-filtros { border-color: var(--roxo); color: var(--roxo); font-weight: 600; }
