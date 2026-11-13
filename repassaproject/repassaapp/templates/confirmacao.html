@@ -15,7 +15,7 @@
         <div class="row-line"><dt>Vendedor</dt><dd>{{ compra.material.vendedor.nome }}</dd></div>
         <div class="row-line"><dt>Forma de entrega</dt><dd>{{ compra.forma_entrega }}</dd></div>
         <div class="row-line"><dt>Endereço/local</dt><dd>{{ compra.endereco_local_entrega }}</dd></div>
-        <div class="row-line"><dt>Pagamento</dt><dd>{{ compra.pagamento.forma_pagamento|default:"—" }}</dd></div>
+        <div class="row-line"><dt>Forma de pagamento</dt><dd>{{ compra.pagamento.forma_pagamento|default:"—" }}</dd></div>
         <div class="row-line"><dt>Total</dt><dd>R$ {{ compra.valor_total }}</dd></div>
         <div class="row-line"><dt>Data da compra</dt><dd>{{ compra.data_compra|date:"d/m/Y H:i" }}</dd></div>
         <div class="row-line"><dt>Status da entrega</dt><dd class="status-entrega">{{ compra.status_entrega|upper }}</dd></div>

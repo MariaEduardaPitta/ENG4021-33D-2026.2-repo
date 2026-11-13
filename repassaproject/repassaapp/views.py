@@ -1,4 +1,7 @@
 from decimal import Decimal, InvalidOperation
+from smtplib import SMTPException
+
+from django.core.mail import send_mail
 
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
@@ -14,7 +17,7 @@ from .forms import (
     AnunciarMaterialForm,
     EditarMaterialForm,
 )
-from .models import Compra, Avaliacao, Material, Categoria, Mensagem, Usuario, FotoMaterial
+from .models import Compra, Avaliacao, Material, Categoria, Mensagem, Usuario, FotoMaterial, Pagamento
 from django.db import transaction, IntegrityError
 from django.http import HttpResponseForbidden
 from .forms import CompraForm
@@ -523,6 +526,9 @@ def comprar_material(request, material_id):
                     endereco_local_entrega=endereco
                 )
 
+                Pagamento.objects.create(
+                    compra=compra, forma_pagamento=dados["forma_pagamento"], valor=compra.valor_total,
+                )
                 material.status = 'vendido'
                 material.save(update_fields=['status'])
 
@@ -546,12 +552,29 @@ def atualizar_entrega(request, compra_id):
     status_anterior = compra.status_entrega
     form = AtualizarEntregaForm(request.POST if request.method == 'POST' else None, instance=compra)
     if request.method == 'POST' and form.is_valid():
-        atualizado = Compra.objects.filter(pk=compra.pk, status_entrega=status_anterior).update(
-            status_entrega=form.cleaned_data['status_entrega']
-        )
-        if atualizado:
-            return redirect('/compras/{}/entrega/?salvo=1'.format(compra.pk))
-        form.add_error(None, 'A entrega mudou enquanto você editava. Recarregue a página.')
+        novo_status = form.cleaned_data['status_entrega']
+        if novo_status == status_anterior:
+            return redirect('atualizar_entrega', compra_id=compra.pk)
+        try:
+            with transaction.atomic():
+                atualizado = Compra.objects.filter(pk=compra.pk, status_entrega=status_anterior).update(
+                    status_entrega=novo_status
+                )
+                if atualizado:
+                    status = dict(form.fields['status_entrega'].choices)[novo_status]
+                    enviados = send_mail(
+                        f'Repassa | Entrega da compra #{compra.pk}',
+                        f'O vendedor atualizou a entrega de {compra.material.titulo}. Novo status: {status}.',
+                        None, [compra.comprador.email],
+                    )
+                    if enviados != 1:
+                        raise SMTPException('Envio não confirmado')
+        except (SMTPException, OSError):
+            form.add_error(None, 'Não foi possível enviar o e-mail. A entrega não foi alterada. Tente novamente.')
+        else:
+            if atualizado:
+                return redirect('/compras/{}/entrega/?salvo=1'.format(compra.pk))
+            form.add_error(None, 'A entrega mudou enquanto você editava. Recarregue a página.')
     return render(request, 'entrega.html', {
         'compra': compra, 'form': form, 'status_atual': status_anterior,
         'salvo': request.GET.get('salvo') == '1',

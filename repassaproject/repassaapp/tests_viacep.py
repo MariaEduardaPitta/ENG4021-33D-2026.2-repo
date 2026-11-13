@@ -10,7 +10,7 @@ ENDERECO_VIACEP = {'cep': '22451-900', 'localidade': 'Rio de Janeiro', 'uf': 'RJ
 
 def dados_compra(**mudancas):
     dados = {
-        'forma_entrega': 'entrega', 'cep': '22451-900', 'logradouro': 'Rua Marquês de São Vicente',
+        'forma_pagamento': 'Pix', 'forma_entrega': 'entrega', 'cep': '22451-900', 'logradouro': 'Rua Marquês de São Vicente',
         'numero': '225', 'bairro': 'Gávea', 'cidade': 'Rio de Janeiro', 'uf': 'RJ',
     }
     dados.update(mudancas)
@@ -42,6 +42,6 @@ class ViaCepTests(TestCase):
 
     @patch('repassaapp.forms.consultar_cep')
     def test_retirada_nao_consulta_api(self, mock):
-        self.assertTrue(CompraForm({'forma_entrega': 'retirada'}).is_valid())
+        self.assertTrue(CompraForm({'forma_pagamento': 'Pix', 'forma_entrega': 'retirada'}).is_valid())
         mock.assert_not_called()
         

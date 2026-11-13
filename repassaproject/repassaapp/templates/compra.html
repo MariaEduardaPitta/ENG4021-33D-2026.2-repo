@@ -37,7 +37,7 @@
 
     <form method="post" id="form-compra" class="card">
         {% csrf_token %}
-        <h2>Entrega</h2>
+        <h2>Pagamento e entrega</h2>
 
         {% if form.non_field_errors %}
             <div class="alerta alerta-erro">{{ form.non_field_errors }}</div>
