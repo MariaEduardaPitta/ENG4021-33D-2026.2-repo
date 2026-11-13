@@ -2,6 +2,7 @@
 from decimal import Decimal, InvalidOperation
 
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 from django.db.models import Q, Avg, Count
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
@@ -18,7 +19,8 @@ from .models import Compra, Avaliacao, Material, Categoria, Mensagem, Usuario
 from django.db import transaction, IntegrityError
 from django.http import HttpResponseForbidden
 from .forms import CompraForm
-from django.contrib import messages  
+from django.contrib import messages
+
 
 def home(request):
     materiais = Material.objects.filter(status="disponivel").select_related('vendedor', 'categoria').annotate(
@@ -26,6 +28,7 @@ def home(request):
     )
     categorias = Categoria.objects.order_by('nome')
     return render(request, 'index.html', {"materiais": materiais, "categorias": categorias})
+
 
 @login_required
 def meu_perfil(request):
@@ -45,6 +48,7 @@ def meu_perfil(request):
         'minhas_compras': minhas_compras,
     })
 
+
 @login_required
 def notificacoes(request):
     mensagens = Mensagem.objects.filter(destinatario=request.user)
@@ -60,6 +64,50 @@ def detalhe_material(request, id):
         "nota_vendedor": resumo['media'],
         "quantidade_avaliacoes": resumo['quantidade'],
     })
+
+
+@login_required(login_url='login')
+@require_POST
+def reservar_material(request, material_id):
+    with transaction.atomic():
+        material = get_object_or_404(
+            Material.objects.select_for_update(),
+            pk=material_id,
+            vendedor=request.user,
+        )
+
+        if material.status != 'disponivel' or Compra.objects.filter(material=material).exists():
+            messages.error(request, 'Este anúncio não está disponível para reserva.')
+        else:
+            material.status = 'reservado'
+            material.save(update_fields=['status'])
+            messages.success(request, 'Anúncio reservado com sucesso!')
+
+    return redirect('detalhe_material', id=material_id)
+
+
+@login_required(login_url='login')
+@require_POST
+def excluir_material(request, material_id):
+    with transaction.atomic():
+        material = get_object_or_404(
+            Material.objects.select_for_update(),
+            pk=material_id,
+            vendedor=request.user,
+        )
+
+        if Compra.objects.filter(material=material).exists():
+            messages.error(request, 'Não é possível excluir um anúncio com compra registrada.')
+            return redirect('detalhe_material', id=material_id)
+
+        if Mensagem.objects.filter(material=material).exists():
+            messages.error(request, 'Não é possível excluir um anúncio com mensagens registradas.')
+            return redirect('detalhe_material', id=material_id)
+
+        material.delete()
+
+    messages.success(request, 'Anúncio excluído com sucesso!')
+    return redirect('meu_perfil')
 
 
 @login_required
@@ -108,6 +156,7 @@ def avaliar_vendedor(request, compra_id):
         'avaliacao': avaliacao,
     })
 
+
 def avaliacoes_vendedor(request, id):
     vendedor = get_object_or_404(Usuario, pk=id)
     avaliacoes = vendedor.avaliacoes_recebidas.select_related('avaliador', 'compra__material')
@@ -119,8 +168,6 @@ def avaliacoes_vendedor(request, id):
         'media': resumo['media'],
         'quantidade': resumo['quantidade'],
     })
-
-
 
 
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
@@ -143,7 +190,7 @@ def cadastro_view(request):
             curso=dados['curso'], faculdade=dados['faculdade'],
         )
         return redirect('login')
-    
+
     return render(request, 'cadastro.html', {'form': form})
 
 
@@ -174,10 +221,10 @@ def editar_perfil_view(request):
         usuario.save()
         if dados['senha']:
             update_session_auth_hash(request, usuario)
-            
+
         messages.success(request, 'Perfil atualizado com sucesso!')
         return redirect('editar_perfil')
-        
+
     return render(request, 'editarperfil.html', {'form': form})
 
 
@@ -201,16 +248,17 @@ def login_view(request):
             ):
                 return redirect(destino)
             return redirect('home')
-        
-        
+
         form.add_error(None, 'E-mail ou senha incorretos. Tente novamente.')
 
     return render(request, 'loginmelhorado.html', {'form': form})
+
 
 def logout_view(request):
     if request.method == 'POST':
         logout(request)
     return redirect('home')
+
 
 @login_required(login_url='login')
 def anunciar_material(request):
@@ -227,6 +275,7 @@ def anunciar_material(request):
         form = AnunciarMaterialForm()
 
     return render(request, 'anunciar.html', {'form': form})
+
 
 @login_required(login_url='login')
 def editar_material(request, material_id):
@@ -313,6 +362,7 @@ def buscar(request):
         },
     })
 
+
 @login_required(login_url='login')
 def conversas(request):
     usuario = request.user
@@ -380,6 +430,7 @@ def conversas(request):
         'q': q,
     })
 
+
 @login_required(login_url='login')
 def chat(request, material_id, usuario_id):
     usuario = request.user
@@ -416,6 +467,7 @@ def chat(request, material_id, usuario_id):
         'mensagens': mensagens,
     })
 
+
 @login_required(login_url='login')
 def comprar_material(request, material_id):
     material = get_object_or_404(Material, pk=material_id)
@@ -423,8 +475,8 @@ def comprar_material(request, material_id):
     if material.vendedor_id == request.user.id:
         return HttpResponseForbidden('Você não pode comprar seu próprio anúncio.')
 
-    if material.status == 'vendido':
-        return HttpResponseForbidden('Este material já foi vendido.')
+    if material.status != 'disponivel':
+        return HttpResponseForbidden('Este material não está disponível para compra.')
 
     form = CompraForm(request.POST or None)
 
@@ -489,11 +541,11 @@ def atualizar_entrega(request, compra_id):
         'salvo': request.GET.get('salvo') == '1',
     })
 
+
 def perfil_vendedor(request, id):
     vendedor = get_object_or_404(Usuario.objects.select_related('faculdade'), pk=id)
     materiais_ativos = Material.objects.filter(vendedor=vendedor, status='disponivel').select_related('categoria')
-    
-    
+
     resumo_avaliacoes = vendedor.avaliacoes_recebidas.aggregate(media=Avg('nota'), quantidade=Count('id'))
     nota_media = resumo_avaliacoes['media'] or 0.0
 
