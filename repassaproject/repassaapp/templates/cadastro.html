@@ -1,90 +1,79 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8">
-        <title>Tela Cadastro</title>
-        <link rel="stylesheet" href="{% static 'css/cadastro.css' %}">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="{% static 'css/responsivo.css' %}">
-        <style>
-            .erro-campo {
-                color: #dc2626;
-                font-size: 0.8rem;
-                margin-top: 4px;
-                display: block;
-            }
-        </style>
-    </head>
-    <body data-tela="cadastro">
-        <h1 class="cor-roxa">Repassa</h1>
-        <h5 class="cor-roxa">MATERIAIS QUE CONTINUAM HISTÓRIAS</h5>
-        <h1 class="texto-centro cor-roxa titulo-grande">Criar conta</h1>
+
+{% block titulo %}Criar conta{% endblock %}
+{% block tela %}cadastro{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'css/cadastro.css' %}">{% endblock %}
+
+{% block conteudo %}
+    <div class="cadastro-box">
+        <h1 class="titulo-grande">Criar conta</h1>
+        <p class="subtitulo">Materiais que continuam histórias</p>
 
         <form method="POST">
             {% csrf_token %}
 
-            
             {% if form.non_field_errors %}
-                <div style="background-color: #fef2f2; border: 1px solid #fecaca; color: #dc2626; padding: 10px; border-radius: 8px; margin-bottom: 15px; text-align: center; font-size: 0.9rem;">
+                <div class="alerta alerta-erro">
                     {{ form.non_field_errors }}
                 </div>
             {% endif %}
 
-            <div class="texto-centro titulo-medio">
-                <label for="{{ form.nome.id_for_label }}" class="titulo-medio cor-roxa">{{ form.nome.label }}:</label>
-                {{ form.nome }}
-                {% if form.nome.errors %}
-                    <span class="erro-campo">{{ form.nome.errors.0 }}</span>
-                {% endif %}
-                
-                <label for="{{ form.sobrenome.id_for_label }}" class="titulo-medio cor-roxa">{{ form.sobrenome.label }}:</label>
-                {{ form.sobrenome }}
-                {% if form.sobrenome.errors %}
-                    <span class="erro-campo">{{ form.sobrenome.errors.0 }}</span>
-                {% endif %}
+            <div class="linha-dupla">
+                <div class="campo-grupo">
+                    <label for="{{ form.nome.id_for_label }}">{{ form.nome.label }}</label>
+                    {{ form.nome }}
+                    {% if form.nome.errors %}
+                        <span class="erro-campo">{{ form.nome.errors.0 }}</span>
+                    {% endif %}
+                </div>
+
+                <div class="campo-grupo">
+                    <label for="{{ form.sobrenome.id_for_label }}">{{ form.sobrenome.label }}</label>
+                    {{ form.sobrenome }}
+                    {% if form.sobrenome.errors %}
+                        <span class="erro-campo">{{ form.sobrenome.errors.0 }}</span>
+                    {% endif %}
+                </div>
             </div>
-            <br><br>
-            
-            <div class="texto-centro titulo-medio">
-                <label for="{{ form.cpf.id_for_label }}" class="titulo-medio cor-roxa">{{ form.cpf.label }}:</label>
+
+            <div class="campo-grupo">
+                <label for="{{ form.cpf.id_for_label }}">{{ form.cpf.label }}</label>
                 {{ form.cpf }}
                 {% if form.cpf.errors %}
                     <span class="erro-campo">{{ form.cpf.errors.0 }}</span>
                 {% endif %}
             </div>
-            <br><br>
-            
-            <div class="texto-centro titulo-medio">
-                <label for="{{ form.telefone.id_for_label }}" class="titulo-medio cor-roxa">{{ form.telefone.label }}:</label>
+
+            <div class="campo-grupo">
+                <label for="{{ form.telefone.id_for_label }}">{{ form.telefone.label }}</label>
                 {{ form.telefone }}
                 {% if form.telefone.errors %}
                     <span class="erro-campo">{{ form.telefone.errors.0 }}</span>
                 {% endif %}
             </div>
-            <br><br>
-            
-            <div class="texto-centro titulo-medio">
-                <label for="{{ form.email.id_for_label }}" class="titulo-medio cor-roxa">{{ form.email.label }}:</label>
+
+            <div class="campo-grupo">
+                <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
                 {{ form.email }}
                 {% if form.email.errors %}
                     <span class="erro-campo">{{ form.email.errors.0 }}</span>
                 {% endif %}
             </div>
-            <br><br>
-            
-            <div class="texto-centro titulo-medio">
-                <label for="{{ form.senha.id_for_label }}" class="titulo-medio cor-roxa">{{ form.senha.label }}:</label>
+
+            <div class="campo-grupo">
+                <label for="{{ form.senha.id_for_label }}">{{ form.senha.label }}</label>
                 {{ form.senha }}
                 {% if form.senha.errors %}
                     <span class="erro-campo">{{ form.senha.errors.0 }}</span>
                 {% endif %}
             </div>
-            <br><br>
 
-            <div class="texto-centro">
-                <button type="submit" class="botao-cadastro">Cadastre-se</button>
-            </div>
-        </form> 
-    </body>
-</html>
+            <button type="submit" class="botao-cadastro">Cadastre-se</button>
+        </form>
+
+        <p class="link-login">Já tem uma conta? <a href="{% url 'login' %}">Entrar</a></p>
+    </div>
+{% endblock %}
+
+{% block menu %}{% endblock %}

@@ -1,51 +1,26 @@
-.texto-centro {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.cadastro-box {
+    background: var(--branco);
+    border: 1px solid var(--borda);
+    border-radius: var(--raio);
+    padding: 32px;
+    max-width: 520px;
+    margin: 24px auto;
 }
 
-.texto-centro input + label {
-    margin-left: 20px; 
-}
+.titulo-grande { text-align: center; margin: 0; }
+.subtitulo { text-align: center; color: var(--cinza); margin: 4px 0 24px; }
 
-.input-cpfemailsenha {
-    width: 47%;
-}
+.campo-grupo { margin-bottom: 16px; }
+.erro-campo { display: block; color: var(--vermelho); font-size: 13px; margin-top: 4px; }
+.alerta ul { margin: 0; padding-left: 16px; }
 
-.input-telefone {
-    width: 45%;
-}
+.linha-dupla { display: flex; gap: 12px; }
+.linha-dupla .campo-grupo { flex: 1; }
 
-.titulo-grande {
-    font-size: 55px; 
-}
+.botao-cadastro { width: 100%; margin-top: 8px; }
+.link-login { text-align: center; font-size: 14px; color: var(--cinza); margin: 24px 0 0; }
 
-.titulo-medio { 
-    font-size: 40px;
-}
-
-.titulo-medio label { 
-    font-size: 30px;
-}
-
-.titulo-medio input { 
-    font-size: 20px;
-}
-
-.cor-roxa {
-    color: #4A148C;
-}
-
-.botao-cadastro {
-    font-size: 18px;  
-    width: 24%;
-    height: 35px;     
-}
-
-h1, h5 { text-align: center; }
-.botao-cadastro { border: none; border-radius: 8px; background-color: #7C3AED; color: white; font-weight: bold; cursor: pointer; }
-.botao-cadastro:hover { background-color: #5B21B6; }
-
-@media (min-width: 768px) {
-    .titulo-medio > label:first-of-type { min-width: 110px; }
+@media (max-width: 600px) {
+    .cadastro-box { padding: 20px; }
+    .cadastro-box .linha-dupla { gap: 0; }
 }

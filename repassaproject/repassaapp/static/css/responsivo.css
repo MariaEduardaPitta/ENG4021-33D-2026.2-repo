@@ -16,12 +16,6 @@ button, .btn, .botao { white-space: normal; }
 header { flex-wrap: wrap; }
 footer input { min-width: 0; }
 .row-line dt, .linha dt, .linha dd { min-width: 0; }
-body[data-tela="cadastro"] { margin: 0 auto; max-width: 760px; padding: 20px; font-family: Arial, sans-serif; }
-body[data-tela="cadastro"] .titulo-grande { font-size: 32px; }
-body[data-tela="cadastro"] .titulo-medio { font-size: 18px; gap: 8px; }
-body[data-tela="cadastro"] input { flex: 1; padding: 10px; font-size: 16px; }
-body[data-tela="cadastro"] label { font-size: 18px; margin-left: 0; }
-body[data-tela="cadastro"] .botao-cadastro { width: 100%; height: auto; padding: 12px; }
 @media (min-width: 768px) {
   body[data-tela="buscar"], body[data-tela="conversas"], body[data-tela="chat"], { max-width: 760px; }
   body[data-tela="buscar"] nav, body[data-tela="conversas"] nav, body[data-tela="chat"] footer { max-width: 760px; }
@@ -32,8 +26,6 @@ body[data-tela="cadastro"] .botao-cadastro { width: 100%; height: auto; padding:
   .formulario { padding: 16px; }
   .perfil-box, .login-box, .auth-container { padding: 20px; }
   .pagina h1 { font-size: 26px; }
-  body[data-tela="cadastro"] .titulo-medio { flex-direction: column; align-items: stretch; }
-  body[data-tela="cadastro"] input { width: 100%; flex: auto; }
   .filtro { flex-wrap: wrap; }
   .filtro select, .filtro input { max-width: 100%; }
   .ordem { display: block; margin: 8px 0; max-width: 100%; }
