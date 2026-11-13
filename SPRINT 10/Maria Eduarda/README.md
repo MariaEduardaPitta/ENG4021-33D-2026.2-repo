@@ -59,10 +59,3 @@ python manage.py runserver
 
 Os comandos de migração são necessários para aplicar ao banco de dados as alterações nos modelos Material e FotoMaterial.
 
-**Testes realizados:**
-
-As alterações foram realizadas diretamente pelo GitHub. Foi feita uma conferência do código dos modelos, formulários, views, templates e CSS para verificar a implementação das funcionalidades.
-
-Também foram preparados vídeos explicativos das alterações realizadas em cada etapa.
-
-Não foram realizados testes completos de execução em ambiente local. As migrações do banco de dados ainda precisam ser executadas e as funcionalidades de reserva, exclusão, múltiplas fotos e filtro por disciplina precisam ser validadas com o servidor Django em funcionamento.
