@@ -1,3 +1,4 @@
+
 {% extends 'base.html' %}
 {% load static %}
 
@@ -20,10 +21,15 @@
 
         <div class="campo">
             <label for="{{ form.foto.id_for_label }}">Foto do material</label>
-            <div class="foto-upload">
-                {{ form.foto }}
-            </div>
+            <div class="foto-upload">{{ form.foto }}</div>
             {{ form.foto.errors }}
+        </div>
+
+        <div class="campo">
+            <label for="isbn">ISBN do livro (opcional)</label>
+            <input type="text" id="isbn" placeholder="Digite o ISBN do livro">
+            <button type="button" id="buscar-isbn">Buscar livro</button>
+            <p id="mensagem-isbn" aria-live="polite"></p>
         </div>
 
         <div class="campo">
@@ -74,4 +80,60 @@
         <button class="botao-enviar" type="submit">Publicar anúncio</button>
     </form>
 </div>
+
+<script>
+document.getElementById('buscar-isbn').addEventListener('click', async function () {
+    const isbn = document.getElementById('isbn').value.replace(/[\s-]/g, '');
+    const mensagem = document.getElementById('mensagem-isbn');
+    const titulo = document.getElementById('{{ form.titulo.id_for_label }}');
+    const descricao = document.getElementById('{{ form.descricao.id_for_label }}');
+
+    if (!/^(?:\d{10}|\d{13})$/.test(isbn)) {
+        mensagem.textContent = 'Digite um ISBN válido de 10 ou 13 dígitos.';
+        return;
+    }
+
+    mensagem.textContent = 'Buscando informações do livro...';
+
+    try {
+        const resposta = await fetch(
+            `https://openlibrary.org/isbn/${isbn}.json`
+        );
+
+        if (!resposta.ok) {
+            throw new Error('Livro não encontrado');
+        }
+
+        const livro = await resposta.json();
+        titulo.value = livro.title || '';
+
+        let autores = [];
+
+        for (const autor of livro.authors || []) {
+            if (!autor.key) continue;
+
+            const respostaAutor = await fetch(
+                `https://openlibrary.org${autor.key}.json`
+            );
+
+            if (respostaAutor.ok) {
+                const dadosAutor = await respostaAutor.json();
+                if (dadosAutor.name) autores.push(dadosAutor.name);
+            }
+        }
+
+        if (autores.length > 0) {
+            const textoAutor = 'Autor(es): ' + autores.join(', ');
+            const descricaoAtual = descricao.value.trim();
+            descricao.value = descricaoAtual
+                ? descricaoAtual + '\n' + textoAutor
+                : textoAutor;
+        }
+
+        mensagem.textContent = 'Livro encontrado! Confira os dados preenchidos.';
+    } catch (erro) {
+        mensagem.textContent = 'Não foi possível encontrar o livro. Preencha manualmente.';
+    }
+});
+</script>
 {% endblock %}
