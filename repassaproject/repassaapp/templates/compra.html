@@ -1,102 +1,82 @@
-
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comprar - Repassa</title>
-    <link rel="stylesheet" href="{% static 'css/compra.css' %}">
-  <link rel="stylesheet" href="{% static 'css/responsivo.css' %}">
-</head>
-<body data-tela="compra">
-    <div class="cabecalho">
-        <div class="logo">
-            <div class="simbolo-logo">➜</div>
-            <div class="nome-logo">Repassa</div>
-        </div>
-        <div class="menu">
-            <a href="{% url 'home' %}" class="item-menu">⌂ Início</a>
-            <a href="{% url 'buscar' %}" class="item-menu">⌕ Buscar</a>
-            <a href="{% url 'anunciar_material' %}" class="item-menu">⊕ Anunciar</a>
-            <a href="{% url 'conversas' %}" class="item-menu">◯ Conversas</a>
-            <a href="{% url 'editar_perfil' %}" class="item-menu">♙ Perfil</a>
-        </div>
-        {% include 'partials/conta.html' %}
-    </div>
 
-    <div class="pagina">
-        <h1>{{ material.titulo }}</h1>
+{% block titulo %}Comprar{% endblock %}
+{% block tela %}compra{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'css/compra.css' %}">{% endblock %}
 
-        <div class="linha-preco">
+{% block conteudo %}
+<div class="compra">
+    <p class="subtitulo">Finalizar compra</p>
+    <h1>{{ material.titulo }}</h1>
+
+    <section class="card resumo">
+        <div>
             <p class="preco">R$ {{ material.preco }}</p>
-            <p class="preco-novo">Novo: R$ {{ material.preco_produto_novo }}</p>
+            <p class="preco-novo">Novo: <del>R$ {{ material.preco_produto_novo }}</del></p>
         </div>
+        <span class="selo-disponivel">✓ Disponível</span>
+    </section>
 
-        <div class="disponivel">✓ <b>Disponível para compra</b></div>
-
+    <section class="card">
         <h2>Descrição</h2>
         <p class="descricao">{{ material.descricao }}</p>
+    </section>
 
-        <div class="vendedor">
-            <h2>Vendedor</h2>
-            <div class="dados-vendedor">
-                <div class="foto-vendedor">{{ material.vendedor.nome|first|upper }}</div>
-                <div>
-                    <div class="nome-vendedor">{{ material.vendedor.nome }}</div>
-                    <p class="informacao-vendedor">
-                        {{ material.vendedor.faculdade.nome|default:"Faculdade não informada" }}
-                    </p>
-                    <p class="informacao-vendedor">{{ material.vendedor.curso }}</p>
-                </div>
+    <section class="card">
+        <h2>Vendedor</h2>
+        <div class="dados-vendedor">
+            <div class="foto-vendedor">{{ material.vendedor.nome|first|upper }}</div>
+            <div>
+                <p class="nome-vendedor">{{ material.vendedor.nome }}</p>
+                <p class="informacao-vendedor">{{ material.vendedor.faculdade.nome|default:"Faculdade não informada" }}</p>
+                <p class="informacao-vendedor">{{ material.vendedor.curso }}</p>
             </div>
         </div>
+    </section>
 
+    <form method="post" id="form-compra" class="card">
+        {% csrf_token %}
         <h2>Entrega</h2>
-        <form method="post" id="form-compra">
-            {% csrf_token %}
-            <div class="campos-entrega">
-                {{ form.non_field_errors }}
-                {% for campo in form %}
-                    <label for="{{ campo.id_for_label }}">{{ campo.label }}</label>
-                    {{ campo }}
-                    {% for erro in campo.errors %}
-                        <p class="erro">{{ erro }}</p>
-                    {% endfor %}
+
+        {% if form.non_field_errors %}
+            <div class="alerta alerta-erro">{{ form.non_field_errors }}</div>
+        {% endif %}
+
+        <div class="campos-entrega">
+            {% for campo in form %}
+                <label for="{{ campo.id_for_label }}">{{ campo.label }}</label>
+                {{ campo }}
+                {% for erro in campo.errors %}
+                    <p class="erro">{{ erro }}</p>
                 {% endfor %}
-                <p class="aviso-cep" id="aviso-cep">
-                    Informe o CEP para preencher o endereço automaticamente.
-                </p>
-            </div>
-
-            <div class="botoes">
-                <button type="button" class="comprar" id="abrir-confirmacao">
-                    Comprar
-                </button>
-                <a class="mensagem" href="{% url 'detalhe_material' material.id %}">
-                    Voltar ao material
-                </a>
-            </div>
-        </form>
-    </div>
-
-    <div class="fundo-confirmacao" id="fundo-confirmacao">
-        <div class="confirmacao">
-            <h2>Confirmar compra?</h2>
-            <p class="texto-confirmacao">
-                Você está confirmando a compra de
-                <b>{{ material.titulo }}</b> por R$ {{ material.preco }}.
+            {% endfor %}
+            <p class="aviso-cep" id="aviso-cep">
+                Informe o CEP para preencher o endereço automaticamente.
             </p>
-            <p>Esta etapa registra a compra, sem realizar pagamento online.</p>
-            <div class="botoes-confirmacao">
-                <button type="button" class="cancelar" id="cancelar">Cancelar</button>
-                <button type="submit" form="form-compra" class="confirmar">
-                    Confirmar compra
-                </button>
-            </div>
+        </div>
+
+        <div class="botoes-compra">
+            <button type="button" id="abrir-confirmacao">Comprar</button>
+            <a class="botao botao-secundario" href="{% url 'detalhe_material' material.id %}">Voltar ao material</a>
+        </div>
+    </form>
+</div>
+
+<div class="fundo-confirmacao" id="fundo-confirmacao">
+    <div class="confirmacao">
+        <h2>Confirmar compra?</h2>
+        <p class="texto-confirmacao">
+            Você está confirmando a compra de
+            <b>{{ material.titulo }}</b> por R$ {{ material.preco }}.
+        </p>
+        <p class="texto-confirmacao">Esta etapa registra a compra, sem realizar pagamento online.</p>
+        <div class="botoes-confirmacao">
+            <button type="button" class="botao-secundario" id="cancelar">Cancelar</button>
+            <button type="submit" form="form-compra">Confirmar compra</button>
         </div>
     </div>
-
+</div>
     <script>
         const cep = document.getElementById('id_cep');
         const aviso = document.getElementById('aviso-cep');
@@ -162,5 +142,4 @@
             modal.style.display = 'none';
         });
     </script>
-</body>
-</html>
+{% endblock %}
