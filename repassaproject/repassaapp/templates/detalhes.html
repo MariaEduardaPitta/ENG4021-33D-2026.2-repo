@@ -1,79 +1,102 @@
+
 {% extends 'base.html' %}
 {% load static %}
 {% block titulo %}{{ material.titulo }}{% endblock %}
 {% block tela %}detalhes{% endblock %}
 {% block css %}<link rel="stylesheet" href="{% static 'css/detalhes.css' %}">{% endblock %}
 
-  {% block conteudo %}
-    <div class="foto">
-      {% if material.foto %}
-        <img src="{{ material.foto.url }}" alt="Foto de {{ material.titulo }}">
-      {% else %}
-        <img src="{% static 'img/logo-repassa.png' %}" alt="Material sem foto">
+{% block conteudo %}
+  <div class="foto">
+    {% if material.foto %}
+      <img src="{{ material.foto.url }}" alt="Foto de {{ material.titulo }}">
+    {% else %}
+      <img src="{% static 'img/logo-repassa.png' %}" alt="Material sem foto">
+    {% endif %}
+  </div>
+
+  <section class="resumo">
+    {% if material.status == "disponivel" %}
+      <strong class="selo disponivel">DISPONÍVEL</strong>
+    {% elif material.status == "reservado" %}
+      <strong class="selo reservado">RESERVADO</strong>
+    {% else %}
+      <strong class="selo vendido">VENDIDO</strong>
+    {% endif %}
+
+    <h2>{{ material.titulo }}</h2>
+    <p class="preco">R$ {{ material.preco }}</p>
+    <p class="preco-novo">Novo: <del>R$ {{ material.preco_produto_novo }}</del></p>
+  </section>
+
+  <section class="bloco">
+    <h3>Descrição</h3>
+    <p>{{ material.descricao }}</p>
+  </section>
+
+  <section class="bloco">
+    <h3>Informações</h3>
+    <dl>
+      <div class="linha"><dt>Estado de conservação</dt><dd>{{ material.estado_conservacao }}</dd></div>
+      <div class="linha"><dt>Curso</dt><dd>{{ material.curso }}</dd></div>
+      <div class="linha"><dt>Categoria</dt><dd>{{ material.categoria.nome }}</dd></div>
+    </dl>
+  </section>
+
+  <section class="bloco">
+    <h3>Vendedor</h3>
+    <p class="vendedor-nome">
+      <a href="{% url 'perfil_vendedor' material.vendedor.id %}">{{ material.vendedor.nome }}</a>
+      {% if material.vendedor.is_verificado %}
+        <span class="selo-verificado" style="background-color: #d1fae5; color: #065f46; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; margin-left: 6px; font-weight: 600;">✓ Estudante verificado</span>
+      {% endif %}
+    </p>
+    {% if quantidade_avaliacoes %}
+      <p>★ {{ nota_vendedor|floatformat:1 }} ({{ quantidade_avaliacoes }} avaliaç{{ quantidade_avaliacoes|pluralize:"ão,ões" }})</p>
+    {% else %}
+      <p>Sem avaliações</p>
+    {% endif %}
+    <a href="{% url 'avaliacoes_vendedor' material.vendedor.id %}">Ver avaliações</a>
+  </section>
+
+  <section class="bloco">
+    <h3>Compartilhar anúncio</h3>
+    <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data={{ request.build_absolute_uri|urlencode:'' }}"
+         alt="QR Code com o link deste anúncio" width="180" height="180">
+    <p>Aponte a câmera do celular para abrir este anúncio.</p>
+  </section>
+
+  {% if user.is_authenticated and material.vendedor_id == user.id %}
+    <div class="acoes">
+      <span>Este anúncio é seu.</span>
+
+      {% if material.status == "disponivel" %}
+        <form method="post" action="{% url 'reservar_material' material.id %}">
+          {% csrf_token %}
+          <button type="submit" class="botao botao-secundario">
+            Reservar anúncio
+          </button>
+        </form>
+      {% endif %}
+
+      {% if material.status != "vendido" %}
+        <form method="post" action="{% url 'excluir_material' material.id %}"
+              onsubmit="return confirm('Tem certeza que deseja excluir este anúncio? Esta ação não pode ser desfeita.');">
+          {% csrf_token %}
+          <button type="submit" class="botao">
+            Excluir anúncio
+          </button>
+        </form>
       {% endif %}
     </div>
 
-    <section class="resumo">
-      {% if material.status == "disponivel" %}
-        <strong class="selo disponivel">DISPONÍVEL</strong>
-      {% else %}
-        <strong class="selo vendido">VENDIDO</strong>
-      {% endif %}
-
-      <h2>{{ material.titulo }}</h2>
-      <p class="preco">R$ {{ material.preco }}</p>
-      <p class="preco-novo">Novo: <del>R$ {{ material.preco_produto_novo }}</del></p>
-    </section>
-
-    <section class="bloco">
-      <h3>Descrição</h3>
-      <p>{{ material.descricao }}</p>
-    </section>
-
-    <section class="bloco">
-      <h3>Informações</h3>
-      <dl>
-        <div class="linha"><dt>Estado de conservação</dt><dd>{{ material.estado_conservacao }}</dd></div>
-        <div class="linha"><dt>Curso</dt><dd>{{ material.curso }}</dd></div>
-        <div class="linha"><dt>Categoria</dt><dd>{{ material.categoria.nome }}</dd></div>
-      </dl>
-    </section>
-
-    <section class="bloco">
-      <h3>Vendedor</h3>
-      <p class="vendedor-nome">
-        <a href="{% url 'perfil_vendedor' material.vendedor.id %}">{{ material.vendedor.nome }}</a>
-        {% if material.vendedor.is_verificado %}
-          <span class="selo-verificado" style="background-color: #d1fae5; color: #065f46; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; margin-left: 6px; font-weight: 600;">✓ Estudante verificado</span>
-        {% endif %}
-      </p>
-      {% if quantidade_avaliacoes %}
-        <p>★ {{ nota_vendedor|floatformat:1 }} ({{ quantidade_avaliacoes }} avaliaç{{ quantidade_avaliacoes|pluralize:"ão,ões" }})</p>
-      {% else %}
-        <p>Sem avaliações</p>
-      {% endif %}
-      <a href="{% url 'avaliacoes_vendedor' material.vendedor.id %}">Ver avaliações</a>
-    </section>
-
-    <section class="bloco">
-      <h3>Compartilhar anúncio</h3>
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data={{ request.build_absolute_uri|urlencode:'' }}"
-           alt="QR Code com o link deste anúncio" width="180" height="180">
-      <p>Aponte a câmera do celular para abrir este anúncio.</p>
-    </section>
-
-  {% if material.status == "disponivel" %}
-<div class="acoes">
-  {% if user.is_authenticated and material.vendedor_id == user.id %}
-    <span>Este anúncio é seu.</span>
-  {% else %}
-    <a href="{% url 'chat' material.id material.vendedor.id %}" class="botao botao-secundario">
-      Conversar com vendedor
-    </a>
-    <a href="{% url 'comprar_material' material.id %}" class="botao">
-      Comprar
-    </a>
+  {% elif material.status == "disponivel" %}
+    <div class="acoes">
+      <a href="{% url 'chat' material.id material.vendedor.id %}" class="botao botao-secundario">
+        Conversar com vendedor
+      </a>
+      <a href="{% url 'comprar_material' material.id %}" class="botao">
+        Comprar
+      </a>
+    </div>
   {% endif %}
-</div>
-{% endif %}
-  {% endblock %}
+{% endblock %}
