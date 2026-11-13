@@ -1,25 +1,15 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Compra confirmada — REPASSA</title>
-  <link rel="stylesheet" href="{% static 'css/confirmacao.css' %}">
-  <link rel="stylesheet" href="{% static 'css/responsivo.css' %}">
-</head>
-<body data-tela="confirmacao">
-  <header>
-    <h2>Pedido confirmado</h2>
-    {% include 'partials/conta.html' %}
-  </header>
-  <main class="success-screen">
+{% block titulo %}Compra confirmada{% endblock %}
+{% block tela %}confirmacao{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'css/confirmacao.css' %}">{% endblock %}
+{% block conteudo %}
+  <div class="success-screen">
     <div class="success-mark" aria-hidden="true">✓</div>
     <h1>Compra confirmada!</h1>
     <p>Sua compra foi registrada com sucesso. Combine os últimos detalhes com o vendedor pelo chat.</p>
 
     <section class="success-recap" aria-label="Resumo da compra">
-      <!-- Os dados serão preenchidos quando a página estiver ligada ao pedido. -->
       <dl>
         <div class="row-line"><dt>Material</dt><dd>{{ compra.material.titulo }}</dd></div>
         <div class="row-line"><dt>Vendedor</dt><dd>{{ compra.material.vendedor.nome }}</dd></div>
@@ -42,15 +32,14 @@
 
     <div class="success-actions">
       {% if entregue and not ja_avaliou %}
-        <a class="btn btn-primary" href="{% url 'avaliar_vendedor' compra.pk %}">Avaliar vendedor</a>
+        <a cclass="botao" href="{% url 'avaliar_vendedor' compra.pk %}">Avaliar vendedor</a>
       {% elif ja_avaliou %}
-        <a class="btn btn-secondary" href="{% url 'avaliar_vendedor' compra.pk %}">Ver minha avaliação</a>
+        <a class="botao botao-secundario" href="{% url 'avaliar_vendedor' compra.pk %}">Ver minha avaliação</a>
       {% endif %}
-      <a class="btn btn-secondary" href="{% url 'chat' compra.material.id compra.material.vendedor.id %}">Falar com o vendedor</a>
-      <a class="btn btn-secondary" href="/">Voltar à página inicial</a>
+      <a class="botao botao-secundario" href="{% url 'chat' compra.material.id compra.material.vendedor.id %}">Falar com o vendedor</a>
+      <a class="botao botao-secundario" href="/">Voltar à página inicial</a>
     </div>
-  </main>
-</body>
-</html>
+  </div>
+{% endblock %}
 
 

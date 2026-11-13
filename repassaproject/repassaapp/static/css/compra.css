@@ -1,228 +1,34 @@
-body { 
-    margin: 0; 
-    font-family: Arial; 
-    color: #202027; 
-}
+.compra { max-width: 650px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+.compra h1 { margin: 0 0 4px; }
+.subtitulo { color: var(--roxo); font-weight: 600; font-size: 14px; margin: 0; }
+.compra h2 { margin: 0 0 12px; font-family: var(--fonte-texto); font-size: 18px; color: var(--texto); }
 
-.cabecalho { 
-    height: 65px; 
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center; 
-    border-bottom: 1px solid #ddd; 
-    padding: 0 35px 0 25px; 
-}
+.resumo { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.resumo .preco { margin: 0; font-size: 28px; }
+.preco-novo { margin: 4px 0 0; font-size: 14px; color: var(--cinza); }
+.selo-disponivel { padding: 6px 12px; border-radius: 999px; background: #E7F7EE; color: var(--verde); font-size: 14px; font-weight: 600; white-space: nowrap; }
 
-.logo, .menu, .linha-preco, .dados-vendedor, .informacoes, .botoes, .botoes-confirmacao { 
-    display: flex; 
-    align-items: center; 
-}
+.descricao { margin: 0; color: var(--cinza); line-height: 1.5; }
 
-.simbolo-logo { 
-    background-color: #5b21b6; 
-    color: white; 
-    font-size: 25px; 
-    padding: 5px; 
-}
+.dados-vendedor { display: flex; align-items: center; gap: 14px; }
+.foto-vendedor { width: 48px; height: 48px; flex-shrink: 0; display: flex; justify-content: center; align-items: center; border-radius: 50%; background: var(--lilas); color: var(--roxo); font-weight: 700; font-size: 20px; }
+.nome-vendedor { margin: 0; font-weight: 600; }
+.informacao-vendedor { margin: 2px 0 0; font-size: 14px; color: var(--cinza); }
 
-.nome-logo { 
-    margin-left: 9px; 
-    color: #5b21b6; 
-    font-size: 22px; 
-    font-weight: bold; 
-}
+.campos-entrega label { margin: 14px 0 6px; font-size: 14px; }
+.campos-entrega label:first-child { margin-top: 0; }
+.erro { color: var(--vermelho); font-size: 13px; margin: 4px 0 0; }
+.aviso-cep { color: var(--cinza); font-size: 13px; margin: 8px 0 0; }
 
-.item-menu { 
-    margin-left: 20px; 
-    color: #62626b; 
-    font-size: 15px; 
-}
+.botoes-compra { display: grid; gap: 10px; margin-top: 20px; }
+.botoes-compra .botao { text-align: center; }
 
-.pagina { 
-    width: 950px; 
-    margin: auto; 
-    padding-top: 20px; 
-}
+.fundo-confirmacao { position: fixed; inset: 0; z-index: 10; display: none; justify-content: center; align-items: center; padding: 16px; background: rgba(37, 37, 45, 0.6); }
+.confirmacao { width: 100%; max-width: 440px; padding: 24px; background: var(--branco); border-radius: var(--raio); }
+.confirmacao h2 { margin-top: 0; }
+.texto-confirmacao { color: var(--cinza); line-height: 1.5; }
+.botoes-confirmacao { display: flex; justify-content: flex-end; gap: 8px; margin-top: 20px; }
 
-h1 { 
-    color: #5724bd; 
-    font-size: 30px; 
-}
-
-h2 { 
-    font-size: 19px; 
-}
-
-.preco { 
-    color: #ff4c4c; 
-    font-size: 30px; 
-    font-weight: bold; 
-    margin-right: 15px; 
-}
-
-.preco-novo { 
-    color: #62626b; 
-    text-decoration: line-through; 
-}
-
-.disponivel { 
-    background-color: #d7f8e5; 
-    color: #008a45; 
-    padding: 15px; 
-    margin-bottom: 25px; 
-}
-
-.descricao, .informacao-vendedor, .texto-confirmacao { 
-    color: #62626b; 
-}
-
-.vendedor { 
-    margin-top: 25px; 
-    border: 1px solid #ddd; 
-    padding: 20px; 
-}
-
-.foto-vendedor { 
-    padding: 16px; 
-    background-color: #f1e5ff; 
-    color: #6424c9; 
-    font-weight: bold; 
-    margin-right: 16px; 
-}
-
-.nome-vendedor { 
-    font-weight: bold; 
-}
-
-.informacao-vendedor { 
-    margin: 3px 0; 
-}
-
-.informacoes { 
-    margin-top: 20px; 
-}
-
-.informacao { 
-    width: 33%; 
-    background-color: #f3e5ff; 
-    padding: 15px; 
-    margin-right: 12px; 
-}
-
-.titulo-informacao { 
-    color: #62626b; 
-    font-size: 13px; 
-    margin: 0; 
-}
-
-.valor-informacao { 
-    color: #6424c9; 
-    font-weight: bold; 
-    margin: 5px 0 0; 
-}
-
-.verificado { 
-    color: #008a45; 
-}
-
-.botoes { 
-    margin-top: 16px; 
-}
-
-.comprar, .mensagem { 
-    width: 50%; 
-    padding: 15px; 
-    border: 0; 
-    font-size: 16px; 
-    font-weight: bold; 
-}
-
-.comprar { 
-    background-color: #6424c9; 
-    color: white; 
-    margin-right: 6px; 
-}
-
-.mensagem { 
-    background-color: #f3e5ff; 
-    color: #6424c9; 
-    margin-left: 6px; 
-}
-
-.fundo-confirmacao { 
-    position: fixed; 
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 100%; 
-    background-color: #333; 
-    display: none; 
-    justify-content: center; 
-    align-items: center; 
-}
-
-.confirmacao { 
-    width: 460px; 
-    background-color: white; 
-    padding: 25px; 
-}
-
-.confirmacao h2 { 
-    margin-top: 0; 
-}
-
-.texto-confirmacao { 
-    line-height: 1.5; 
-}
-
-.botoes-confirmacao { 
-    justify-content: flex-end; 
-    margin-top: 20px; 
-}
-
-.cancelar, .confirmar { 
-    padding: 12px 20px; 
-    font-size: 16px; 
-}
-
-.cancelar { 
-    background-color: white; 
-    color: #7c2cff; 
-    border: 1px solid #7c2cff; 
-    margin-right: 8px; 
-}
-
-.campos-entrega {
-    margin-top: 20px;
-}
-
-.campos-entrega label {
-    display: block;
-    margin: 12px 0 5px;
-    font-weight: bold;
-}
-
-.campos-entrega input,
-.campos-entrega select {
-    width: 100%;
-    padding: 10px;
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.campos-entrega .erro {
-    color: #c62828;
-    font-size: 13px;
-}
-
-.aviso-cep {
-    color: #62626b;
-    font-size: 13px;
-}
-.confirmar { 
-    background-color: #7c2cff; 
-    color: white; 
-    border: 0; 
-    font-weight: bold; 
+@media (min-width: 600px) {
+  .botoes-compra { grid-template-columns: 1fr 1fr; }
 }

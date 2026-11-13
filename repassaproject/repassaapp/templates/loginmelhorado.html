@@ -1,26 +1,15 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tela Login - Repassa</title>
-    <link rel="stylesheet" href="{% static 'css/loginmelhorado.css' %}">
-    <link rel="stylesheet" href="{% static 'css/responsivo.css' %}">
-</head>
+{% block titulo %}Login{% endblock %}
+{% block tela %}loginmelhorado{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'css/loginmelhorado.css' %}">{% endblock %}
+
+{% block conteudo %}
 <body data-tela="loginmelhorado">
 
     <div class="login-box">
-        <h1 class="cor-roxa texto-centro titulo-marca">
-            Repassa
-        </h1>
-        <h5 class="cor-subtexto texto-centro"> 
-            MATERIAIS QUE CONTINUAM HISTÓRIAS
-        </h5>
-
-        <h1 class="texto-centro cor-roxa titulo-grande">
-            Faça seu login
-        </h1>
+        <h1 class="titulo-grande">Faça seu login</h1>
+        <p class="subtitulo">Materiais que continuam histórias</p>
 
         <form method="POST">
             {% csrf_token %}
@@ -30,47 +19,44 @@
                 <input type="hidden" name="next" value="{{ request.GET.next }}">
             {% endif %}
 
-            
             {% if form.non_field_errors %}
-                <div style="background-color: #fef2f2; border: 1px solid #fecaca; color: #dc2626; padding: 12px; border-radius: 8px; font-size: 0.9rem; margin-bottom: 16px; text-align: center;">
-                    {% for error in form.non_field_errors %}
-                        <p style="margin: 0;">{{ error }}</p>
-                    {% endfor %}
+                <div class="alerta alerta-erro">
+                {% for error in form.non_field_errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
                 </div>
             {% endif %}
 
             <div class="campo-grupo">
-                <label for="email-usuario" class="cor-roxa">E-mail:</label>
+                <label for="email-usuario">E-mail</label>
                 <input type="email" id="email-usuario" name="email" placeholder="seuemail@universidade.com.br" required value="{{ form.email.value|default_if_none:'' }}">
                 {% if form.email.errors %}
-                    <span style="color: #dc2626; font-size: 0.8rem;">{{ form.email.errors.0 }}</span>
+                    <span class="erro-campo">{{ form.email.errors.0 }}</span>
                 {% endif %}
             </div>
 
             <div class="campo-grupo">
-                <label for="senha-usuario" class="cor-roxa">Senha:</label>
+                <label for="senha-usuario">Senha</label>
                 <input type="password" id="senha-usuario" name="senha" placeholder="Digite sua senha" required>
                 {% if form.senha.errors %}
-                    <span style="color: #dc2626; font-size: 0.8rem;">{{ form.senha.errors.0 }}</span>
+                    <span class="erro-campo">{{ form.senha.errors.0 }}</span>
                 {% endif %}
             </div>
 
-            <div class="texto-centro">
                 <button type="submit" class="botao-entrar">Entrar</button>
-            </div>
         </form>
 
         <div class="links-uteis">
             <h4 class="texto-centro link-esqueci">
-                <a href="{% url 'password_reset' %}" style="text-decoration: none; color: inherit;">Esqueci minha senha</a>
+                <a href="{% url 'password_reset' %}" class="link-esqueci">Esqueci minha senha</a>
             </h4>
             
             <div class="bloco-cadastro">
-                <h3>Ainda não tem uma conta?</h3>
-                <a href="{% url 'cadastro' %}" class="cor-roxa link-cadastro">Criar Conta</a>
+                <p>Ainda não tem uma conta?</p>
+                <a href="{% url 'cadastro' %}" class="link-cadastro">Criar conta</a>
             </div>
         </div>
     </div>
+{% endblock %}
 
-</body>
-</html>
+{% block menu %}{% endblock %}

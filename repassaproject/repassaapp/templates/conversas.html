@@ -1,98 +1,59 @@
+{% extends 'base.html' %}
 {% load static tz %}
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <link rel="stylesheet" href="{% static 'css/conversas.css' %}">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conversas</title>
-  <link rel="stylesheet" href="{% static 'css/responsivo.css' %}">
-</head>
-<body data-tela="conversas">
-<form method="get" action="{% url 'conversas' %}">
-<header>
-<h1>
-    Conversas
-</h1>
-<a class="novo" href="{% url 'buscar' %}" aria-label="Iniciar nova conversa" title="Buscar um material para conversar">
-    +
-</a>
-{% include 'partials/conta.html' %}
-<input type="search" name="q" value="{{ q }}" placeholder="Procurar conversa" aria-label="Procurar conversa">
-<input type="hidden" name="filtro" value="{{ filtro }}">
-</header>
-</form>
-<main>
+
+{% block titulo %}Conversas{% endblock %}
+{% block tela %}conversas{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'css/conversas.css' %}">{% endblock %}
+
+{% block conteudo %}
+<div class="topo">
+    <h1>Conversas</h1>
+    <a class="botao botao-secundario novo" href="{% url 'buscar' %}" title="Buscar um material para conversar">+ Nova</a>
+</div>
+
 {% if precisa_login %}
 <p class="aviso">
     Entre na sua conta para ver suas conversas.
     <a href="{% url 'login' %}">Fazer login</a>
 </p>
 {% else %}
-<a class="aba {% if filtro == 'todas' %}ativa{% endif %}" href="?filtro=todas{% if q %}&amp;q={{ q|urlencode }}{% endif %}">
-    Todas
-</a>
-<a class="aba {% if filtro == 'comprando' %}ativa{% endif %}" href="?filtro=comprando{% if q %}&amp;q={{ q|urlencode }}{% endif %}">
-    Comprando
-</a>
-<a class="aba {% if filtro == 'vendendo' %}ativa{% endif %}" href="?filtro=vendendo{% if q %}&amp;q={{ q|urlencode }}{% endif %}">
-    Vendendo
-</a>
-<ul>
+<form method="get" action="{% url 'conversas' %}" class="busca">
+    <input type="search" name="q" value="{{ q }}" placeholder="Procurar conversa" aria-label="Procurar conversa">
+    <input type="hidden" name="filtro" value="{{ filtro }}">
+</form>
+
+<div class="abas">
+    <a class="aba {% if filtro == 'todas' %}ativa{% endif %}" href="?filtro=todas{% if q %}&amp;q={{ q|urlencode }}{% endif %}">Todas</a>
+    <a class="aba {% if filtro == 'comprando' %}ativa{% endif %}" href="?filtro=comprando{% if q %}&amp;q={{ q|urlencode }}{% endif %}">Comprando</a>
+    <a class="aba {% if filtro == 'vendendo' %}ativa{% endif %}" href="?filtro=vendendo{% if q %}&amp;q={{ q|urlencode }}{% endif %}">Vendendo</a>
+</div>
+
+<ul class="lista-conversas">
     {% for conversa in conversas %}
-    <li>
-        <a href="/chat/{{ conversa.material.pk }}/{{ conversa.outro.pk }}/">
+    <li class="conversa">
+        <a href="{% url 'chat' conversa.material.pk conversa.outro.pk %}">
             <img src="https://ui-avatars.com/api/?name={{ conversa.outro.nome|default:conversa.outro.username|urlencode }}&background=F3E8FF&color=7C3AED&rounded=true&size=88" alt="">
-            <h2>
-                {{ conversa.outro.nome|default:conversa.outro.username }}
-            </h2>
-            <p>
-                {{ conversa.ultima.conteudo|truncatechars:60 }}
-            </p>
-            <p>
-                {{ conversa.material.titulo }}
-            </p>
-            <span>
-                {{ conversa.ultima.data_hora|timezone:"America/Sao_Paulo"|date:"d/m H:i" }}
-            </span>
+            <div class="conversa-texto">
+                <div class="conversa-topo">
+                    <h2>{{ conversa.outro.nome|default:conversa.outro.username }}</h2>
+                    <span class="hora">{{ conversa.ultima.data_hora|timezone:"America/Sao_Paulo"|date:"d/m H:i" }}</span>
+                </div>
+                <p class="material">{{ conversa.material.titulo }}</p>
+                <p>{{ conversa.ultima.conteudo|truncatechars:60 }}</p>
+            </div>
         </a>
         {% if conversa.negocio_concluido %}
         <p class="etiquetas">
-            <span>
-                Negócio concluído
-            </span>
+            <span>Negócio concluído</span>
             {% if conversa.pode_avaliar %}
-            <a href="{% url 'avaliar_vendedor' conversa.compra.pk %}">
-                Avaliar
-            </a>
+            <a href="{% url 'avaliar_vendedor' conversa.compra.pk %}">Avaliar</a>
             {% endif %}
         </p>
         {% endif %}
     </li>
     {% empty %}
-    <li class="vazio">
-        Nenhuma conversa por aqui ainda.
-    </li>
+    <li class="vazio">Nenhuma conversa por aqui ainda.</li>
     {% endfor %}
 </ul>
 {% endif %}
-</main>
-<nav>
-    <a href="{% url 'home' %}">
-        Início
-    </a>
-    <a href="{% url 'buscar' %}">
-        Buscar
-    </a>
-    <a href="{% url 'anunciar_material' %}">
-        Anunciar
-    </a>
-    <a href="{% url 'conversas' %}" class="ativo">
-        Conversas
-    </a>
-    <a href="{% url 'editar_perfil' %}">
-        Perfil
-    </a>
-</nav>
-</body>
-</html>
+{% endblock %}

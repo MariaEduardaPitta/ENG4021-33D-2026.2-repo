@@ -1,63 +1,44 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Página Inicial — REPASSA</title>
-  <link rel="stylesheet" href="{% static 'css/index.css' %}">
-  <link rel="stylesheet" href="{% static 'css/responsivo.css' %}">
-</head>
-<body data-tela="index">
-<header>
-  <img class="logo" src="{% static 'img/logo-repassa.png' %}" alt="Logo do REPASSA"><strong>REPASSA</strong>
-  {% include 'partials/conta.html' %}
-</header>
 
-<main>
-  <div class="marca"><img class="logo" src="{% static 'img/logo-repassa.png' %}" alt=""><h1>REPASSA</h1></div>
+{% block titulo %}Página Inicial{% endblock %}
+{% block tela %}index{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'css/index.css' %}">{% endblock %}
+
+{% block conteudo %}
+  <h1>REPASSA</h1>
   <p>Materiais que continuam histórias</p>
   <input type="search" placeholder="O que você procura?" aria-label="Pesquisar materiais">
   <section class="filtros">
-  <button type="button">Curso</button>
-  <button type="button">Categoria</button>
-  <button type="button">Preço</button>
-  <button type="button">Conservação</button>
-</section>
+    <button type="button">Curso</button>
+    <button type="button">Categoria</button>
+    <button type="button">Preço</button>
+    <button type="button">Conservação</button>
+  </section>
 
-<section class="materiais">
-  <h2>Materiais recentes</h2>
-  <div class="lista-materiais">
-  {% for material in materiais %}
-  <article class="card">
-    {% if material.foto %}
-      <img class="material-foto" src="{{ material.foto.url }}" alt="Foto de {{ material.titulo }}">
-    {% else %}
-      <img class="material-foto" src="{% static 'img/logo-repassa.png' %}" alt="Material sem foto">
-    {% endif %}
-    <div class="material-info">
-            <h3><a href="{% url 'detalhe_material' material.id %}">{{ material.titulo }}</a></h3>
-      <p class="preco">R$ {{ material.preco }} <del>novo: R$ {{ material.preco_produto_novo }}</del></p>
-      <small>{{ material.estado_conservacao }} · {{ material.curso }} · {{ material.categoria.nome }}</small>
-      <div class="rodape-card">
-        <span>{% if material.nota_vendedor %}★ {{ material.nota_vendedor|floatformat:1 }}{% else %}Sem avaliações{% endif %} · {{ material.vendedor.nome }}</span>
-        <strong class="disponivel">DISPONÍVEL</strong>
+  <section class="materiais">
+    <h2>Materiais recentes</h2>
+    <div class="lista-materiais">
+    {% for material in materiais %}
+    <article class="card">
+      {% if material.foto %}
+        <img class="material-foto" src="{{ material.foto.url }}" alt="Foto de {{ material.titulo }}">
+      {% else %}
+        <img class="material-foto" src="{% static 'img/logo-repassa.png' %}" alt="Material sem foto">
+      {% endif %}
+      <div class="material-info">
+        <h3><a href="{% url 'detalhe_material' material.id %}">{{ material.titulo }}</a></h3>
+        <p class="preco">R$ {{ material.preco }} <del>novo: R$ {{ material.preco_produto_novo }}</del></p>
+        <small>{{ material.estado_conservacao }} · {{ material.curso }} · {{ material.categoria.nome }}</small>
+        <div class="rodape-card">
+          <span>{% if material.nota_vendedor %}★ {{ material.nota_vendedor|floatformat:1 }}{% else %}Sem avaliações{% endif %} · {{ material.vendedor.nome }}</span>
+          <strong class="disponivel">DISPONÍVEL</strong>
+        </div>
       </div>
+    </article>
+    {% empty %}
+    <p>Nenhum material disponível no momento.</p>
+    {% endfor %}
     </div>
-  </article>
-  {% empty %}
-  <p>Nenhum material disponível no momento.</p>
-  {% endfor %}
-  </div>
-</section>
-
-</main>
-<nav class="menu-inferior" aria-label="Navegação principal">
-  <a href="{% url 'home' %}" aria-current="page"><span aria-hidden="true">⌂</span>Início</a>
-  <a href="{% url 'buscar' %}"><span aria-hidden="true">⌕</span>Buscar</a>
-  <a href="{% url 'anunciar_material' %}"><span aria-hidden="true">＋</span>Anunciar</a>
-  <a href="{% url 'conversas' %}"><span aria-hidden="true">✉</span>Conversas</a>
-  <a href="{% url 'editar_perfil' %}"><span aria-hidden="true">♙</span>Perfil</a>
-</nav>
-</body>
-</html>
+  </section>
+{% endblock %}
