@@ -50,6 +50,14 @@ label { display: block; font-weight: 600; margin-bottom: 6px; }
 .card { background: var(--branco); border: 1px solid var(--borda); border-radius: var(--raio); padding: 16px; }
 .preco { color: var(--coral); font-weight: 700; font-size: 18px; }
 del { color: var(--cinza); font-size: 13px; font-weight: 400; }
+
+/* Lista de materiais (index e buscar) */
+.material-foto { display: block; width: 100%; height: 160px; object-fit: contain; background: var(--lilas); border-radius: 8px; }
+.card h3 { margin: 12px 0 4px; }
+.card h3 a { color: var(--texto); text-decoration: none; }
+.card h3 a:hover { color: var(--roxo); }
+.rodape-card { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--borda); font-size: 13px; color: var(--cinza); }
+.lista-materiais { display: grid; gap: 16px; }
 small, .texto-auxiliar { color: var(--cinza); font-size: 14px; }
 
 /* Status */
@@ -72,4 +80,8 @@ small, .texto-auxiliar { color: var(--cinza); font-size: 14px; }
 
 @media (min-width: 768px) {
   main { max-width: 960px; }
+  .lista-materiais { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1024px) {
+  .lista-materiais { grid-template-columns: repeat(3, 1fr); }
 }

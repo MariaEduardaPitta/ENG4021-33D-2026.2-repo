@@ -1,16 +1,3 @@
 .filtros { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 24px; }
 .filtros button { padding: 8px 16px; border-radius: 999px; border: 1px solid var(--borda); background: var(--branco); color: var(--texto); font-weight: 400; font-size: 14px; }
 .filtros button:hover { background: var(--lilas); border-color: var(--roxo); color: var(--roxo-escuro); }
-.material-foto { display: block; width: 100%; height: 160px; object-fit: contain; background: var(--lilas); border-radius: 8px; }
-.card h3 { margin: 12px 0 4px; }
-.card h3 a { color: var(--texto); text-decoration: none; }
-.card h3 a:hover { color: var(--roxo); }
-.rodape-card { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--borda); font-size: 13px; color: var(--cinza); }
-.lista-materiais { display: grid; gap: 16px; }
-
-@media (min-width: 768px) {
-  .lista-materiais { grid-template-columns: repeat(2, 1fr); }
-}
-@media (min-width: 1024px) {
-  .lista-materiais { grid-template-columns: repeat(3, 1fr); }
-}

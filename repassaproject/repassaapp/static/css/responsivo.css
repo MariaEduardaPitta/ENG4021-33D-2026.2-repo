@@ -17,8 +17,8 @@ header { flex-wrap: wrap; }
 footer input { min-width: 0; }
 .row-line dt, .linha dt, .linha dd { min-width: 0; }
 @media (min-width: 768px) {
-  body[data-tela="buscar"], body[data-tela="conversas"], body[data-tela="chat"], { max-width: 760px; }
-  body[data-tela="buscar"] nav, body[data-tela="conversas"] nav, body[data-tela="chat"] footer { max-width: 760px; }
+  body[data-tela="conversas"], body[data-tela="chat"], { max-width: 760px; }
+  body[data-tela="conversas"] nav, body[data-tela="chat"] footer { max-width: 760px; }
 }
 @media (max-width: 600px) {
   .linha-dupla, .pagina .linha, .botoes, .linha-preco { flex-direction: column; align-items: stretch; gap: 12px; }
@@ -26,10 +26,7 @@ footer input { min-width: 0; }
   .formulario { padding: 16px; }
   .perfil-box, .login-box, .auth-container { padding: 20px; }
   .pagina h1 { font-size: 26px; }
-  .filtro { flex-wrap: wrap; }
-  .filtro select, .filtro input { max-width: 100%; }
-  .ordem { display: block; margin: 8px 0; max-width: 100%; }
-  body[data-tela="buscar"] nav, body[data-tela="conversas"] nav { gap: 8px; flex-wrap: wrap; padding: 12px 8px; }
+  body[data-tela="conversas"] nav { gap: 8px; flex-wrap: wrap; padding: 12px 8px; }
   body[data-tela="chat"] footer button { padding: 12px; }
   .notificacao { padding: 12px; gap: 8px; }
 }
