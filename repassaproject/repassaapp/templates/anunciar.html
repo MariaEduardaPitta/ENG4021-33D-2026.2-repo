@@ -1,97 +1,77 @@
-
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <title>Anunciar material - Repassa</title>
-    <!-- Link para o arquivo CSS separado na pasta static -->
-    <link rel="stylesheet" href="{% static 'css/anunciar.css' %}">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="{% static 'css/responsivo.css' %}">
-</head>
 
-<body data-tela="anunciar">
-    <div class="cabecalho">
-        <div class="logo">
-            <div class="simbolo-logo">➜</div>
-            <div class="nome-logo">Repassa</div>
+{% block titulo %}Anunciar material{% endblock %}
+{% block tela %}anunciar{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'css/anunciar.css' %}">{% endblock %}
+
+{% block conteudo %}
+<div class="anuncio">
+    <p class="subtitulo">Divulgue seu material</p>
+    <h1>Anunciar material</h1>
+    <p class="descricao">Preencha as informações abaixo para publicar seu anúncio na comunidade universitária.</p>
+
+    <form class="card formulario" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+            <div class="alerta alerta-erro">{{ form.non_field_errors }}</div>
+        {% endif %}
+
+        <div class="campo">
+            <label for="{{ form.foto.id_for_label }}">Foto do material</label>
+            <div class="foto-upload">
+                {{ form.foto }}
+            </div>
+            {{ form.foto.errors }}
         </div>
-        <div class="menu">
-            <div class="item-menu">⌂ Início</div>
-            <div class="item-menu">⌕ Buscar</div>
-            <div class="item-menu ativo">⊕ Anunciar</div>
-            <div class="item-menu">◯ Conversas</div>
-            <div class="item-menu">♙ Perfil</div>
+
+        <div class="campo">
+            <label for="{{ form.titulo.id_for_label }}">Título do anúncio</label>
+            {{ form.titulo }}
+            {{ form.titulo.errors }}
         </div>
-        {% include 'partials/conta.html' %}
-    </div>
 
-    <div class="pagina">
-        <p class="subtitulo">Divulgue seu material</p>
-        <h1>Anunciar material</h1>
-        <p class="descricao">Preencha as informações abaixo para publicar seu anúncio na comunidade universitária.</p>
+        <div class="campo">
+            <label for="{{ form.descricao.id_for_label }}">Descrição</label>
+            {{ form.descricao }}
+            {{ form.descricao.errors }}
+        </div>
 
-        <form class="formulario" method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-
-            {{ form.non_field_errors }}
-
+        <div class="duas-colunas">
             <div class="campo">
-                <p class="titulo-campo">Foto do material</p>
-                <div class="foto">
-                    {{ form.foto }}
-                </div>
-                {{ form.foto.errors }}
+                <label for="{{ form.categoria.id_for_label }}">Categoria</label>
+                {{ form.categoria }}
+                {{ form.categoria.errors }}
             </div>
-
             <div class="campo">
-                <p class="titulo-campo">Título do anúncio</p>
-                {{ form.titulo }}
-                {{ form.titulo.errors }}
+                <label for="{{ form.curso.id_for_label }}">Curso</label>
+                {{ form.curso }}
+                {{ form.curso.errors }}
             </div>
+        </div>
 
+        <div class="campo">
+            <label for="{{ form.estado_conservacao.id_for_label }}">Estado de conservação</label>
+            {{ form.estado_conservacao }}
+            {{ form.estado_conservacao.errors }}
+        </div>
+
+        <div class="duas-colunas">
             <div class="campo">
-                <p class="titulo-campo">Descrição</p>
-                {{ form.descricao }}
-                {{ form.descricao.errors }}
+                <label for="{{ form.preco.id_for_label }}">Preço de venda (R$)</label>
+                {{ form.preco }}
+                {{ form.preco.errors }}
             </div>
-
-            <div class="linha">
-                <div class="campo esquerda">
-                    <p class="titulo-campo">Categoria</p>
-                    {{ form.categoria }}
-                    {{ form.categoria.errors }}
-                </div>
-                <div class="campo direita">
-                    <p class="titulo-campo">Curso</p>
-                    {{ form.curso }}
-                    {{ form.curso.errors }}
-                </div>
-            </div>
-
             <div class="campo">
-                <p class="titulo-campo">Estado de conservação</p>
-                {{ form.estado_conservacao }}
-                {{ form.estado_conservacao.errors }}
+                <label for="{{ form.preco_produto_novo.id_for_label }}">Preço do produto novo (R$)</label>
+                {{ form.preco_produto_novo }}
+                {{ form.preco_produto_novo.errors }}
+                <p class="ajuda">Usado para exibir o desconto riscado no anúncio.</p>
             </div>
+        </div>
 
-            <div class="linha">
-                <div class="campo esquerda">
-                    <p class="titulo-campo">Preço de venda (R$)</p>
-                    {{ form.preco }}
-                    {{ form.preco.errors }}
-                </div>
-                <div class="campo direita">
-                    <p class="titulo-campo">Preço do produto novo (R$)</p>
-                    {{ form.preco_produto_novo }}
-                    {{ form.preco_produto_novo.errors }}
-                    <p class="ajuda">Usado para exibir o desconto riscado no anúncio.</p>
-                </div>
-            </div>
-
-            <button class="botao" type="submit">Publicar anúncio</button>
-        </form>
-    </div>
-</body>
-</html>
+        <button class="botao-enviar" type="submit">Publicar anúncio</button>
+    </form>
+</div>
+{% endblock %}
