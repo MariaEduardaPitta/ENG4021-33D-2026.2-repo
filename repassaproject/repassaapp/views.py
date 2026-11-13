@@ -1,4 +1,3 @@
-
 from decimal import Decimal, InvalidOperation
 
 from django.contrib.auth.decorators import login_required
@@ -15,7 +14,7 @@ from .forms import (
     AnunciarMaterialForm,
     EditarMaterialForm,
 )
-from .models import Compra, Avaliacao, Material, Categoria, Mensagem, Usuario
+from .models import Compra, Avaliacao, Material, Categoria, Mensagem, Usuario, FotoMaterial
 from django.db import transaction, IntegrityError
 from django.http import HttpResponseForbidden
 from .forms import CompraForm
@@ -269,6 +268,10 @@ def anunciar_material(request):
             material = form.save(commit=False)
             material.vendedor = request.user
             material.save()
+
+            for imagem in request.FILES.getlist('fotos_adicionais'):
+                FotoMaterial.objects.create(material=material, imagem=imagem)
+
             messages.success(request, 'Anúncio publicado com sucesso!')
             return redirect('home')
     else:
