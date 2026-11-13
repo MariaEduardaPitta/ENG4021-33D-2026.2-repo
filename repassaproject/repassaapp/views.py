@@ -5,6 +5,7 @@ from django.views.decorators.http import require_POST
 from django.db.models import Q, Avg, Count
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
+from django.core.paginator import Paginator
 from .forms import (
     AvaliacaoForm,
     AtualizarEntregaForm,
@@ -14,7 +15,7 @@ from .forms import (
     AnunciarMaterialForm,
     EditarMaterialForm,
 )
-from .models import Compra, Avaliacao, Material, Categoria, Mensagem, Usuario, FotoMaterial
+from .models import Compra, Avaliacao, Material, Categoria, Mensagem, Usuario, FotoMaterial, Faculdade
 from django.db import transaction, IntegrityError
 from django.http import HttpResponseForbidden
 from .forms import CompraForm

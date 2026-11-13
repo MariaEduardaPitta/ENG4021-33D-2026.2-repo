@@ -52,6 +52,16 @@
             </label>
 
             <label class="filtro">
+                Faculdade do vendedor
+                <select name="faculdade">
+                    <option value="">Todas</option>
+                    {% for faculdade in faculdades %}
+                    <option value="{{ faculdade.pk }}" {% if filtros.faculdade == faculdade.pk|stringformat:"s" %}selected{% endif %}>{{ faculdade.nome }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+
+            <label class="filtro">
                 Preço máximo (R$)
                 <input type="number" name="preco_max" min="0" step="0.01" value="{{ filtros.preco_max }}" placeholder="Qualquer">
             </label>
@@ -61,7 +71,7 @@
     </section>
 
     <div class="resultados-topo">
-        <h2>{{ materiais|length }} resultado{{ materiais|length|pluralize }}</h2>
+        <h2>{{ pagina.paginator.count }} resultado{{ pagina.paginator.count|pluralize }}</h2>
         <select name="ordem" class="ordem" aria-label="Ordenar resultados" onchange="this.form.submit()">
             <option value="recentes" {% if filtros.ordem == 'recentes' %}selected{% endif %}>Mais recentes</option>
             <option value="menor_preco" {% if filtros.ordem == 'menor_preco' %}selected{% endif %}>Menor preço</option>
