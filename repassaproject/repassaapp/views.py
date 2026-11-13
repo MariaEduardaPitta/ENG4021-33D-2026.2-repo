@@ -338,6 +338,7 @@ def buscar(request):
     curso = request.GET.get('curso', '')
     estado = request.GET.get('estado', '')
     preco_max = request.GET.get('preco_max', '').strip().replace(',', '.')
+    faculdade = request.GET.get('faculdade', '')
     ordem = request.GET.get('ordem', 'recentes')
     if ordem not in ORDENS_BUSCA:
         ordem = 'recentes'
@@ -352,6 +353,8 @@ def buscar(request):
         materiais = materiais.filter(curso=curso)
     if estado:
         materiais = materiais.filter(estado_conservacao=estado)
+    if faculdade.isdigit():
+        materiais = materiais.filter(vendedor__faculdade_id=faculdade)
     if preco_max:
         try:
             valor = Decimal(preco_max)
@@ -363,9 +366,17 @@ def buscar(request):
 
     materiais = materiais.order_by(ORDENS_BUSCA[ordem])
 
+    pagina = Paginator(materiais, 12).get_page(request.GET.get('pagina'))
+
+    parametros = request.GET.copy()
+    parametros.pop('pagina', None)
+
     disponiveis = Material.objects.filter(status='disponivel')
     return render(request, 'buscar.html', {
-        'materiais': materiais,
+        'materiais': pagina,
+        'pagina': pagina,
+        'parametros': parametros.urlencode(),
+        'faculdades': Faculdade.objects.order_by('nome'),
         'categorias': Categoria.objects.order_by('nome'),
         'cursos': disponiveis.order_by('curso').values_list('curso', flat=True).distinct(),
         'estados': disponiveis.order_by('estado_conservacao').values_list('estado_conservacao', flat=True).distinct(),
@@ -375,10 +386,10 @@ def buscar(request):
             'curso': curso,
             'estado': estado,
             'preco_max': preco_max,
+            'faculdade': faculdade,
             'ordem': ordem,
         },
     })
-
 
 @login_required(login_url='login')
 def conversas(request):
@@ -468,6 +479,10 @@ def chat(request, material_id, usuario_id):
                 conteudo=conteudo,
             )
         return redirect('chat', material_id=material.pk, usuario_id=outro.pk)
+    
+    Mensagem.objects.filter(
+        material=material, remetente=outro, destinatario=usuario, lida=False
+    ).update(lida=True)
 
     mensagens = (
         Mensagem.objects
