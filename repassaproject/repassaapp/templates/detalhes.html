@@ -41,7 +41,12 @@
 
     <section class="bloco">
       <h3>Vendedor</h3>
-      <p class="vendedor-nome"><a href="{% url 'perfil_vendedor' material.vendedor.id %}">{{ material.vendedor.nome }}</a></p>
+      <p class="vendedor-nome">
+        <a href="{% url 'perfil_vendedor' material.vendedor.id %}">{{ material.vendedor.nome }}</a>
+        {% if material.vendedor.is_verificado %}
+          <span class="selo-verificado" style="background-color: #d1fae5; color: #065f46; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; margin-left: 6px; font-weight: 600;">✓ Estudante verificado</span>
+        {% endif %}
+      </p>
       {% if quantidade_avaliacoes %}
         <p>★ {{ nota_vendedor|floatformat:1 }} ({{ quantidade_avaliacoes }} avaliaç{{ quantidade_avaliacoes|pluralize:"ão,ões" }})</p>
       {% else %}
@@ -49,6 +54,7 @@
       {% endif %}
       <a href="{% url 'avaliacoes_vendedor' material.vendedor.id %}">Ver avaliações</a>
     </section>
+
     <section class="bloco">
       <h3>Compartilhar anúncio</h3>
       <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data={{ request.build_absolute_uri|urlencode:'' }}"

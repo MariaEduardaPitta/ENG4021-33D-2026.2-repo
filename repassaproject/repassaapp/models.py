@@ -40,6 +40,14 @@ class Usuario(AbstractUser):
 
     def __str__(self):
         return self.nome
+    
+    @property
+    def is_verificado(self):
+        if not self.email:
+            return False
+        email_lower = self.email.lower()
+        dominios_validos = ['.edu', '.puc-rio.br', '.ufrj.br', '.usp.br', '.unicamp.br']
+        return any(email_lower.endswith(dominio) for dominio in dominios_validos)
 
 
 class Categoria(models.Model):

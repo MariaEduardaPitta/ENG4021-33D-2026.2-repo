@@ -18,7 +18,7 @@ from .models import Compra, Avaliacao, Material, Categoria, Mensagem, Usuario
 from django.db import transaction, IntegrityError
 from django.http import HttpResponseForbidden
 from .forms import CompraForm
-
+from django.contrib import messages  
 
 def home(request):
     materiais = Material.objects.filter(status="disponivel").select_related('vendedor', 'categoria').annotate(
@@ -174,8 +174,11 @@ def editar_perfil_view(request):
         usuario.save()
         if dados['senha']:
             update_session_auth_hash(request, usuario)
-        return redirect('/editar-perfil/?salvo=1')
-    return render(request, 'editarperfil.html', {'form': form, 'sucesso': request.GET.get('salvo') == '1'})
+            
+        messages.success(request, 'Perfil atualizado com sucesso!')
+        return redirect('editar_perfil')
+        
+    return render(request, 'editarperfil.html', {'form': form})
 
 
 def login_view(request):
@@ -218,6 +221,7 @@ def anunciar_material(request):
             material = form.save(commit=False)
             material.vendedor = request.user
             material.save()
+            messages.success(request, 'Anúncio publicado com sucesso!')
             return redirect('home')
     else:
         form = AnunciarMaterialForm()
