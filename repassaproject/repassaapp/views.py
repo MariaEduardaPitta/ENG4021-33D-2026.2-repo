@@ -140,6 +140,7 @@ def cadastro_view(request):
             nome=f"{dados['nome']} {dados['sobrenome']}",
             first_name=dados['nome'], last_name=dados['sobrenome'],
             cpf=dados['cpf'], whatsapp=dados['telefone'],
+            curso=dados['curso'], faculdade=dados['faculdade'],
         )
         return redirect('login')
     
@@ -166,6 +167,8 @@ def editar_perfil_view(request):
         usuario.last_name = dados['sobrenome']
         usuario.email = dados['email']
         usuario.whatsapp = dados['telefone']
+        usuario.curso = dados['curso']
+        usuario.faculdade = dados['faculdade']
         if dados['senha']:
             usuario.set_password(dados['senha'])
         usuario.save()
@@ -480,4 +483,19 @@ def atualizar_entrega(request, compra_id):
     return render(request, 'entrega.html', {
         'compra': compra, 'form': form, 'status_atual': status_anterior,
         'salvo': request.GET.get('salvo') == '1',
+    })
+
+def perfil_vendedor(request, id):
+    vendedor = get_object_or_404(Usuario.objects.select_related('faculdade'), pk=id)
+    materiais_ativos = Material.objects.filter(vendedor=vendedor, status='disponivel').select_related('categoria')
+    
+    
+    resumo_avaliacoes = vendedor.avaliacoes_recebidas.aggregate(media=Avg('nota'), quantidade=Count('id'))
+    nota_media = resumo_avaliacoes['media'] or 0.0
+
+    return render(request, 'perfil_vendedor.html', {
+        'vendedor': vendedor,
+        'materiais_ativos': materiais_ativos,
+        'nota_media': nota_media,
+        'total_avaliacoes': resumo_avaliacoes['quantidade'],
     })

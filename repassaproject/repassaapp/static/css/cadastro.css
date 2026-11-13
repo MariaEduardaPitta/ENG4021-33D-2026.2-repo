@@ -22,5 +22,5 @@
 
 @media (max-width: 600px) {
     .cadastro-box { padding: 20px; }
-    .cadastro-box .linha-dupla { gap: 0; }
+    .cadastro-box .linha-dupla { flex-direction: column; gap: 0; }
 }

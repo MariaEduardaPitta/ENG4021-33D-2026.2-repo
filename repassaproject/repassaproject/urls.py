@@ -23,6 +23,7 @@ from repassaapp.views import (
     chat,
     avaliacoes_vendedor,
     meu_perfil,
+    perfil_vendedor,
 )
 
 urlpatterns = [
@@ -45,6 +46,7 @@ urlpatterns = [
     path('buscar/', buscar, name='buscar'),
     path('conversas/', conversas, name='conversas'),
     path('chat/<int:material_id>/<int:usuario_id>/', chat, name='chat'),
+    path('vendedor/<int:id>/', perfil_vendedor, name='perfil_vendedor'),
 ]
 
 if settings.DEBUG:

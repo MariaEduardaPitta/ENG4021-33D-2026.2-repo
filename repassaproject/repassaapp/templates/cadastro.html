@@ -53,6 +53,24 @@
                 {% endif %}
             </div>
 
+            <div class="linha-dupla">
+                <div class="campo-grupo">
+                    <label for="{{ form.curso.id_for_label }}">{{ form.curso.label }}</label>
+                    {{ form.curso }}
+                    {% if form.curso.errors %}
+                        <span class="erro-campo">{{ form.curso.errors.0 }}</span>
+                    {% endif %}
+                </div>
+
+                <div class="campo-grupo">
+                    <label for="{{ form.faculdade.id_for_label }}">{{ form.faculdade.label }}</label>
+                    {{ form.faculdade }}
+                    {% if form.faculdade.errors %}
+                        <span class="erro-campo">{{ form.faculdade.errors.0 }}</span>
+                    {% endif %}
+                </div>
+            </div>
+
             <div class="campo-grupo">
                 <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
                 {{ form.email }}

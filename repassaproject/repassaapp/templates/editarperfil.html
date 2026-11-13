@@ -1,16 +1,14 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block titulo %}Editar perfil{% endblock %}
 {% block tela %}editarperfil{% endblock %}
 {% block css %}<link rel="stylesheet" href="{% static 'css/editarperfil.css' %}">{% endblock %}
 
 {% block conteudo %}
-<body data-tela="editarperfil">
-
     <div class="perfil-box">
         <h1 class="titulo-grande">Editar perfil</h1>
 
-        
         {% if sucesso %}<p class="alerta alerta-sucesso" role="status">Perfil atualizado.</p>{% endif %}
         <form method="POST">
             {% csrf_token %}
@@ -38,18 +36,28 @@
                 <input type="text" id="telefone-usuario" name="telefone" placeholder="(XX) XXXXX-XXXX" value="{{ form.telefone.value|default_if_none:'' }}">
             </div>
 
+            <div class="linha-dupla">
+                <div class="campo-grupo">
+                    <label for="curso-usuario">Curso</label>
+                    <input type="text" id="curso-usuario" name="curso" placeholder="Seu curso" required value="{{ form.curso.value|default_if_none:'' }}">
+                </div>
+
+                <div class="campo-grupo">
+                    <label for="{{ form.faculdade.id_for_label }}">Faculdade</label>
+                    {{ form.faculdade }}
+                </div>
+            </div>
+
             <div class="campo-grupo">
                 <label for="senha-atual">Nova senha <span class="dica">(deixe em branco para não alterar)</span></label>
                 <input type="password" id="senha-atual" name="senha" placeholder="Digite a nova senha">
             </div>
 
-            <div class="texto-centro botoes-grupo">
-            </div>
+            <button type="submit" class="botao-salvar">Salvar alterações</button>
         </form>
 
         <div class="links-uteis">
-            <a href="{% url 'home' %}" class="link-cancelar">Cancelar e Voltar</a>
+            <a href="{% url 'meu_perfil' %}" class="link-cancelar">Cancelar e voltar</a>
         </div>
     </div>
-
 {% endblock %}

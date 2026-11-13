@@ -1,6 +1,6 @@
 Minha parte da Sprint 10: padronização visual de todas as telas com o Design System, busca e filtros da página inicial funcionando e a nova página Meu perfil.
 
-PRs: [#58](https://github.com/MariaEduardaPitta/ENG4021-33D-2026.2-repo/pull/58) (padronização) e [#59](https://github.com/MariaEduardaPitta/ENG4021-33D-2026.2-repo/pull/59) (busca da página inicial e Meu perfil)
+PRs: [#58](https://github.com/MariaEduardaPitta/ENG4021-33D-2026.2-repo/pull/58) (padronização) e [#60](https://github.com/MariaEduardaPitta/ENG4021-33D-2026.2-repo/pull/59) (busca da página inicial e Meu perfil)
 
 O que fiz:
 
