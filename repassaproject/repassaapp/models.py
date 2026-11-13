@@ -99,6 +99,18 @@ class Material(models.Model):
         return self.titulo
 
 
+class FotoMaterial(models.Model):
+    material = models.ForeignKey(
+        Material,
+        on_delete=models.CASCADE,
+        related_name="fotos"
+    )
+    imagem = models.ImageField(upload_to="materiais/fotos/")
+
+    def __str__(self):
+        return f"Foto do material {self.material.titulo}"
+
+
 class Compra(models.Model):
     comprador = models.ForeignKey(
         settings.AUTH_USER_MODEL,
