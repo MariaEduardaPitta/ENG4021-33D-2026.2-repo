@@ -61,11 +61,8 @@ body[data-tela="entrega"] header .conta button { margin-bottom: 0; }
 .auth-container .form-input { font-size: 16px; }
 .auth-container .auth-footer .btn-submit { color: white; }
 .auth-container a:focus-visible, .auth-container button:focus-visible {
-  outline: 3px solid #1d4ed8;
+  outline: 3px solid #7C3AED;
   outline-offset: 3px;
-}
-@media (max-height: 600px) {
-  body:has(> .auth-container) { align-items: flex-start; }
 }
 @media (max-width: 600px) {
   body[data-tela="avaliacao"] header,
