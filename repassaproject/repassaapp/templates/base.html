@@ -19,6 +19,16 @@
   {% include 'partials/conta.html' %}
 </header>
 
+{% if messages %}
+    <div class="mensagens-container" style="max-width: 600px; margin: 20px auto; padding: 0 15px;">
+        {% for message in messages %}
+            <div class="alerta alerta-{{ message.tags }}" style="background-color: #d1fae5; color: #065f46; border: 1px solid #a3e635; padding: 12px 16px; border-radius: 8px; margin-bottom: 10px; font-weight: 500; text-align: center;">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
 <main>
   {% block conteudo %}{% endblock %}
 </main>

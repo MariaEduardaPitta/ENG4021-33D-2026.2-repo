@@ -1,42 +1,48 @@
-{% extends 'base.html' %}
 {% load static %}
-
-{% block titulo %}Perfil de {{ vendedor.nome }}{% endblock %}
-{% block tela %}perfil_vendedor{% endblock %}
-{% block css %}<link rel="stylesheet" href="{% static 'css/perfil_vendedor.css' %}">{% endblock %}
-
-{% block conteudo %}
-<section class="card perfil-vendedor">
-    <div class="avatar">{{ vendedor.nome|first|upper }}</div>
-    <div>
-        <h1>{{ vendedor.nome }}</h1>
-        <p>{{ vendedor.faculdade.nome|default:"Faculdade não informada" }} · {{ vendedor.curso|default:"Curso não informado" }}</p>
-        <p class="nota">
-            {% if total_avaliacoes %}
-                ★ {{ nota_media|floatformat:1 }} ({{ total_avaliacoes }} avaliaç{{ total_avaliacoes|pluralize:"ão,ões" }})
-            {% else %}
-                Sem avaliações ainda
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de {{ vendedor.nome }} - Repassa</title>
+    <link rel="stylesheet" href="{% static 'css/avaliacoes_vendedor.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsivo.css' %}">
+</head>
+<body data-tela="perfil_vendedor">
+    <header>
+        <a href="/">REPASSA</a>
+    </header>
+    <main>
+        <h1>
+            {{ vendedor.nome }}
+            {% if vendedor.is_verificado %}
+                <span class="selo-verificado" style="background-color: #d1fae5; color: #065f46; font-size: 0.85rem; padding: 3px 8px; border-radius: 4px; margin-left: 8px; font-weight: 600; vertical-align: middle;">✓ Estudante verificado</span>
             {% endif %}
-        </p>
-        <a href="{% url 'avaliacoes_vendedor' vendedor.pk %}">Ver todas as avaliações</a>
-    </div>
-</section>
+        </h1>
+        <section class="resumo">
+            <p><strong>Faculdade:</strong> {{ vendedor.faculdade.nome|default:"Não informada" }}</p>
+            <p><strong>Curso:</strong> {{ vendedor.curso|default:"Não informado" }}</p>
+            <p><strong>Nota Média:</strong> ★ {{ nota_media|floatformat:1 }} ({{ total_avaliacoes }} avaliaç{{ total_avaliacoes|pluralize:"ão,ões" }})</p>
+            <a href="{% url 'avaliacoes_vendedor' vendedor.pk %}">Ver todas as avaliações</a>
+        </section>
 
-<h2>Anúncios ativos</h2>
-<div class="lista-materiais">
-    {% for material in materiais_ativos %}
-    <article class="card">
-        {% if material.foto %}
-            <img class="material-foto" src="{{ material.foto.url }}" alt="Foto de {{ material.titulo }}">
+        <h2>Anúncios Ativos</h2>
+        {% if materiais_ativos %}
+            <div class="lista-materiais">
+                {% for material in materiais_ativos %}
+                    <article class="material-card">
+                        <h3><a href="{% url 'detalhe_material' material.pk %}">{{ material.titulo }}</a></h3>
+                        <p>R$ {{ material.preco }}</p>
+                        <p>Curso: {{ material.curso }}</p>
+                    </article>
+                {% endfor %}
+            </div>
         {% else %}
-            <img class="material-foto" src="{% static 'img/logo-repassa.png' %}" alt="Material sem foto">
+            <p>Este vendedor não possui anúncios ativos no momento.</p>
         {% endif %}
-        <h3><a href="{% url 'detalhe_material' material.pk %}">{{ material.titulo }}</a></h3>
-        <p class="preco">R$ {{ material.preco }}</p>
-        <small>{{ material.estado_conservacao }} · {{ material.curso }} · {{ material.categoria.nome }}</small>
-    </article>
-    {% empty %}
-    <p class="vazio">Este vendedor não possui anúncios ativos no momento.</p>
-    {% endfor %}
-</div>
-{% endblock %}
+
+        <br>
+        <a class="voltar" href="/">Voltar ao início</a>
+    </main>
+</body>
+</html>
