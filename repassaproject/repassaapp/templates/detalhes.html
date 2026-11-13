@@ -6,11 +6,42 @@
 {% block css %}<link rel="stylesheet" href="{% static 'css/detalhes.css' %}">{% endblock %}
 
 {% block conteudo %}
-  <div class="foto">
-    {% if material.foto %}
-      <img src="{{ material.foto.url }}" alt="Foto de {{ material.titulo }}">
-    {% else %}
-      <img src="{% static 'img/logo-repassa.png' %}" alt="Material sem foto">
+  <div class="galeria">
+    <div class="foto">
+      {% if material.foto %}
+        <img id="foto-principal" src="{{ material.foto.url }}"
+             alt="Foto de {{ material.titulo }}">
+      {% elif material.fotos.all %}
+        {% for foto in material.fotos.all %}
+          {% if forloop.first %}
+            <img id="foto-principal" src="{{ foto.imagem.url }}"
+                 alt="Foto de {{ material.titulo }}">
+          {% endif %}
+        {% endfor %}
+      {% else %}
+        <img id="foto-principal" src="{% static 'img/logo-repassa.png' %}"
+             alt="Material sem foto">
+      {% endif %}
+    </div>
+
+    {% if material.fotos.exists %}
+      <div class="miniaturas">
+        {% if material.foto %}
+          <button type="button" class="miniatura"
+                  onclick="trocarFoto(this)">
+            <img src="{{ material.foto.url }}"
+                 alt="Visualizar foto principal">
+          </button>
+        {% endif %}
+
+        {% for foto in material.fotos.all %}
+          <button type="button" class="miniatura"
+                  onclick="trocarFoto(this)">
+            <img src="{{ foto.imagem.url }}"
+                 alt="Visualizar foto {{ forloop.counter }}">
+          </button>
+        {% endfor %}
+      </div>
     {% endif %}
   </div>
 
@@ -99,4 +130,20 @@
       </a>
     </div>
   {% endif %}
+
+  <script>
+    function trocarFoto(botao) {
+      const imagem = botao.querySelector('img');
+      const principal = document.getElementById('foto-principal');
+
+      principal.src = imagem.src;
+      principal.alt = imagem.alt;
+
+      document.querySelectorAll('.miniatura').forEach(function(item) {
+        item.classList.remove('ativa');
+      });
+
+      botao.classList.add('ativa');
+    }
+  </script>
 {% endblock %}
