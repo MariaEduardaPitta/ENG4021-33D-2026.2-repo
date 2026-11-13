@@ -1,0 +1,710 @@
+[
+  {
+    "name": "meu_perfil",
+    "width": 375,
+    "status": 200,
+    "scroll": 375,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "perfil_vendedor",
+    "width": 375,
+    "status": 200,
+    "scroll": 375,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "inicio",
+    "width": 375,
+    "status": 200,
+    "scroll": 375,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "login",
+    "width": 375,
+    "status": 200,
+    "scroll": 375,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "cadastro",
+    "width": 375,
+    "status": 200,
+    "scroll": 375,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "perfil",
+    "width": 375,
+    "status": 200,
+    "scroll": 375,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "anunciar",
+    "width": 375,
+    "status": 200,
+    "scroll": 375,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "editar_material",
+    "width": 375,
+    "status": 200,
+    "scroll": 375,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "buscar",
+    "width": 375,
+    "status": 200,
+    "scroll": 375,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "conversas",
+    "width": 375,
+    "status": 200,
+    "scroll": 375,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "chat",
+    "width": 375,
+    "status": 200,
+    "scroll": 375,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "notificacoes",
+    "width": 375,
+    "status": 200,
+    "scroll": 375,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "detalhes",
+    "width": 375,
+    "status": 200,
+    "scroll": 375,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "compra",
+    "width": 375,
+    "status": 200,
+    "scroll": 375,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "modal_compra",
+    "width": 375,
+    "scroll": 375,
+    "visible": true
+  },
+  {
+    "name": "confirmacao",
+    "width": 375,
+    "status": 200,
+    "scroll": 375,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "avaliacao",
+    "width": 375,
+    "status": 200,
+    "scroll": 375,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "avaliacoes",
+    "width": 375,
+    "status": 200,
+    "scroll": 375,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "avaliacoes_vazio",
+    "width": 375,
+    "status": 200,
+    "scroll": 375,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "entrega",
+    "width": 375,
+    "status": 200,
+    "scroll": 375,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "recuperar",
+    "width": 375,
+    "status": 200,
+    "scroll": 375,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "email_enviado",
+    "width": 375,
+    "status": 200,
+    "scroll": 375,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "nova_senha",
+    "width": 375,
+    "status": 200,
+    "scroll": 375,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "senha_sucesso",
+    "width": 375,
+    "status": 200,
+    "scroll": 375,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "meu_perfil",
+    "width": 768,
+    "status": 200,
+    "scroll": 768,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "perfil_vendedor",
+    "width": 768,
+    "status": 200,
+    "scroll": 768,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "inicio",
+    "width": 768,
+    "status": 200,
+    "scroll": 768,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "login",
+    "width": 768,
+    "status": 200,
+    "scroll": 768,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "cadastro",
+    "width": 768,
+    "status": 200,
+    "scroll": 768,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "perfil",
+    "width": 768,
+    "status": 200,
+    "scroll": 768,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "anunciar",
+    "width": 768,
+    "status": 200,
+    "scroll": 768,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "editar_material",
+    "width": 768,
+    "status": 200,
+    "scroll": 768,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "buscar",
+    "width": 768,
+    "status": 200,
+    "scroll": 768,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "conversas",
+    "width": 768,
+    "status": 200,
+    "scroll": 768,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "chat",
+    "width": 768,
+    "status": 200,
+    "scroll": 768,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "notificacoes",
+    "width": 768,
+    "status": 200,
+    "scroll": 768,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "detalhes",
+    "width": 768,
+    "status": 200,
+    "scroll": 768,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "compra",
+    "width": 768,
+    "status": 200,
+    "scroll": 768,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "modal_compra",
+    "width": 768,
+    "scroll": 768,
+    "visible": true
+  },
+  {
+    "name": "confirmacao",
+    "width": 768,
+    "status": 200,
+    "scroll": 768,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "avaliacao",
+    "width": 768,
+    "status": 200,
+    "scroll": 768,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "avaliacoes",
+    "width": 768,
+    "status": 200,
+    "scroll": 768,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "avaliacoes_vazio",
+    "width": 768,
+    "status": 200,
+    "scroll": 768,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "entrega",
+    "width": 768,
+    "status": 200,
+    "scroll": 768,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "recuperar",
+    "width": 768,
+    "status": 200,
+    "scroll": 768,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "email_enviado",
+    "width": 768,
+    "status": 200,
+    "scroll": 768,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "nova_senha",
+    "width": 768,
+    "status": 200,
+    "scroll": 768,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "senha_sucesso",
+    "width": 768,
+    "status": 200,
+    "scroll": 768,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "meu_perfil",
+    "width": 1280,
+    "status": 200,
+    "scroll": 1280,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "perfil_vendedor",
+    "width": 1280,
+    "status": 200,
+    "scroll": 1280,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "inicio",
+    "width": 1280,
+    "status": 200,
+    "scroll": 1280,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "login",
+    "width": 1280,
+    "status": 200,
+    "scroll": 1280,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "cadastro",
+    "width": 1280,
+    "status": 200,
+    "scroll": 1280,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "perfil",
+    "width": 1280,
+    "status": 200,
+    "scroll": 1280,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "anunciar",
+    "width": 1280,
+    "status": 200,
+    "scroll": 1280,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "editar_material",
+    "width": 1280,
+    "status": 200,
+    "scroll": 1280,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "buscar",
+    "width": 1280,
+    "status": 200,
+    "scroll": 1280,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "conversas",
+    "width": 1280,
+    "status": 200,
+    "scroll": 1280,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "chat",
+    "width": 1280,
+    "status": 200,
+    "scroll": 1280,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "notificacoes",
+    "width": 1280,
+    "status": 200,
+    "scroll": 1280,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "detalhes",
+    "width": 1280,
+    "status": 200,
+    "scroll": 1280,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "compra",
+    "width": 1280,
+    "status": 200,
+    "scroll": 1280,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "modal_compra",
+    "width": 1280,
+    "scroll": 1280,
+    "visible": true
+  },
+  {
+    "name": "confirmacao",
+    "width": 1280,
+    "status": 200,
+    "scroll": 1280,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "avaliacao",
+    "width": 1280,
+    "status": 200,
+    "scroll": 1280,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "avaliacoes",
+    "width": 1280,
+    "status": 200,
+    "scroll": 1280,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "avaliacoes_vazio",
+    "width": 1280,
+    "status": 200,
+    "scroll": 1280,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "entrega",
+    "width": 1280,
+    "status": 200,
+    "scroll": 1280,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "recuperar",
+    "width": 1280,
+    "status": 200,
+    "scroll": 1280,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "email_enviado",
+    "width": 1280,
+    "status": 200,
+    "scroll": 1280,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "nova_senha",
+    "width": 1280,
+    "status": 200,
+    "scroll": 1280,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  },
+  {
+    "name": "senha_sucesso",
+    "width": 1280,
+    "status": 200,
+    "scroll": 1280,
+    "overflow": [],
+    "css": true,
+    "errors": [],
+    "rotaCorreta": true
+  }
+]
