@@ -69,6 +69,9 @@
     <dl>
       <div class="linha"><dt>Estado de conservação</dt><dd>{{ material.estado_conservacao }}</dd></div>
       <div class="linha"><dt>Curso</dt><dd>{{ material.curso }}</dd></div>
+      {% if material.disciplina %}
+        <div class="linha"><dt>Disciplina</dt><dd>{{ material.disciplina }}</dd></div>
+      {% endif %}
       <div class="linha"><dt>Categoria</dt><dd>{{ material.categoria.nome }}</dd></div>
     </dl>
   </section>
