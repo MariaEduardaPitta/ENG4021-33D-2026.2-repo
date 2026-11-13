@@ -1,4 +1,6 @@
-.compra { max-width: 650px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+
+.compra { max-width: 650px; width: 100%; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; box-sizing: border-box; }
+
 .compra h1 { margin: 0 0 4px; }
 .subtitulo { color: var(--roxo); font-weight: 600; font-size: 14px; margin: 0; }
 .compra h2 { margin: 0 0 12px; font-family: var(--fonte-texto); font-size: 18px; color: var(--texto); }
@@ -20,15 +22,47 @@
 .erro { color: var(--vermelho); font-size: 13px; margin: 4px 0 0; }
 .aviso-cep { color: var(--cinza); font-size: 13px; margin: 8px 0 0; }
 
+.campos-entrega input,
+.campos-entrega select,
+.campos-entrega textarea {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
 .botoes-compra { display: grid; gap: 10px; margin-top: 20px; }
 .botoes-compra .botao { text-align: center; }
 
-.fundo-confirmacao { position: fixed; inset: 0; z-index: 10; display: none; justify-content: center; align-items: center; padding: 16px; background: rgba(37, 37, 45, 0.6); }
-.confirmacao { width: 100%; max-width: 440px; padding: 24px; background: var(--branco); border-radius: var(--raio); }
+.fundo-confirmacao { position: fixed; inset: 0; z-index: 10; display: none; justify-content: center; align-items: center; padding: 16px; background: rgba(37, 37, 45, 0.6); box-sizing: border-box; }
+.confirmacao { width: 100%; max-width: 440px; padding: 24px; background: var(--branco); border-radius: var(--raio); box-sizing: border-box; max-height: 90vh; overflow-y: auto; }
 .confirmacao h2 { margin-top: 0; }
 .texto-confirmacao { color: var(--cinza); line-height: 1.5; }
 .botoes-confirmacao { display: flex; justify-content: flex-end; gap: 8px; margin-top: 20px; }
 
 @media (min-width: 600px) {
   .botoes-compra { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 599px) {
+  .compra { padding: 0 12px; }
+  .compra h1 { font-size: 26px; }
+  .compra h2 { font-size: 17px; }
+  .resumo { flex-direction: column; align-items: flex-start; }
+  .resumo .preco { font-size: 24px; }
+  .selo-disponivel { white-space: normal; }
+  .dados-vendedor { gap: 10px; }
+  .informacao-vendedor { overflow-wrap: anywhere; }
+  .botoes-compra { grid-template-columns: 1fr; }
+  .botoes-compra .botao { width: 100%; box-sizing: border-box; min-height: 44px; }
+  .confirmacao { padding: 18px; }
+  .botoes-confirmacao { flex-direction: column; }
+  .botoes-confirmacao .botao,
+  .botoes-confirmacao button { width: 100%; min-height: 44px; }
+}
+
+@media (max-width: 360px) {
+  .compra { padding: 0 8px; }
+  .compra h1 { font-size: 23px; }
+  .confirmacao { padding: 14px; }
+  .resumo .preco { font-size: 22px; }
 }
