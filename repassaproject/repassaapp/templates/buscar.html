@@ -1,3 +1,4 @@
+
 {% extends 'base.html' %}
 {% load static %}
 
@@ -42,6 +43,16 @@
             </label>
 
             <label class="filtro">
+                Disciplina
+                <select name="disciplina">
+                    <option value="">Todas</option>
+                    {% for disciplina in disciplinas %}
+                    <option value="{{ disciplina }}" {% if filtros.disciplina == disciplina %}selected{% endif %}>{{ disciplina }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+
+            <label class="filtro">
                 Condição
                 <select name="estado">
                     <option value="">Qualquer</option>
@@ -78,9 +89,18 @@
         {% else %}
             <img class="material-foto" src="{% static 'img/logo-repassa.png' %}" alt="Material sem foto">
         {% endif %}
+
         <h3><a href="{% url 'detalhe_material' material.id %}">{{ material.titulo }}</a></h3>
         <p class="preco">R$ {{ material.preco|floatformat:2 }} <del>novo: R$ {{ material.preco_produto_novo }}</del></p>
-        <small>{{ material.estado_conservacao }} · {{ material.curso }} · {{ material.categoria.nome }}</small>
+
+        <small>
+            {{ material.estado_conservacao }} · {{ material.curso }}
+            {% if material.disciplina %}
+                · {{ material.disciplina }}
+            {% endif %}
+            · {{ material.categoria.nome }}
+        </small>
+
         <div class="rodape-card">
             <span>{{ material.vendedor.nome|default:material.vendedor.username }}</span>
             {% if user.is_authenticated and material.vendedor_id != user.id %}
