@@ -19,7 +19,10 @@
 
 /* Base */
 * { box-sizing: border-box; }
-body { margin: 0; font-family: var(--fonte-texto); font-size: 16px; color: var(--texto); background: var(--fundo); }
+body { margin: 0; font-family: var(--fonte-texto); font-size: 16px; color: var(--texto); background: var(--fundo); overflow-wrap: anywhere;}
+img, video { max-width: 100%; }
+main, article, section, form { min-width: 0; }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--roxo); outline-offset: 3px; }
 a { color: var(--roxo); }
 a:hover { color: var(--roxo-escuro); }
 h1, h2 { font-family: var(--fonte-titulo); color: var(--roxo-escuro); }
@@ -32,9 +35,15 @@ main { max-width: 600px; margin: 0 auto; padding: 24px 16px 96px; }
 header { display: flex; align-items: center; gap: 16px; padding: 12px 16px; background: var(--branco); border-bottom: 1px solid var(--borda); }
 .marca { display: flex; align-items: center; gap: 10px; color: var(--roxo-escuro); text-decoration: none; font-family: var(--fonte-titulo); font-size: 20px; }
 .logo { width: 40px; height: 40px; }
+.conta { margin-left: auto; display: flex; align-items: center; gap: 12px; }
+.conta form { margin: 0; }
+.conta a { font-size: 14px; text-decoration: none; }
+.conta button, .conta .botao { padding: 6px 14px; font-size: 14px; }
+.conta button { background: var(--branco); color: var(--roxo); }
+.conta button:hover { background: var(--lilas); color: var(--roxo-escuro); }
 
 /* Botões */
-button, .botao { font-family: var(--fonte-texto); font-size: 16px; font-weight: 600; padding: 10px 18px; border-radius: 8px; border: 2px solid var(--roxo); background: var(--roxo); color: var(--branco); cursor: pointer; text-decoration: none; display: inline-block; }
+button, .botao { white-space: normal; font-family: var(--fonte-texto); font-size: 16px; font-weight: 600; padding: 10px 18px; border-radius: 8px; border: 2px solid var(--roxo); background: var(--roxo); color: var(--branco); cursor: pointer; text-decoration: none; display: inline-block; }
 button:hover, .botao:hover { background: var(--roxo-escuro); border-color: var(--roxo-escuro); color: var(--branco); }
 .botao-secundario { background: var(--branco); color: var(--roxo); }
 .botao-secundario:hover { background: var(--lilas); color: var(--roxo-escuro); }
@@ -42,7 +51,7 @@ button:hover, .botao:hover { background: var(--roxo-escuro); border-color: var(-
 button:disabled { background: var(--borda); border-color: var(--borda); color: var(--cinza); cursor: not-allowed; }
 
 /* Campos de formulário */
-input, select, textarea { width: 100%; font-family: var(--fonte-texto); font-size: 16px; padding: 12px; border: 1px solid var(--borda); border-radius: 8px; background: var(--branco); color: var(--texto); }
+input, select, textarea { width: 100%; min-width: 0; max-width: 100%; font-family: var(--fonte-texto); font-size: 16px; padding: 12px; border: 1px solid var(--borda); border-radius: 8px; background: var(--branco); color: var(--texto); }
 input:focus, select:focus, textarea:focus { outline: none; border-color: var(--roxo); box-shadow: 0 0 0 3px var(--lilas); }
 label { display: block; font-weight: 600; margin-bottom: 6px; }
 

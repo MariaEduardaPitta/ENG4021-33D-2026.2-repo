@@ -16,3 +16,8 @@ dd { margin: 0; max-width: 60%; text-align: right; overflow-wrap: anywhere; }
 .acompanhamento h3 { margin: 0 0 4px; font-size: 15px; }
 .acompanhamento p { margin: 0; color: var(--cinza); font-size: 14px; line-height: 1.5; }
 .success-actions .botao { text-align: center; }
+
+@media (max-width: 400px) {
+  .row-line { flex-direction: column; align-items: flex-start; gap: 6px; }
+  .row-line dd { max-width: 100%; text-align: left; }
+}

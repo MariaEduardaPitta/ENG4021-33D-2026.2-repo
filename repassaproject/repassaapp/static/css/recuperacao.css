@@ -60,3 +60,11 @@
   font-size: 14px;
   margin: 0;
 }
+
+.aviso-senha { margin: 0 0 20px; font-size: 14px; line-height: 1.5; color: var(--cinza); }
+.error-list { line-height: 1.5; }
+.error-list li + li { margin-top: 8px; }
+
+@media (max-width: 600px) {
+  .auth-container { padding: 20px; }
+}
