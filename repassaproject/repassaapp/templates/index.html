@@ -5,20 +5,35 @@
 {% block tela %}index{% endblock %}
 {% block css %}<link rel="stylesheet" href="{% static 'css/index.css' %}">{% endblock %}
 
-{% block conteudo %}
-  <h1>REPASSA</h1>
-  <p>Materiais que continuam histórias</p>
-  <form method="get" action="{% url 'buscar' %}" class="busca-inicio">
-    <input type="search" name="q" placeholder="O que você procura?" aria-label="Pesquisar materiais">
-    <button type="submit">Buscar</button>
-  </form>
+{% block destaque %}
+<section class="destaque">
+  <div class="destaque-conteudo">
+    <img class="destaque-logo" src="{% static 'img/logo-simbolo.png' %}" alt="">
+    <p class="destaque-slogan">Materiais que continuam histórias</p>
+    <h1>O material que você precisa está a poucos corredores.</h1>
+    <form method="get" action="{% url 'buscar' %}" class="busca-inicio">
+      <input type="search" name="q" placeholder="Livro de cálculo, calculadora, jaleco..." aria-label="Pesquisar materiais">
+      <button type="submit" aria-label="Buscar">→</button>
+    </form>
+  </div>
+</section>
+{% endblock %}
 
-  <nav class="filtros" aria-label="Categorias">
-    {% for categoria in categorias %}
-      <a href="{% url 'buscar' %}?categoria={{ categoria.pk }}">{{ categoria.nome }}</a>
-    {% endfor %}
-    <a href="{% url 'buscar' %}" class="mais-filtros">Mais filtros →</a>
-  </nav>
+{% block conteudo %}
+  <section class="categorias">
+    <div class="secao-topo">
+      <h2>Categorias</h2>
+      <a href="{% url 'buscar' %}">Ver todas →</a>
+    </div>
+    <div class="grade-categorias">
+      {% for categoria in categorias %}
+        <a class="card categoria" href="{% url 'buscar' %}?categoria={{ categoria.pk }}">
+          <strong>{{ categoria.nome }}</strong>
+          <span>{{ categoria.quantidade }} anúncio{{ categoria.quantidade|pluralize }} →</span>
+        </a>
+      {% endfor %}
+    </div>
+  </section>
 
   <section class="materiais">
     <h2>Materiais recentes</h2>

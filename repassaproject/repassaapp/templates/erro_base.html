@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block titulo %}{% endblock %} — Repassa</title>
+    <style>
+        body { margin: 0; background: #fafaf8; color: #25252d; font: 1rem/1.5 Arial, sans-serif; }
+        header { background: #7c3aed; color: white; padding: 1rem 5%; font-weight: bold; }
+        main { max-width: 32rem; margin: 8vh auto; padding: 1.5rem; }
+        h1, a { color: #5b21b6; }
+    </style>
+</head>
+<body>
+    <header>REPASSA</header>
+    <main>
+        {% block mensagem %}{% endblock %}
+        <a href="/">Voltar à página inicial</a>
+    </main>
+</body>
+</html>

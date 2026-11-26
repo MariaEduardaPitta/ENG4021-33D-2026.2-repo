@@ -112,12 +112,20 @@ class AnunciarMaterialForm(forms.ModelForm):
             'categoria'
         ]
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['categoria'].empty_label = 'Selecione uma categoria'
+
 
 class EditarMaterialForm(AnunciarMaterialForm):
     pass
 
 
 class CompraForm(forms.Form):
+    forma_pagamento = forms.ChoiceField(
+        label="Forma de pagamento",
+        choices=[("", "Selecione"), ("Pix", "Pix"), ("Dinheiro", "Dinheiro"), ("Cartão", "Cartão")],
+    )
     ENTREGA_CHOICES = [
         ('entrega', 'Receber no endereço'),
         ('retirada', 'Combinar retirada com o vendedor'),

@@ -120,3 +120,15 @@ dd { margin: 0; text-align: right; }
     height: 60px;
   }
 }
+
+
+/* Card do vendedor */
+.vendedor-topo { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 16px; }
+.vendedor .avatar { width: 56px; height: 56px; flex-shrink: 0; display: flex; justify-content: center; align-items: center; border-radius: 50%; background: var(--lilas); color: var(--roxo); font-family: var(--fonte-titulo); font-size: 24px; font-weight: 700; }
+.vendedor-topo p { margin: 2px 0; color: var(--cinza); font-size: 14px; }
+.vendedor-topo .vendedor-nome { color: var(--texto); font-size: 18px; font-weight: 600; }
+.vendedor-topo .vendedor-nota { color: var(--roxo-escuro); font-weight: 600; }
+.vendedor-numeros { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 16px; }
+.vendedor-numeros div { padding: 10px 12px; border-radius: 8px; background: var(--lilas); }
+.vendedor-numeros span { display: block; color: var(--cinza); font-size: 12px; }
+.vendedor-numeros strong { color: var(--roxo-escuro); font-size: 16px; }

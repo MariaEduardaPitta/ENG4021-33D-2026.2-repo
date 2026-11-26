@@ -1,10 +1,15 @@
 from decimal import Decimal, InvalidOperation
+from smtplib import SMTPException
+
+from django.core.mail import send_mail
 
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.db.models import Q, Avg, Count
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
+from django.core.paginator import Paginator
+from django.utils.http import url_has_allowed_host_and_scheme
 from .forms import (
     AvaliacaoForm,
     AtualizarEntregaForm,
@@ -14,7 +19,7 @@ from .forms import (
     AnunciarMaterialForm,
     EditarMaterialForm,
 )
-from .models import Compra, Avaliacao, Material, Categoria, Mensagem, Usuario, FotoMaterial
+from .models import Compra, Avaliacao, Material, Categoria, Mensagem, Usuario, FotoMaterial, Pagamento, Faculdade, Favorito
 from django.db import transaction, IntegrityError
 from django.http import HttpResponseForbidden
 from .forms import CompraForm
@@ -25,7 +30,9 @@ def home(request):
     materiais = Material.objects.filter(status="disponivel").select_related('vendedor', 'categoria').annotate(
         nota_vendedor=Avg('vendedor__avaliacoes_recebidas__nota')
     )
-    categorias = Categoria.objects.order_by('nome')
+    categorias = Categoria.objects.annotate(
+        quantidade=Count('materiais', filter=Q(materiais__status='disponivel'))
+    ).order_by('nome')
     return render(request, 'index.html', {"materiais": materiais, "categorias": categorias})
 
 
@@ -56,12 +63,17 @@ def notificacoes(request):
 
 
 def detalhe_material(request, id):
-    material = get_object_or_404(Material.objects.select_related('vendedor', 'categoria'), pk=id)
+    material = get_object_or_404(Material.objects.select_related('vendedor__faculdade', 'categoria'), pk=id)
     resumo = material.vendedor.avaliacoes_recebidas.aggregate(media=Avg('nota'), quantidade=Count('id'))
+    favoritado = (
+        request.user.is_authenticated
+        and Favorito.objects.filter(usuario=request.user, material=material).exists()
+    )
     return render(request, 'detalhes.html', {
         "material": material,
         "nota_vendedor": resumo['media'],
         "quantidade_avaliacoes": resumo['quantidade'],
+        "favoritado": favoritado,
     })
 
 
@@ -204,6 +216,7 @@ def editar_perfil_view(request):
             'nome': usuario.first_name or partes[0],
             'sobrenome': usuario.last_name or (partes[1] if len(partes) > 1 else ''),
             'email': usuario.email, 'telefone': usuario.whatsapp,
+            'curso': usuario.curso, 'faculdade': usuario.faculdade,
         },
     )
     if request.method == 'POST' and form.is_valid():
@@ -221,8 +234,8 @@ def editar_perfil_view(request):
         if dados['senha']:
             update_session_auth_hash(request, usuario)
 
-        messages.success(request, 'Perfil atualizado com sucesso!')
-        return redirect('editar_perfil')
+        messages.success(request, 'Perfil atualizado.')
+        return redirect('meu_perfil')
 
     return render(request, 'editarperfil.html', {'form': form})
 
@@ -337,6 +350,7 @@ def buscar(request):
     disciplina = request.GET.get('disciplina', '').strip()
     estado = request.GET.get('estado', '')
     preco_max = request.GET.get('preco_max', '').strip().replace(',', '.')
+    faculdade = request.GET.get('faculdade', '')
     ordem = request.GET.get('ordem', 'recentes')
 
     if ordem not in ORDENS_BUSCA:
@@ -362,6 +376,9 @@ def buscar(request):
     if estado:
         materiais = materiais.filter(estado_conservacao=estado)
 
+    if faculdade.isdigit():
+        materiais = materiais.filter(vendedor__faculdade_id=faculdade)
+
     if preco_max:
         try:
             valor = Decimal(preco_max)
@@ -373,10 +390,26 @@ def buscar(request):
 
     materiais = materiais.order_by(ORDENS_BUSCA[ordem])
 
+    pagina = Paginator(materiais, 12).get_page(request.GET.get('pagina'))
+
+    parametros = request.GET.copy()
+    parametros.pop('pagina', None)
+
+    favoritos_ids = set()
+    if request.user.is_authenticated:
+        favoritos_ids = set(
+            Favorito.objects.filter(usuario=request.user, material__in=pagina.object_list)
+            .values_list('material_id', flat=True)
+        )
+
     disponiveis = Material.objects.filter(status='disponivel')
 
     return render(request, 'buscar.html', {
-        'materiais': materiais,
+        'materiais': pagina,
+        'pagina': pagina,
+        'parametros': parametros.urlencode(),
+        'favoritos_ids': favoritos_ids,
+        'faculdades': Faculdade.objects.order_by('nome'),
         'categorias': Categoria.objects.order_by('nome'),
         'cursos': disponiveis.order_by('curso').values_list('curso', flat=True).distinct(),
         'disciplinas': disponiveis.exclude(disciplina='').order_by('disciplina').values_list('disciplina', flat=True).distinct(),
@@ -388,10 +421,10 @@ def buscar(request):
             'disciplina': disciplina,
             'estado': estado,
             'preco_max': preco_max,
+            'faculdade': faculdade,
             'ordem': ordem,
         },
     })
-
 
 @login_required(login_url='login')
 def conversas(request):
@@ -481,6 +514,10 @@ def chat(request, material_id, usuario_id):
                 conteudo=conteudo,
             )
         return redirect('chat', material_id=material.pk, usuario_id=outro.pk)
+    
+    Mensagem.objects.filter(
+        material=material, remetente=outro, destinatario=usuario, lida=False
+    ).update(lida=True)
 
     mensagens = (
         Mensagem.objects
@@ -537,6 +574,9 @@ def comprar_material(request, material_id):
                     endereco_local_entrega=endereco
                 )
 
+                Pagamento.objects.create(
+                    compra=compra, forma_pagamento=dados["forma_pagamento"], valor=compra.valor_total,
+                )
                 material.status = 'vendido'
                 material.save(update_fields=['status'])
 
@@ -560,12 +600,29 @@ def atualizar_entrega(request, compra_id):
     status_anterior = compra.status_entrega
     form = AtualizarEntregaForm(request.POST if request.method == 'POST' else None, instance=compra)
     if request.method == 'POST' and form.is_valid():
-        atualizado = Compra.objects.filter(pk=compra.pk, status_entrega=status_anterior).update(
-            status_entrega=form.cleaned_data['status_entrega']
-        )
-        if atualizado:
-            return redirect('/compras/{}/entrega/?salvo=1'.format(compra.pk))
-        form.add_error(None, 'A entrega mudou enquanto você editava. Recarregue a página.')
+        novo_status = form.cleaned_data['status_entrega']
+        if novo_status == status_anterior:
+            return redirect('atualizar_entrega', compra_id=compra.pk)
+        try:
+            with transaction.atomic():
+                atualizado = Compra.objects.filter(pk=compra.pk, status_entrega=status_anterior).update(
+                    status_entrega=novo_status
+                )
+                if atualizado:
+                    status = dict(form.fields['status_entrega'].choices)[novo_status]
+                    enviados = send_mail(
+                        f'Repassa | Entrega da compra #{compra.pk}',
+                        f'O vendedor atualizou a entrega de {compra.material.titulo}. Novo status: {status}.',
+                        None, [compra.comprador.email],
+                    )
+                    if enviados != 1:
+                        raise SMTPException('Envio não confirmado')
+        except (SMTPException, OSError):
+            form.add_error(None, 'Não foi possível enviar o e-mail. A entrega não foi alterada. Tente novamente.')
+        else:
+            if atualizado:
+                return redirect('/compras/{}/entrega/?salvo=1'.format(compra.pk))
+            form.add_error(None, 'A entrega mudou enquanto você editava. Recarregue a página.')
     return render(request, 'entrega.html', {
         'compra': compra, 'form': form, 'status_atual': status_anterior,
         'salvo': request.GET.get('salvo') == '1',
@@ -585,3 +642,29 @@ def perfil_vendedor(request, id):
         'nota_media': nota_media,
         'total_avaliacoes': resumo_avaliacoes['quantidade'],
     })
+
+
+
+@login_required(login_url='login')
+@require_POST
+def alternar_favorito(request, material_id):
+    material = get_object_or_404(Material, pk=material_id)
+    favorito, criado = Favorito.objects.get_or_create(usuario=request.user, material=material)
+    if not criado:
+        favorito.delete()
+
+    destino = request.POST.get('next')
+    if destino and url_has_allowed_host_and_scheme(
+        destino, allowed_hosts={request.get_host()}, require_https=request.is_secure()
+    ):
+        return redirect(destino)
+    return redirect('detalhe_material', id=material.pk)
+
+
+@login_required(login_url='login')
+def meus_favoritos(request):
+    favoritos = (
+        Favorito.objects.filter(usuario=request.user)
+        .select_related('material__vendedor', 'material__categoria')
+    )
+    return render(request, 'favoritos.html', {'favoritos': favoritos})
