@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %}Meus favoritos{% endblock %}
+{% block tela %}favoritos{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'css/buscar.css' %}">{% endblock %}
+
+{% block conteudo %}
+<h1>Meus favoritos</h1>
+
+<div class="lista-materiais">
+    {% for favorito in favoritos %}
+    {% with material=favorito.material %}
+    <article class="card">
+        {% if material.foto %}
+            <img class="material-foto" src="{{ material.foto.url }}" alt="Foto de {{ material.titulo }}">
+        {% else %}
+            <img class="material-foto" src="{% static 'img/logo-repassa.png' %}" alt="Material sem foto">
+        {% endif %}
+        <h3><a href="{% url 'detalhe_material' material.id %}">{{ material.titulo }}</a></h3>
+        <p class="preco">R$ {{ material.preco|floatformat:2 }}</p>
+        <small>{{ material.estado_conservacao }} · {{ material.curso }}{% if material.status != 'disponivel' %} · {{ material.get_status_display }}{% endif %}</small>
+        <div class="rodape-card">
+            <span>{{ material.vendedor.nome|default:material.vendedor.username }}</span>
+            <form method="post" action="{% url 'alternar_favorito' material.pk %}" class="form-favoritar">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                <button type="submit" class="favoritar-icone" aria-label="Remover dos favoritos" title="Remover dos favoritos">♥</button>
+            </form>
+        </div>
+    </article>
+    {% endwith %}
+    {% empty %}
+    <p class="vazio">Você ainda não salvou nenhum anúncio. Toque no ♡ de um anúncio para guardar ele aqui.</p>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -8,6 +8,8 @@ from django.views.decorators.http import require_POST
 from django.db.models import Q, Avg, Count
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
+from django.core.paginator import Paginator
+from django.utils.http import url_has_allowed_host_and_scheme
 from .forms import (
     AvaliacaoForm,
     AtualizarEntregaForm,
@@ -17,7 +19,7 @@ from .forms import (
     AnunciarMaterialForm,
     EditarMaterialForm,
 )
-from .models import Compra, Avaliacao, Material, Categoria, Mensagem, Usuario, FotoMaterial, Pagamento
+from .models import Compra, Avaliacao, Material, Categoria, Mensagem, Usuario, FotoMaterial, Pagamento, Faculdade, Favorito
 from django.db import transaction, IntegrityError
 from django.http import HttpResponseForbidden
 from .forms import CompraForm
@@ -61,10 +63,15 @@ def notificacoes(request):
 def detalhe_material(request, id):
     material = get_object_or_404(Material.objects.select_related('vendedor', 'categoria'), pk=id)
     resumo = material.vendedor.avaliacoes_recebidas.aggregate(media=Avg('nota'), quantidade=Count('id'))
+    favoritado = (
+        request.user.is_authenticated
+        and Favorito.objects.filter(usuario=request.user, material=material).exists()
+    )
     return render(request, 'detalhes.html', {
         "material": material,
         "nota_vendedor": resumo['media'],
         "quantidade_avaliacoes": resumo['quantidade'],
+        "favoritado": favoritado,
     })
 
 
@@ -340,6 +347,7 @@ def buscar(request):
     disciplina = request.GET.get('disciplina', '').strip()
     estado = request.GET.get('estado', '')
     preco_max = request.GET.get('preco_max', '').strip().replace(',', '.')
+    faculdade = request.GET.get('faculdade', '')
     ordem = request.GET.get('ordem', 'recentes')
 
     if ordem not in ORDENS_BUSCA:
@@ -365,6 +373,9 @@ def buscar(request):
     if estado:
         materiais = materiais.filter(estado_conservacao=estado)
 
+    if faculdade.isdigit():
+        materiais = materiais.filter(vendedor__faculdade_id=faculdade)
+        
     if preco_max:
         try:
             valor = Decimal(preco_max)
@@ -376,10 +387,26 @@ def buscar(request):
 
     materiais = materiais.order_by(ORDENS_BUSCA[ordem])
 
+    pagina = Paginator(materiais, 12).get_page(request.GET.get('pagina'))
+
+    parametros = request.GET.copy()
+    parametros.pop('pagina', None)
+
+    favoritos_ids = set()
+    if request.user.is_authenticated:
+        favoritos_ids = set(
+            Favorito.objects.filter(usuario=request.user, material__in=pagina.object_list)
+            .values_list('material_id', flat=True)
+        )
+
     disponiveis = Material.objects.filter(status='disponivel')
 
     return render(request, 'buscar.html', {
-        'materiais': materiais,
+        'materiais': pagina,
+        'pagina': pagina,
+        'parametros': parametros.urlencode(),
+        'favoritos_ids': favoritos_ids,
+        'faculdades': Faculdade.objects.order_by('nome'),
         'categorias': Categoria.objects.order_by('nome'),
         'cursos': disponiveis.order_by('curso').values_list('curso', flat=True).distinct(),
         'disciplinas': disponiveis.exclude(disciplina='').order_by('disciplina').values_list('disciplina', flat=True).distinct(),
@@ -391,10 +418,10 @@ def buscar(request):
             'disciplina': disciplina,
             'estado': estado,
             'preco_max': preco_max,
+            'faculdade': faculdade,
             'ordem': ordem,
         },
     })
-
 
 @login_required(login_url='login')
 def conversas(request):
@@ -484,6 +511,10 @@ def chat(request, material_id, usuario_id):
                 conteudo=conteudo,
             )
         return redirect('chat', material_id=material.pk, usuario_id=outro.pk)
+    
+    Mensagem.objects.filter(
+        material=material, remetente=outro, destinatario=usuario, lida=False
+    ).update(lida=True)
 
     mensagens = (
         Mensagem.objects
@@ -608,3 +639,29 @@ def perfil_vendedor(request, id):
         'nota_media': nota_media,
         'total_avaliacoes': resumo_avaliacoes['quantidade'],
     })
+
+
+
+@login_required(login_url='login')
+@require_POST
+def alternar_favorito(request, material_id):
+    material = get_object_or_404(Material, pk=material_id)
+    favorito, criado = Favorito.objects.get_or_create(usuario=request.user, material=material)
+    if not criado:
+        favorito.delete()
+
+    destino = request.POST.get('next')
+    if destino and url_has_allowed_host_and_scheme(
+        destino, allowed_hosts={request.get_host()}, require_https=request.is_secure()
+    ):
+        return redirect(destino)
+    return redirect('detalhe_material', id=material.pk)
+
+
+@login_required(login_url='login')
+def meus_favoritos(request):
+    favoritos = (
+        Favorito.objects.filter(usuario=request.user)
+        .select_related('material__vendedor', 'material__categoria')
+    )
+    return render(request, 'favoritos.html', {'favoritos': favoritos})

@@ -21,3 +21,6 @@
 @media (min-width: 768px) {
   .filtros-grade { grid-template-columns: repeat(2, 1fr); }
 }
+
+.paginacao { display: flex; justify-content: center; align-items: center; gap: 12px; margin-top: 24px; }
+.paginacao span { color: var(--cinza); font-size: 14px; }

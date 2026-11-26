@@ -94,3 +94,10 @@ small, .texto-auxiliar { color: var(--cinza); font-size: 14px; }
 @media (min-width: 1024px) {
   .lista-materiais { grid-template-columns: repeat(3, 1fr); }
 }
+
+.form-favoritar { margin: 0; }
+.favoritar { margin-top: 12px; background: var(--branco); border-color: var(--coral); color: var(--coral); }
+.favoritar:hover, .favoritar.ativo { background: var(--coral); border-color: var(--coral); color: var(--branco); }
+a.favoritar { display: inline-block; padding: 10px 18px; border: 2px solid var(--coral); border-radius: 8px; font-weight: 600; text-decoration: none; }
+.favoritar-icone { padding: 0 6px; border: none; background: none; color: var(--coral); font-size: 20px; line-height: 1; }
+.favoritar-icone:hover { border: none; background: none; color: var(--coral); }
