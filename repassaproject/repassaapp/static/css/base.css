@@ -101,3 +101,4 @@ small, .texto-auxiliar { color: var(--cinza); font-size: 14px; }
 a.favoritar { display: inline-block; padding: 10px 18px; border: 2px solid var(--coral); border-radius: 8px; font-weight: 600; text-decoration: none; }
 .favoritar-icone { padding: 0 6px; border: none; background: none; color: var(--coral); font-size: 20px; line-height: 1; }
 .favoritar-icone:hover { border: none; background: none; color: var(--coral); }
+.selo-verificado { display: inline-block; margin: 4px 0; padding: 3px 10px; border-radius: 999px; background: #E7F7EE; color: var(--verde); font-size: 12px; font-weight: 600; }
