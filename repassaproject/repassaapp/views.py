@@ -214,6 +214,7 @@ def editar_perfil_view(request):
             'nome': usuario.first_name or partes[0],
             'sobrenome': usuario.last_name or (partes[1] if len(partes) > 1 else ''),
             'email': usuario.email, 'telefone': usuario.whatsapp,
+            'curso': usuario.curso, 'faculdade': usuario.faculdade,
         },
     )
     if request.method == 'POST' and form.is_valid():
@@ -231,8 +232,8 @@ def editar_perfil_view(request):
         if dados['senha']:
             update_session_auth_hash(request, usuario)
 
-        messages.success(request, 'Perfil atualizado com sucesso!')
-        return redirect('editar_perfil')
+        messages.success(request, 'Perfil atualizado.')
+        return redirect('meu_perfil')
 
     return render(request, 'editarperfil.html', {'form': form})
 
@@ -375,7 +376,7 @@ def buscar(request):
 
     if faculdade.isdigit():
         materiais = materiais.filter(vendedor__faculdade_id=faculdade)
-        
+
     if preco_max:
         try:
             valor = Decimal(preco_max)
