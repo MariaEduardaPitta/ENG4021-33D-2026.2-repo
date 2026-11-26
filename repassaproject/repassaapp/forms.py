@@ -112,6 +112,10 @@ class AnunciarMaterialForm(forms.ModelForm):
             'categoria'
         ]
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['categoria'].empty_label = 'Selecione uma categoria'
+
 
 class EditarMaterialForm(AnunciarMaterialForm):
     pass
