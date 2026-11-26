@@ -17,8 +17,8 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
-DEBUG = os.getenv("DJANGO_DEBUG", "false").lower() in ("true", "1", "yes")
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "django-insecure-chave-so-para-desenvolvimento")
+DEBUG = os.getenv("DJANGO_DEBUG", "true").lower() in ("true", "1", "yes")
 ALLOWED_HOSTS = [
     host.strip() for host in os.getenv("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1").split(",")
     if host.strip()
