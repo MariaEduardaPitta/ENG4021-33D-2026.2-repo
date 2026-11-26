@@ -30,7 +30,9 @@ def home(request):
     materiais = Material.objects.filter(status="disponivel").select_related('vendedor', 'categoria').annotate(
         nota_vendedor=Avg('vendedor__avaliacoes_recebidas__nota')
     )
-    categorias = Categoria.objects.order_by('nome')
+    categorias = Categoria.objects.annotate(
+        quantidade=Count('materiais', filter=Q(materiais__status='disponivel'))
+    ).order_by('nome')
     return render(request, 'index.html', {"materiais": materiais, "categorias": categorias})
 
 
@@ -61,7 +63,7 @@ def notificacoes(request):
 
 
 def detalhe_material(request, id):
-    material = get_object_or_404(Material.objects.select_related('vendedor', 'categoria'), pk=id)
+    material = get_object_or_404(Material.objects.select_related('vendedor__faculdade', 'categoria'), pk=id)
     resumo = material.vendedor.avaliacoes_recebidas.aggregate(media=Avg('nota'), quantidade=Count('id'))
     favoritado = (
         request.user.is_authenticated

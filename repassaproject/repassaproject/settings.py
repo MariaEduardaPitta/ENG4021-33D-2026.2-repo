@@ -161,4 +161,11 @@ DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", "Repassa <suporte@repassa.c
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = 'login'  
-    
+
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {
+    messages.SUCCESS: 'sucesso',
+    messages.ERROR: 'erro',
+    messages.WARNING: 'atencao',
+    messages.INFO: 'info',
+}

@@ -67,3 +67,4 @@ textarea { height: 120px; resize: vertical; }
 
 .formulario input[type="file"]::file-selector-button { margin-right: 12px; padding: 8px 16px; border: 2px solid var(--roxo); border-radius: 8px; background: var(--branco); color: var(--roxo); font-family: var(--fonte-texto); font-weight: 600; cursor: pointer; }
 .formulario input[type="file"]::file-selector-button:hover { background: var(--lilas); }
+.foto-adicional img { width: 120px; height: 120px; object-fit: cover; border-radius: 8px; }

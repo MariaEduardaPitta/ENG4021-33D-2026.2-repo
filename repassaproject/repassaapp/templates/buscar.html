@@ -7,15 +7,15 @@
 {% block css %}<link rel="stylesheet" href="{% static 'css/buscar.css' %}">{% endblock %}
 
 {% block conteudo %}
-<h1>Buscar</h1>
+<h1>Buscar materiais</h1>
 
-<form method="get" action="{% url 'buscar' %}">
-    <div class="busca">
-        <input type="search" name="q" value="{{ filtros.q }}" placeholder="Cálculo, Física 1, calculadora…" aria-label="Pesquisar materiais">
-        <button type="submit">Buscar</button>
-    </div>
+<form method="get" action="{% url 'buscar' %}" id="form-busca" class="busca">
+    <input type="search" name="q" value="{{ filtros.q }}" placeholder="Cálculo, Física 1, calculadora…" aria-label="Pesquisar materiais">
+    <button type="submit">Buscar</button>
+</form>
 
-    <section class="card filtros-box">
+<div class="layout-busca">
+    <aside class="card filtros-box">
         <div class="filtros-topo">
             <h2>Filtros</h2>
             <a href="{% url 'buscar' %}">Limpar</a>
@@ -24,7 +24,7 @@
         <div class="filtros-grade">
             <label class="filtro">
                 Categoria
-                <select name="categoria">
+                <select form="form-busca" name="categoria">
                     <option value="">Todas</option>
                     {% for categoria in categorias %}
                     <option value="{{ categoria.pk }}" {% if filtros.categoria == categoria.pk|stringformat:"s" %}selected{% endif %}>{{ categoria.nome }}</option>
@@ -34,7 +34,7 @@
 
             <label class="filtro">
                 Curso
-                <select name="curso">
+                <select form="form-busca" name="curso">
                     <option value="">Todos</option>
                     {% for curso in cursos %}
                     <option value="{{ curso }}" {% if filtros.curso == curso %}selected{% endif %}>{{ curso }}</option>
@@ -44,7 +44,7 @@
 
             <label class="filtro">
                 Disciplina
-                <select name="disciplina">
+                <select form="form-busca" name="disciplina">
                     <option value="">Todas</option>
                     {% for disciplina in disciplinas %}
                     <option value="{{ disciplina }}" {% if filtros.disciplina == disciplina %}selected{% endif %}>{{ disciplina }}</option>
@@ -54,7 +54,7 @@
 
             <label class="filtro">
                 Condição
-                <select name="estado">
+                <select form="form-busca" name="estado">
                     <option value="">Qualquer</option>
                     {% for estado in estados %}
                     <option value="{{ estado }}" {% if filtros.estado == estado %}selected{% endif %}>{{ estado }}</option>
@@ -64,7 +64,7 @@
 
             <label class="filtro">
                 Faculdade do vendedor
-                <select name="faculdade">
+                <select form="form-busca" name="faculdade">
                     <option value="">Todas</option>
                     {% for faculdade in faculdades %}
                     <option value="{{ faculdade.pk }}" {% if filtros.faculdade == faculdade.pk|stringformat:"s" %}selected{% endif %}>{{ faculdade.nome }}</option>
@@ -74,22 +74,22 @@
 
             <label class="filtro">
                 Preço máximo (R$)
-                <input type="number" name="preco_max" min="0" step="0.01" value="{{ filtros.preco_max }}" placeholder="Qualquer">
+                <input type="number" form="form-busca" name="preco_max" min="0" step="0.01" value="{{ filtros.preco_max }}" placeholder="Qualquer">
             </label>
         </div>
 
-        <button type="submit" class="aplicar">Aplicar filtros</button>
-    </section>
+        <button type="submit" form="form-busca" class="aplicar">Aplicar filtros</button>
+    </aside>
 
+    <div class="resultados">
     <div class="resultados-topo">
         <h2>{{ pagina.paginator.count }} resultado{{ pagina.paginator.count|pluralize }}</h2>
-        <select name="ordem" class="ordem" aria-label="Ordenar resultados" onchange="this.form.submit()">
+        <select form="form-busca" name="ordem" class="ordem" aria-label="Ordenar resultados" onchange="this.form.submit()">
             <option value="recentes" {% if filtros.ordem == 'recentes' %}selected{% endif %}>Mais recentes</option>
             <option value="menor_preco" {% if filtros.ordem == 'menor_preco' %}selected{% endif %}>Menor preço</option>
             <option value="maior_preco" {% if filtros.ordem == 'maior_preco' %}selected{% endif %}>Maior preço</option>
         </select>
     </div>
-</form>
 
 <div class="lista-materiais">
     {% for material in materiais %}
@@ -143,4 +143,6 @@
     {% endif %}
 </nav>
 {% endif %}
+    </div>
+</div>
 {% endblock %}

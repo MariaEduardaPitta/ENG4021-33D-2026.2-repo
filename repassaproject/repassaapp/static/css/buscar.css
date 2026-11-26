@@ -24,3 +24,18 @@
 
 .paginacao { display: flex; justify-content: center; align-items: center; gap: 12px; margin-top: 24px; }
 .paginacao span { color: var(--cinza); font-size: 14px; }
+
+/* Filtros na lateral em telas grandes */
+.layout-busca { display: grid; gap: 24px; }
+.resultados { min-width: 0; }
+
+@media (min-width: 1024px) {
+  body[data-tela="buscar"] main { max-width: 1200px; }
+  .layout-busca { grid-template-columns: 280px 1fr; align-items: start; }
+  .filtros-box { position: sticky; top: 16px; margin-bottom: 0; }
+  .filtros-grade { grid-template-columns: 1fr; }
+  .resultados .lista-materiais { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1280px) {
+  .resultados .lista-materiais { grid-template-columns: repeat(3, 1fr); }
+}
