@@ -118,6 +118,10 @@ class EditarMaterialForm(AnunciarMaterialForm):
 
 
 class CompraForm(forms.Form):
+    forma_pagamento = forms.ChoiceField(
+        label="Forma de pagamento",
+        choices=[("", "Selecione"), ("Pix", "Pix"), ("Dinheiro", "Dinheiro"), ("Cartão", "Cartão")],
+    )
     ENTREGA_CHOICES = [
         ('entrega', 'Receber no endereço'),
         ('retirada', 'Combinar retirada com o vendedor'),
