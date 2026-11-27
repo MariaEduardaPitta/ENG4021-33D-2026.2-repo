@@ -37,6 +37,9 @@ class PerfilForm(forms.Form):
     def __init__(self, *args, usuario=None, **kwargs):
         super().__init__(*args, **kwargs)
         self.usuario = usuario
+        if not self.fields['faculdade'].queryset.exists():
+            self.fields['faculdade'].required = False
+            self.fields['faculdade'].empty_label = 'Nenhuma faculdade cadastrada'
         if 'curso' in self.fields:
             self.fields['curso'].widget.attrs.update({'class': 'input-destaque', 'placeholder': 'Seu curso'})
 
@@ -98,6 +101,20 @@ class LoginForm(forms.Form):
 
 
 class AnunciarMaterialForm(forms.ModelForm):
+    foto = forms.ImageField(required=False, label='Foto principal')
+
+    def clean(self):
+        dados = super().clean()
+        imagens = []
+        campo_imagem = forms.ImageField()
+        for arquivo in self.files.getlist('fotos_adicionais'):
+            try:
+                imagens.append(campo_imagem.clean(arquivo))
+            except forms.ValidationError:
+                self.add_error(None, f'A foto adicional "{arquivo.name}" não é uma imagem válida.')
+        dados['fotos_adicionais'] = imagens
+        return dados
+
     class Meta:
         model = Material
         fields = [

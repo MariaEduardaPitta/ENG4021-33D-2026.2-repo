@@ -122,11 +122,11 @@
     <div class="acoes">
       <span>Este anúncio é seu.</span>
 
-      {% if material.status == "disponivel" %}
+      {% if material.status != "vendido" %}
         <form method="post" action="{% url 'reservar_material' material.id %}">
           {% csrf_token %}
           <button type="submit" class="botao botao-secundario">
-            Reservar anúncio
+            {% if material.status == "reservado" %}Disponibilizar anúncio{% else %}Reservar anúncio{% endif %}
           </button>
         </form>
       {% endif %}

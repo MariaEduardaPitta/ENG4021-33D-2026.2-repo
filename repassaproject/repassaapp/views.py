@@ -57,8 +57,8 @@ def meu_perfil(request):
 
 @login_required
 def notificacoes(request):
-    mensagens = Mensagem.objects.filter(destinatario=request.user)
-    vendas = Compra.objects.filter(material__vendedor=request.user)
+    mensagens = Mensagem.objects.filter(destinatario=request.user).select_related('remetente', 'material').order_by('-data_hora', '-id')
+    vendas = Compra.objects.filter(material__vendedor=request.user).select_related('material', 'comprador').order_by('-data_compra')
     return render(request, 'notificacoes.html', {"mensagens": mensagens, "vendas": vendas})
 
 
@@ -87,12 +87,12 @@ def reservar_material(request, material_id):
             vendedor=request.user,
         )
 
-        if material.status != 'disponivel' or Compra.objects.filter(material=material).exists():
+        if material.status == 'vendido' or Compra.objects.filter(material=material).exists():
             messages.error(request, 'Este anúncio não está disponível para reserva.')
         else:
-            material.status = 'reservado'
+            material.status = 'disponivel' if material.status == 'reservado' else 'reservado'
             material.save(update_fields=['status'])
-            messages.success(request, 'Anúncio reservado com sucesso!')
+            messages.success(request, 'Anúncio disponível novamente.' if material.status == 'disponivel' else 'Anúncio reservado com sucesso!')
 
     return redirect('detalhe_material', id=material_id)
 
@@ -148,6 +148,11 @@ def avaliar_vendedor(request, compra_id):
 
     avaliacao = Avaliacao.objects.filter(compra=compra).first()
     form = AvaliacaoForm(request.POST if request.method == 'POST' else None)
+
+    if not avaliacao and compra.status_entrega != 'entregue':
+        return render(request, 'avaliacao.html', {
+            'compra': compra, 'aguardando_entrega': True,
+        }, status=403)
 
     if request.method == 'POST' and not avaliacao and form.is_valid():
         Avaliacao.objects.get_or_create(
@@ -282,7 +287,7 @@ def anunciar_material(request):
             material.vendedor = request.user
             material.save()
 
-            for imagem in request.FILES.getlist('fotos_adicionais'):
+            for imagem in form.cleaned_data['fotos_adicionais']:
                 FotoMaterial.objects.create(material=material, imagem=imagem)
 
             messages.success(request, 'Anúncio publicado com sucesso!')
@@ -315,7 +320,7 @@ def editar_material(request, material_id):
                 fotos_excluir = request.POST.getlist('excluir_fotos')
                 material.fotos.filter(id__in=fotos_excluir).delete()
 
-                for imagem in request.FILES.getlist('fotos_adicionais'):
+                for imagem in form.cleaned_data['fotos_adicionais']:
                     FotoMaterial.objects.create(
                         material=material,
                         imagem=imagem,
@@ -364,7 +369,7 @@ def buscar(request):
             Q(disciplina__icontains=q)
         )
 
-    if categoria.isdigit():
+    if categoria.isascii() and categoria.isdigit() and len(categoria) <= 18:
         materiais = materiais.filter(categoria_id=categoria)
 
     if curso:
@@ -376,7 +381,7 @@ def buscar(request):
     if estado:
         materiais = materiais.filter(estado_conservacao=estado)
 
-    if faculdade.isdigit():
+    if faculdade.isascii() and faculdade.isdigit() and len(faculdade) <= 18:
         materiais = materiais.filter(vendedor__faculdade_id=faculdade)
 
     if preco_max:
@@ -482,9 +487,9 @@ def conversas(request):
         compra = compras.get(conversa['material'].pk)
         participantes = {usuario.id, conversa['outro'].id}
         conversa['compra'] = compra
-        conversa['negocio_concluido'] = bool(compra and compra.comprador_id in participantes)
+        conversa['negocio_concluido'] = bool(compra and compra.comprador_id in participantes and compra.status_entrega == 'entregue')
         conversa['pode_avaliar'] = bool(
-            compra and compra.comprador_id == usuario.id and compra.pk not in avaliadas
+            compra and compra.status_entrega == 'entregue' and compra.comprador_id == usuario.id and compra.pk not in avaliadas
         )
 
     return render(request, 'conversas.html', {
