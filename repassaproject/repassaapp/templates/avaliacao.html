@@ -19,6 +19,8 @@
                 <div class="alerta alerta-sucesso" role="status">Sua avaliação está registrada.</div>
                 <p><strong>Nota:</strong> {{ avaliacao.nota }} de 5</p>
                 {% if avaliacao.comentario %}<p>{{ avaliacao.comentario }}</p>{% endif %}
+            {% elif aguardando_entrega %}
+                <p>A avaliação fica disponível quando o vendedor confirmar a entrega.</p>
             {% else %}
                 <p>Escolha uma nota de 1 a 5 para sua experiência.</p>
                 <form method="post">

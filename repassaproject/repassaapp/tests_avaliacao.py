@@ -5,7 +5,10 @@ from .tests import ModelsTest
 
 
 class AvaliacaoTest(TestCase):
-    setUp = ModelsTest.setUp
+    def setUp(self):
+        ModelsTest.setUp(self)
+        self.compra.status_entrega = 'entregue'
+        self.compra.save(update_fields=['status_entrega'])
 
     def url(self):
         return reverse('avaliar_vendedor', args=[self.compra.pk])

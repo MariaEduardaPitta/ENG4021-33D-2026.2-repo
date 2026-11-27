@@ -10,8 +10,9 @@
     <article class="notificacao">
       <span class="icone mensagem" aria-hidden="true">✉</span>
       <div>
-        <h2>Nova mensagem de {{ mensagem.remetente.nome }}</h2>
+        <h2>{% if mensagem.lida %}Mensagem{% else %}Nova mensagem{% endif %} de {{ mensagem.remetente.nome }}</h2>
         <p>Sobre: {{ mensagem.material.titulo }}</p>
+        <a href="{% url 'chat' mensagem.material_id mensagem.remetente_id %}">Abrir conversa</a>
         <small>{{ mensagem.data_hora|date:"d/m/Y H:i" }}</small>
       </div>
     </article>
